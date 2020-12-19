@@ -12,7 +12,7 @@
     <script src='./main.js'></script>
 </head>
 
-<body class="bg-custom-100">
+<body class="bg-custom-100 overflow-x-hidden">
     <nav class="relative select-none bg-grey lg:flex lg:items-stretch w-full bg-black">
         <div class="lg:flex lg:items-stretch lg:justify-end ml-auto">
             <div class="flex flex-no-shrink items-stretch h-12">
@@ -24,94 +24,194 @@
         </div>
     </nav>
 
-    <div class="grid-template-rows-2 max-h-screen h-screen w-11/12 mx-auto">
-        <div class="grid grid-template-cols-6 h-2/4">
-            <div class="col-start-1 sm:col-end-5 md:col-end-4 flex">
-                <img class="h-4/6 max-h-40 md:max-h-48 mt-auto ml-auto" src="./images/whatthis.png" alt="https://pbs.twimg.com/profile_images/1339174370661584902/9MJH6FNt_400x400.jpg">
-            </div>
+    <section id="intro">
+        <div class="grid-template-rows-2 max-h-screen h-screen w-11/12 mx-auto">
+            <div class="grid grid-template-cols-6 h-2/4">
+                <div class="col-start-1 sm:col-end-5 md:col-end-4 flex">
+                    <img class="h-4/6 max-h-48  2xl:max-h-56 md:max-h-48 mt-auto ml-auto" src="./images/whatthis.png" alt="https://pbs.twimg.com/profile_images/1339174370661584902/9MJH6FNt_400x400.jpg">
+                </div>
 
-            <div class="sm:col-start-5 md:col-start-4 col-end-6 align-text-bottom flex">
-                <span class="mt-auto ml-6 mb-4">
+                <div class="sm:col-start-5 md:col-start-4 col-end-6 align-text-bottom flex">
+                    <span class="mt-auto ml-6 mb-4">
                      <strong> ¡Hello! I'm Miguel,</strong> 
-                a Software Developer who is always learning programming, languages</span>
-            </div>
-        </div>
-
-        <div class="flex justify-around max-h-20 md:max-h-24 h-1/6 sm:h-1/5 shadow-2xl xl:w-5/6 mx-auto" style="box-shadow: -1px -1px 5px 2px #000000;">
-            <div class="my-auto">
-                <a target="blank" href="https://www.linkedin.com/in/miguel-hincapie-b970ab17a/">
-                    <img class="h-16 max-h-full md:max-h-screen" src="./images/linkedin_icon.png" alt="LinkedIn">
-                </a>
-            </div>
-
-            <div class="my-auto">
-                <a target="blank" href="https://twitter.com/MiguelHinkpie">
-                    <img class="h-16 max-h-full md:max-h-screen" src="./images/twitter_icon.png" alt="Twitter">
-                </a>
-            </div>
-
-            <div class="my-auto">
-                <a target="blank" href="https://github.com/mahc30">
-                    <img class="h-16 max-h-full md:max-h-screen" src="./images/github_icon.png" alt="GitHub">
-                </a>
-            </div>
-
-            <div class="my-auto">
-                <a href="./contact.html">
-                    <img class="h-16 max-h-full md:max-h-screen" src="./images/email_icon.png" alt="¡Send me an Email!">
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <section id="my-work">
-        <h2>Projects </h2>
-
-        <div id="projects" class="container border-bottom">
-
-            <div class="project">
-                <div class="border-bottom">
-                    <h3>Management of Hospitalary Assets</h3>
-                </div>
-                <div class="image-container border-bottom">
-                    <img class="h-12 max-h-full md:max-h-screen" class="" src="./images/placeholder1.png" alt="">
-                    <hr>
-                </div>
-
-                <div class="text border-right">
-                    <p>
-                        Web Application to conduct research on the current state of Hospital Physical Asset Management in the Aburrá Valley (Colombia) as part of a research project on the Efficiency and Sustainability of Physical Asset Maintenance Management in the Hospital
-                        environment.
-                    </p>
+                an autodidact Software Developer who loves learning programming<strong>,</strong> languages.</span>
                 </div>
             </div>
 
-            <div class="project">
-                <div class="border-bottom">
-                    <h3>Music Sheet Database</h3>
+            <div class="flex justify-around max-h-20 md:max-h-24 h-1/6 sm:h-1/5 shadow-2xl xl:w-5/6 mx-auto" style="box-shadow: -1px -1px 5px 2px #000000;">
+                <div class="my-auto">
+                    <a target="blank" href="https://www.linkedin.com/in/miguel-hincapie-b970ab17a/">
+                        <img class="h-16 max-h-full md:max-h-screen" src="./images/linkedin_icon.png" alt="LinkedIn">
+                    </a>
                 </div>
-                <div class="image-container border-bottom">
-                    <img class="h-12 max-h-full md:max-h-screen" class="" src="./images/placeholder1.png" alt="">
-                    <hr>
-                </div>
-                <div class="text border-right">
-                    <p>Web Application to manage, upload and download curated music sheets for the use of the students of the Red de Escuelas de Música de Medellín</p>
-                </div>
-            </div>
 
-            <div class="project">
-                <div class="border-bottom">
-                    <h3>Education Clusters Analysis</h3>
+                <div class="my-auto">
+                    <a target="blank" href="https://twitter.com/MiguelHinkpie">
+                        <img class="h-16 max-h-full md:max-h-screen" src="./images/twitter_icon.png" alt="Twitter">
+                    </a>
                 </div>
-                <div class="image-container border-bottom">
-                    <img class="h-12 max-h-full md:max-h-screen" class="" src="./images/placeholder1.png" alt="">
-                    <hr>
+
+                <div class="my-auto">
+                    <a target="blank" href="https://github.com/mahc30">
+                        <img class="h-16 max-h-full md:max-h-screen" src="./images/github_icon.png" alt="GitHub">
+                    </a>
                 </div>
-                <div class="text">
-                    <p>Statistic Analysis on posible education focuses for the creation of a city wide studies plan, amid pandemic covid19 economy recovery efforts</p>
+
+                <div class="my-auto">
+                    <a href="./contact.html">
+                        <img class="h-16 max-h-full md:max-h-screen" src="./images/email_icon.png" alt="¡Send me an Email!">
+                    </a>
                 </div>
             </div>
         </div>
+    </section>
+
+    <section id="projects-and-stuff">
+        <div class="mx-auto w-11/12">
+            <h1 class="font-bold underline text-2xl"> This is what i do </h1>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-8 w-3/4 mx-auto">
+                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                    <div class="my-2 text-center">
+                        <h4 class="font-bold text-lg">Management of Hospitalary Assets</h4>
+                    </div>
+                    <div class="my-2">
+                        <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-full" src="./images/statistics_1.jpg" alt="Statistics graphics image">
+                    </div>
+
+                    <div class="text my-6 px-2 text-center">
+                        <p>
+                            Web Application to conduct research on the current state of Hospital Physical Asset Management in the Aburrá Valley (Colombia) as part of a research on the Efficiency and Sustainability of Physical Asset Maintenance Management in the Hospital environment.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                    <div class="my-2 text-center">
+                        <h4 class="font-bold text-lg">Music Sheet Database</h4>
+                    </div>
+                    <div class="my-2">
+                        <a href="https://github.com/mahc30/staferep">
+                            <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-full" src="./images/music_sheet_1.jpg" alt="Woman reading music sheet">
+                        </a>
+                    </div>
+                    <div class="text my-6 px-2 text-center">
+                        <p>Web Application to manage, upload and download curated music sheets for the use of the students of the Red de Escuelas de Música de Medellín.</p>
+                    </div>
+                </div>
+
+                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                    <div class="my-2 text-center">
+                        <h4 class="font-bold text-lg">Education Clusters Analysis</h4>
+                    </div>
+                    <div class="my-2">
+                        <a href="https://github.com/mahc30/cluster-investigation-analysis">
+                            <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-full" src="./images/cluster_1.png" alt="Education Clusters Representation">
+                        </a>
+                    </div>
+                    <div class="text my-6 px-2 text-center">
+                        <p>Statistic Analysis of posible education focuses for the creation of a city wide studies plan amid covid19 pandemic economic recovery efforts.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects-and-stuff">
+        <div class="mx-auto w-11/12">
+            <h1 class="font-bold underline text-2xl"> Experience </h1>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-8 w-3/4 mx-auto">
+                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                    <div class="my-2 text-center">
+                        <h4 class="font-bold text-lg"> Operative Systems Course teaching assistant </h4>
+                    </div>
+                    <div class="my-2">
+                        <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-full" src="./images/linux_icon.png" alt="Tux picture">
+                    </div>
+
+                    <div class="text my-6 px-2 text-center">
+                        <strong>2021 - ?</strong>
+                        <p>
+                            Helped students of the course Operating Systems (CS401) by reviewing and providing feedback to students questions and programs written in C and transpiling code examples to Rust and C++
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="mx-auto w-11/12">
+            <h1 class="font-bold underline text-2xl"> Education </h1>
+
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-8 w-3/4 mx-auto">
+                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                    <div class="my-2 text-center">
+                        <h4 class="font-bold text-lg"> Computer Science Major </h4>
+                    </div>
+                    <div class="my-2">
+                        <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-full" src="./images/upb_logo.png" alt="UPB logo">
+                    </div>
+
+                    <div class="text my-6 px-2 text-center">
+                        <p>
+                            Computer Science Major from Universidad Pontificia Bolivariana, graduated in 2022 with the title 'Ingeniero de Sistemas e Informática'.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                    <div class="my-2 text-center">
+                        <h4 class="font-bold text-lg"> Coursera </h4>
+                    </div>
+                    <div class="my-2">
+                        <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-full" src="./images/coursera_logo.png" alt="UPB logo">
+                    </div>
+
+                    <div class="text my-6 px-2 text-center">
+                        <p>
+                            Studied different topics such as Cloud Engineering, Network & Databases Vulnerabilities and Software Security. You can see my certificates in my
+                            <a class="underline font-bold" href="https://www.linkedin.com/in/miguel-hincapie-b970ab17a/">linkedIn profile</a>.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="skillz">
+        <h1 class="font-bold underline text-2xl"> Skills </h1>
+
+        <ul>
+            <li>C</li>
+            <li>C++</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>Javascript</li>
+            <li>Typescript</li>
+            <li>Svelte</li>
+            <li>React</li>
+            <li>NodeJS</li>
+            <li>Express</li>
+            <li>Python</li>
+            <li>Java</li>
+            <li>C#</li>
+            <li>.NET</li>
+            <li>SQL</li>
+            <li>MySQL</li>
+            <li>MariaDB</li>
+            <li>NoSQL</li>
+            <li>MongoDB</li>
+            <li>CLI</li>
+            <li>Git</li>
+            <li>Linux</li>
+            <li>Spanish (native)</li>
+            <li>English (fluent)</li>
+            <li>German (A2)</li>
+        </ul>
     </section>
 </body>
 
