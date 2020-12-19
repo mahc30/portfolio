@@ -9,16 +9,15 @@
     <link rel='stylesheet' type='text/css' media='screen' href='./css/style.css'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <script src='./main.js'></script>
+    <script src='./js/main.js'></script>
 </head>
 
-<body class="bg-custom-100">
+<body class="bg-custom-200">
     <nav class="relative select-none bg-grey lg:flex lg:items-stretch w-full bg-black">
         <div class="lg:flex lg:items-stretch lg:justify-end ml-auto">
             <div class="flex flex-no-shrink items-stretch h-12">
-                <a class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark" href="./contact.html">Contact</a>
-                <a class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark" href="">Social Media</a>
                 <a class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark" href="">About Me</a>
+                <a class="flex-no-grow flex-no-shrink relative py-2 px-4 leading-normal text-white no-underline flex items-center hover:bg-grey-dark" href="./contact.html">Contact</a>
             </div>
 
         </div>
@@ -27,18 +26,18 @@
     <section id="intro">
         <div class="grid-template-rows-2 max-h-screen h-screen w-11/12 mx-auto">
             <div class="grid grid-template-cols-6 h-2/4">
-                <div class="col-start-1 sm:col-end-5 md:col-end-4 flex">
+                <div class="col-start-1 col-end-5 sm:col-end-4 flex">
                     <img class="h-4/6 max-h-48  2xl:max-h-56 md:max-h-48 mt-auto ml-auto" src="./images/picretocada.png" alt="https://pbs.twimg.com/profile_images/1339174370661584902/9MJH6FNt_400x400.jpg">
                 </div>
 
-                <div class="sm:col-start-5 md:col-start-4 col-end-6 align-text-bottom flex">
+                <div class="col-start-5 sm:col-start-4 col-end-6 align-text-bottom flex">
                     <span class="mt-auto ml-6 mb-4">
                      <strong> ¡Hello! I'm Miguel,</strong> 
                 an autodidact Software Developer who loves learning programming<strong>,</strong> languages.</span>
                 </div>
             </div>
 
-            <div class="flex justify-around max-h-20 md:max-h-24 h-1/6 sm:h-1/5 shadow-2xl xl:w-5/6 mx-auto" style="box-shadow: -1px -1px 5px 2px #000000;">
+            <div class="flex justify-around max-h-20 md:max-h-24 h-1/6 sm:h-1/5 shadow-custom-1 xl:w-5/6 mx-auto bg-custom-100">
                 <div class="my-auto">
                     <a target="blank" href="https://www.linkedin.com/in/miguel-hincapie-b970ab17a/">
                         <img class="h-16 max-h-full md:max-h-screen" src="./images/linkedin_icon.png" alt="LinkedIn">
@@ -64,6 +63,9 @@
                 </div>
             </div>
         </div>
+
+
+        <div id="decoration" class="w-full h-24 max-h-24 absolute -mt-48 2xl:-mt-28 bg-repeat-x opacity-50 " style="background-image: url(./images/separador_1.png); background-size: contain;"></div>
     </section>
 
     <section id="projects-and-stuff">
@@ -71,7 +73,7 @@
             <h1 class="font-bold underline text-2xl"> This is what i do </h1>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-8 w-3/4 mx-auto">
-                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                <div class="mx-auto shadow-lg my-4 rounded-sm bg-custom-100">
                     <div class="my-2 text-center">
                         <h4 class="font-bold text-lg">Management of Hospitalary Assets</h4>
                     </div>
@@ -86,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                <div class="mx-auto shadow-lg my-4 rounded-sm bg-custom-100">
                     <div class="my-2 text-center">
                         <h4 class="font-bold text-lg">Music Sheet Database</h4>
                     </div>
@@ -100,7 +102,7 @@
                     </div>
                 </div>
 
-                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                <div class="mx-auto shadow-lg my-4 rounded-sm bg-custom-100">
                     <div class="my-2 text-center">
                         <h4 class="font-bold text-lg">Education Clusters Analysis</h4>
                     </div>
@@ -116,15 +118,16 @@
             </div>
         </div>
     </section>
+    <div id="decoration" class="w-full h-24 max-h-24 bg-repeat-x opacity-50 " style="background-image: url(./images/separador_2.png); background-size: contain;"></div>
 
     <section id="projects-and-stuff">
         <div class="mx-auto w-11/12">
             <h1 class="font-bold underline text-2xl"> Experience </h1>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-8 w-3/4 mx-auto">
-                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                <div class="mx-auto shadow-lg my-4 rounded-sm bg-custom-100">
                     <div class="my-2 text-center">
-                        <h4 class="font-bold text-lg"> Operative Systems Course teaching assistant </h4>
+                        <h4 class="font-bold text-lg"> Operative Systems Course Teaching Assistant </h4>
                     </div>
                     <div class="my-2">
                         <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-full" src="./images/linux_icon.png" alt="Tux picture">
@@ -139,6 +142,7 @@
                 </div>
             </div>
         </div>
+        <div id="decoration" class="w-full h-24 max-h-24 bg-repeat-x opacity-50 " style="background-image: url(./images/separador_1.png); background-size: contain;"></div>
     </section>
 
     <section id="education">
@@ -147,12 +151,12 @@
 
 
             <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-8 w-3/4 mx-auto">
-                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                <div class="mx-auto my-4 rounded-sm h-full bg-custom-100 shadow-xl">
                     <div class="my-2 text-center">
                         <h4 class="font-bold text-lg"> Computer Science Major </h4>
                     </div>
                     <div class="my-2">
-                        <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-full" src="./images/upb_logo.png" alt="UPB logo">
+                        <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-11/12 h-40" src="./images/upb_logo.png" alt="UPB logo">
                     </div>
 
                     <div class="text my-6 px-2 text-center">
@@ -162,56 +166,95 @@
                     </div>
                 </div>
 
-                <div class="mx-auto shadow-lg my-4 rounded-sm">
+                <div class="mx-auto my-4 rounded-sm h-full bg-custom-100 shadow-xl">
                     <div class="my-2 text-center">
                         <h4 class="font-bold text-lg"> Coursera </h4>
                     </div>
                     <div class="my-2">
-                        <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-full" src="./images/coursera_logo.png" alt="UPB logo">
+                        <img class="max-h-48 md:max-h-64 2xl:max-h-56 mx-auto w-full h-40" src="./images/coursera_logo.png" alt="UPB logo">
                     </div>
 
                     <div class="text my-6 px-2 text-center">
                         <p>
                             Studied different topics such as Cloud Engineering, Network & Databases Vulnerabilities and Software Security. You can see my certificates in my
-                            <a class="underline font-bold" href="https://www.linkedin.com/in/miguel-hincapie-b970ab17a/">linkedIn profile</a>.
+                            <a class="underline font-bold" target="blank" href="https://www.linkedin.com/in/miguel-hincapie-b970ab17a/">linkedIn profile</a>.
                         </p>
                     </div>
                 </div>
 
             </div>
         </div>
+        <div id="decoration" class="w-full h-24 max-h-24 bg-repeat-x opacity-50 " style="background-image: url(./images/separador_2.png); background-size: contain;"></div>
     </section>
 
     <section id="skillz">
-        <h1 class="font-bold underline text-2xl"> Skills </h1>
+        <div class="mx-auto w-11/12">
+            <h1 class="font-bold underline text-2xl"> Skills </h1>
 
-        <ul>
-            <li>C</li>
-            <li>C++</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>Javascript</li>
-            <li>Typescript</li>
-            <li>Svelte</li>
-            <li>React</li>
-            <li>NodeJS</li>
-            <li>Express</li>
-            <li>Python</li>
-            <li>Java</li>
-            <li>C#</li>
-            <li>.NET</li>
-            <li>SQL</li>
-            <li>MySQL</li>
-            <li>MariaDB</li>
-            <li>NoSQL</li>
-            <li>MongoDB</li>
-            <li>CLI</li>
-            <li>Git</li>
-            <li>Linux</li>
-            <li>Spanish (native)</li>
-            <li>English (fluent)</li>
-            <li>German (A2)</li>
-        </ul>
+            <div class="mx-auto h-64 shadow-custom-1 my-4 rounded-sm grid grid-cols-3">
+                <ul class="list-disc list-inside mx-auto my-auto">
+
+                    <li>HTML</li>
+                    <li>CSS</li>
+                    <li>Javascript</li>
+                    <li>Typescript</li>
+                    <li>C</li>
+                    <li>C++</li>
+                    <li>Python</li>
+
+                </ul>
+                <ul class="list-disc list-inside mx-auto my-auto">
+                    <li>SQL</li>
+                    <li>NoSQL</li>
+                    <li>Git</li>
+                    <li>CLI</li>
+                    <li>Linux</li>
+                    <li>Svelte</li>
+                    <li>React</li>
+                    <li>NodeJS</li>
+                    <li>Express</li>
+                </ul>
+                <ul class="list-disc list-inside mx-auto my-auto">
+
+                    <li>.NET</li>
+                    <li>MariaDB</li>
+                    <li>Mysql</li>
+                    <li>MongoDB</li>
+                    <li>Spanish (native)</li>
+                    <li>English (fluent)</li>
+                    <li>German (A2)</li>
+                </ul>
+            </div>
+        </div>
+        <div id="decoration" class="w-full h-24 max-h-24 bg-repeat-x opacity-50 " style="background-image: url(./images/separador_3.png); background-size: contain;"></div>
+    </section>
+
+    <section id="contact">
+        <div class="mx-auto w-11/12">
+
+            <form action="POST" class="mx-auto my-4 rounded-sm h-full bg-custom-100 shadow-custom-1 w-1/2 px-6 py-4">
+                <h1 class="font-bold text-4xl my-8"> Contact Me </h1>
+
+                <div class="w-3/4">
+                    <label class="label mb-0 pt-4 pl-3 leading-tighter text-gray-900 text-base mt-2 cursor-text" for="name">Name</label>
+                    <input class="input h-4 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" id="name" type="text" required>
+                </div>
+                <div class="w-3/4">
+                    <label class="label mb-0 pt-4 pl-3 leading-tighter text-gray-900 text-base mt-2 cursor-text" for="email">E-Mail</label>
+                    <input class="input h-4 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" id="email" type="email" required>
+                </div>
+                <div class="w-3/4">
+                    <label class="label mb-0 pt-4 pl-3 leading-tighter text-gray-900 text-base mt-2 cursor-text" for="subject">Subject</label>
+                    <input class="input h-4 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" id="subject" type="text" />
+                </div>
+                <div>
+                    <label class="label mb-0 pt-4 pl-3 leading-tighter text-gray-900 text-base mt-2 cursor-text" for="message">Message</label>
+                    <input class="input h-36 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" id="message" type="text" />
+                </div>
+
+                <button class="my-4 bg-custom-600 hover:bg-blue-dark text-white font-bold py-3 px-6 rounded w-1/2 md:w-1/4 h-3/5">Submit</button>
+            </form>
+        </div>
     </section>
 </body>
 
