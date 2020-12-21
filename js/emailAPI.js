@@ -66,7 +66,6 @@ async function sendEmail() {
             method: 'POST',
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
             auth: "9dc9aa54c2101a42c39e3b25c29a8550:55c6e0a654fe4d59e2950893668187aa",
-            mode: 'same-origin',
             credentials: 'same-origin',
 
             body: JSON.stringify(data)
