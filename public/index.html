@@ -10,8 +10,7 @@
     <link rel='stylesheet' type='text/css' media='screen' href='./css/style.css'>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <script src='./js/main.js'></script>
-    <script src='./js/emailAPI.js'></script>
+
 </head>
 
 <body class="bg-custom-800 font-custom">
@@ -231,36 +230,39 @@
     <section id="contact">
         <div class="mx-auto w-11/12">
 
-            <div class="mx-auto my-4 rounded-sm h-full sm:w-3/4 md:w-1/2 2xl:w-2/5 px-6 py-4">
+            <form id="mail_form" class="mx-auto my-4 rounded-sm h-full sm:w-3/4 md:w-1/2 2xl:w-2/5 px-6 py-4">
                 <h1 class="font-bold text-2xl my-8 underline"> Contact Me </h1>
 
                 <div class="w-3/4">
                     <label class="label mb-0 pt-4 pl-3 leading-tighter text-gray-900 text-base mt-2 cursor-text" for="name">Name</label>
-                    <input class="input h-4 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" id="name" type="text" required>
+                    <input class="input h-4 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" name="name" id="name" type="text" required>
                 </div>
                 <div class="w-3/4">
                     <label class="label mb-0 pt-4 pl-3 leading-tighter text-gray-900 text-base mt-2 cursor-text" for="email">Your E-Mail</label>
-                    <input class="input h-4 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" id="email" type="email" required>
+                    <input class="input h-4 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" name="email" id="email" type="email" required>
                 </div>
                 <div class="w-3/4">
                     <label class="label mb-0 pt-4 pl-3 leading-tighter text-gray-900 text-base mt-2 cursor-text" for="subject">Subject</label>
-                    <input class="input h-4 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" id="subject" type="text" />
+                    <input class="input h-4 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" name="subject" id="subject" type="text" />
                 </div>
                 <div>
                     <label class="label mb-0 pt-4 pl-3 leading-tighter text-gray-900 text-base mt-2 cursor-text" for="message">Message</label>
-                    <input class="input h-36 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" id="message" type="text" />
+                    <input class="input h-36 border border-gray-400 appearance-none rounded w-full px-3 py-3 pt-5 pb-2 focus focus:border-indigo-600 focus:outline-none active:outline-none active:border-indigo-600" name="message" id="message" type="text" />
                 </div>
 
-                <button class="my-4 bg-custom-900 border-2 border-custom-100 hover:bg-blue-dark text-gray-900 font-bold py-3 px-6 rounded w-1/2 md:w-1/4 h-3/5" onclick="sendEmail()">Submit</button>
-            </div>
+                <button class="my-4 bg-custom-900 border-2 border-custom-100 hover:bg-blue-dark text-gray-900 font-bold py-3 px-6 rounded w-1/2 md:w-1/4 h-3/5"><a id="send_email_btn">Send Email</a></button>
+            </form>
         </div>
     </section>
 
     <button onclick="smoothScroll(document.getElementById('navbar'))" class="float-right mr-28 -mt-36 rounded-full invisible xl:visible">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-24">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-16">
             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" />
           </svg>
     </button>
 </body>
+
+<script src='./js/main.js'></script>
+<script src='./js/mail.js'></script>
 
 </html>
