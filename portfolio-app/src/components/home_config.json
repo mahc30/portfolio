@@ -1,0 +1,72 @@
+{
+    "sections": [{
+            "title": "¡Take a look at some of my projects!",
+            "hasImg": true,
+            "img": "info_1.png",
+            "cards": [{
+                    "title": "Management of Hospitalary Assets",
+                    "description": "Web Application to conduct research on the current state of Hospital Physical Asset Management in the Aburrá Valley (Colombia) as part of a research on the Efficiency and Sustainability of Physical Asset Maintenance Management in the Hospital environment.",
+                    "img": "statistics_1.jpg",
+                    "link": "https://eav.upb.edu.co/gestion-activos-web/"
+                },
+                {
+                    "title": "Music Sheet Database",
+                    "description": "Web Application to manage, upload and download curated music sheets for the use of the students of the Red de Escuelas de Música de Medellín.",
+                    "img": "music_sheet_1.jpg",
+                    "link": "https://github.com/mahc30/staferep"
+                },
+                {
+                    "title": "Education Clusters Analysis",
+                    "description": "Statistic Analysis of posible education focuses for the creation of a city wide studies plan amid covid19 pandemic economic recovery efforts.",
+                    "img": "cluster_1.png",
+                    "link": ""
+                },
+                {
+                    "title": "AilenSweeper",
+                    "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android. ¡Click on the image to see it in the Play Store!",
+                    "img": "ailensweeper_logo.png",
+                    "link": "https://play.google.com/store/apps/details?id=com.lld.android.app&hl=es"
+                }
+            ]
+        },
+        {
+            "title": "Experience",
+            "cards": [{
+                    "title": "Operating Systems Course Tutor",
+                    "subtitle": "January 2021 - June 2021",
+                    "description": "Helped students of the course Operating Systems (CS401) by reviewing and providing feedback to students questions and programs written in C language. Also helped transpiling code examples and guides from C to Rust.",
+                    "img": "linux_icon.png",
+                    "link": "https://systemsoperating.readthedocs.io/es/latest/"
+                },
+                {
+                    "title": "Misión TIC",
+                    "subtitle": "July 2021 - October 2021",
+                    "description": "Created programming challenges for a country-wide iniciative to train 100.000 people in skills and talents for the fourth industrial revolution. Implemented unit tests for said challenges to optimize the process utilizing an automatic code grading tool.",
+                    "img": "mision_tic1.png",
+                    "link": "https://www.misiontic2022.gov.co/portal/"
+                }
+            ]
+        },
+        {
+            "title": "Education",
+            "cards": [{
+                    "title": "Computer Science",
+                    "description": "Studied Computer Science in Universidad Pontificia Bolivariana, (expecting to be) graduated in 2022 with the title 'Ingeniero de Sistemas e Informática'.",
+                    "img": "upb_logo.png"
+                },
+                {
+                    "title": "Architecting with Google Compute Engine Specialization",
+                    "description": "Completed a 9 week course about the google cloud infrastructure, from essential core services such as compute engine up to scaling and automation. ",
+                    "img": "googleCloud_logo.png"
+                },
+                {
+                    "title": "Coursera",
+                    "description": "Studied different topics such as Cloud Engineering, Network & Databases Vulnerabilities and Software Security. ¡You can see my certificates in my LinkedIn profile by clicking the picture above!",
+                    "img": "coursera_logo.png",
+                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
+                }
+            ]
+        }
+    ]
+
+}
