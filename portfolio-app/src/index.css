@@ -69,3 +69,18 @@ code {
 .shadow-custom-1 {
     box-shadow: -1px -1px 2px 3px #303030;
 }
+
+.bg-separador-1 {
+    background-image: url('../public/images/separador_1.png');
+    background-size: contain;
+}
+
+.bg-separador-2 {
+    background-image: url('../public/images/separador_2.png');
+    background-size: contain;
+}
+
+.bg-separador-3 {
+    background-image: url('../public/images/separador_3.png');
+    background-size: contain;
+}
