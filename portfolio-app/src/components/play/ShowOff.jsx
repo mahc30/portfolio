@@ -25,8 +25,8 @@ export class ShowOff extends React.Component {
 
                         <h1 className="color-custom-ailensweeper-shine text-xl font-extrabold underline ml-2"> How To Play </h1>
                         <ol className="color-custom-ailensweeper-dark text-lg list-disc ml-6 mt-3">
-                            <li> The number in each square represents the amount of aliens adjacent to it.</li>
-                            <li> Click or Tap on a square to reveal it ¡Do not reveal the aliens! </li>
+                            <li> The number in each square represents the amount of ailens adjacent to it.</li>
+                            <li> Click or Tap on a square to reveal it ¡and try not to reveal the ailens! </li>
                             <li> The big number on top-left corner is the number of ailens left, it will go down when you <strong>flag</strong> an ailen.</li>
                             <li> Use the <img className="w-7 inline" src={alienImg}/> and <img className="w-7 inline" src={flagImg}/> buttons to switch between <strong>flag</strong> mode and <strong>ailen</strong> revealing mode </li>
                             <li> Click or Tap the <img className="w-7 inline" src={restartImg2}/> or <img className="w-7 inline" src={restartImg1}/> buttons to restart the game     </li>
