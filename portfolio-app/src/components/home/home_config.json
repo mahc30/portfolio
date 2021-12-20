@@ -4,6 +4,12 @@
             "hasImg": true,
             "img": "info_1.png",
             "cards": [{
+                    "title": "AilenSweeper",
+                    "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android. ¡Click on the image to see it in the Play Store!",
+                    "img": "ailensweeper_logo.png",
+                    "link": "https://play.google.com/store/apps/details?id=com.lld.android.app&hl=es"
+                },
+                {
                     "title": "Management of Hospitalary Assets",
                     "description": "Web Application to conduct research on the current state of Hospital Physical Asset Management in the Aburrá Valley (Colombia) as part of a research on the Efficiency and Sustainability of Physical Asset Maintenance Management in the Hospital environment.",
                     "img": "statistics_1.jpg",
@@ -22,10 +28,10 @@
                     "link": ""
                 },
                 {
-                    "title": "AilenSweeper",
-                    "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android. ¡Click on the image to see it in the Play Store!",
-                    "img": "ailensweeper_logo.png",
-                    "link": "https://play.google.com/store/apps/details?id=com.lld.android.app&hl=es"
+                    "title": "¡Play Now!",
+                    "description": "¡You can actually play with some of my projects in this site! just click on the image to be redirected.",
+                    "img": "console_controller.png",
+                    "link": "/showoff"
                 }
             ]
         },

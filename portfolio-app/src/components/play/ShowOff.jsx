@@ -1,10 +1,11 @@
 import React from 'react'
-import { Ailensweeper } from './ailens/Ailensweeper';
 import alienImg from './ailens/assets/ailen8.png';
 import flagImg from './ailens/assets/ailen_flag.png';
 import restartImg1 from './ailens/assets/death2.png'
 import restartImg2 from './ailens/assets/alive1.png'
 import { Separador } from './../home/Separador';
+import { Ailensweeper } from './ailens/Ailensweeper';
+import { Link } from "react-router-dom";
 
 export class ShowOff extends React.Component {
     
@@ -36,11 +37,11 @@ export class ShowOff extends React.Component {
                              <Separador/>
                         </div>
 
-                        {/* 
+                        {
                         <div id="TemporalNav" className="w-full bg-custom-ailensweeper  ">
-                            <h1 className="color-custom-ailensweeper-shine text-lg font-extrabold ml-2"> Want to see more? </h1>
+                            <h1 className="color-custom-ailensweeper-shine text-lg font-extrabold ml-2 underline">  <Link to="/"> Take me Back to Home </Link> </h1>
                         </div>
-                        */}
+                        }
                     </div>
 
                 </div>
