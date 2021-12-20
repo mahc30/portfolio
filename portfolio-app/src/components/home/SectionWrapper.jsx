@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const img_route = "./images/"
 
-export class SectionWraper extends React.Component {
+export class SectionWrapper extends React.Component {
     constructor(props) {
         super(props);
     }

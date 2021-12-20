@@ -1,5 +1,5 @@
 import React from 'react'
-import { SectionWraper }  from './SectionWraper.jsx' 
+import { SectionWrapper }  from './SectionWrapper.jsx' 
 import { Landing } from './Landing.jsx'
 import { ContactMe } from './ContactMe.jsx'
 import { Separador } from './Separador.jsx'
@@ -19,7 +19,7 @@ export class Home extends React.Component {
                 <>
                     {home_config.sections.map(section => {
                       return <div>
-                        {React.createElement(SectionWraper, {
+                        {React.createElement(SectionWrapper, {
                         key: section.title,
                         title:section.title, 
                         hasImg: section.hasImg,

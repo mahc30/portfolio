@@ -1,3 +1,7 @@
 bg: #C3C7CF
 frontStuff: #A1ABC7
 darkerFrontStuff: #727A90
+
+AilensweeperBg: #262038
+AilensweeperTextDark: #990077
+AilensweeperTextShine: #cc0077

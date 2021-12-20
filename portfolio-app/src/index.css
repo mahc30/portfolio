@@ -57,6 +57,21 @@ code {
     background-color: rgba(152, 172, 207, var(--tw-bg-opacity));
 }
 
+.bg-custom-ailensweeper {
+    --tw-bg-opacity: 1;
+    background-color: #262038;
+}
+
+.color-custom-ailensweeper-dark {
+    --tw-bg-opacity: 1;
+    color: #990077;
+}
+
+.color-custom-ailensweeper-shine {
+    --tw-bg-opacity: 1;
+    color: #cc0077;
+}
+
 .border-custom-100 {
     --tw-border-opacity: 1;
     border-color: rgba(62, 71, 86, var(--tw-border-opacity));
