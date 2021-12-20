@@ -39,7 +39,7 @@ export class ShowOff extends React.Component {
 
                         {
                         <div id="TemporalNav" className="w-full bg-custom-ailensweeper  ">
-                            <h1 className="color-custom-ailensweeper-shine text-lg font-extrabold ml-2 underline">  <Link to="/"> Take me Back to Home </Link> </h1>
+                            <h1 className="color-custom-ailensweeper-shine text-lg font-extrabold ml-2 underline">  <Link to="/portfolio"> Take me Back to Home </Link> </h1>
                         </div>
                         }
                     </div>
