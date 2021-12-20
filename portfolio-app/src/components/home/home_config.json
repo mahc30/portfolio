@@ -26,12 +26,6 @@
                     "description": "Statistic Analysis of posible education focuses for the creation of a city wide studies plan amid covid19 pandemic economic recovery efforts.",
                     "img": "cluster_1.png",
                     "link": ""
-                },
-                {
-                    "title": "¡Play Now!",
-                    "description": "¡You can actually play with some of my projects in this site! just click on the image to be redirected.",
-                    "img": "console_controller.png",
-                    "link": "/showoff"
                 }
             ]
         },
@@ -72,6 +66,14 @@
                     "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
                 }
             ]
+        },
+        {
+            "title": "Want to see more?",
+            "cards": [{
+                "title": "¡Play Now!",
+                "description": "¡You can actually play with some of my projects in this site! just click on the image to be redirected.",
+                "img": "console_controller.png"
+            }]
         }
     ]
 

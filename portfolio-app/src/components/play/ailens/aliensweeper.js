@@ -34,12 +34,16 @@ let DEATH_IMG = [];
 let FLAG_IMG_GAMEBAR;
 let FLAG_IMG;
 let MARKET_DECO_FONT;
-let first_load = true;
+
+//Comment for REACT version: as component needs to be mounted and unmounted multiple times,
+//it also needs to be setup every time, this variable was being used to setup gamebar only the first time
+//because for mobile this was not a use case
+
+//let first_load = true;
 
 //Dom
 let width;
 let height;
-document.oncontextmenu = function() { return false; }
 
 //Ailensweeper
 let lives = 1;
@@ -59,9 +63,9 @@ let flagMode = false;
 //Game animations
 let board;
 
-export const sketch = (s) => {
+export const sketch = async(s) => {
 
-    s.preload = () => {
+    s.preload = async() => {
         AILENS_IMG.push(s.loadImage(alien1))
         AILENS_IMG.push(s.loadImage(alien2))
         AILENS_IMG.push(s.loadImage(alien3))
@@ -85,7 +89,6 @@ export const sketch = (s) => {
     }
 
     s.setup = () => {
-
         width = document.getElementById("viewport").clientWidth;
         height = document.getElementById("viewport").clientHeight;
         let canvas = s.createCanvas(width, height);
@@ -103,8 +106,8 @@ export const sketch = (s) => {
         div.style.display = "none";
 
         //Setup Game State
-        s.startGame(first_load);
-        first_load = false;
+        s.startGame();
+        //irst_load = false;
     }
 
     s.startGame = () => {
@@ -156,12 +159,12 @@ export const sketch = (s) => {
         }
 
         //Gamebar
-        if (first_load) {
-            gamebar.setup();
+        //if (first_load) { comment explanation on variable declaration
+        gamebar.setup();
 
-            //Cell.setup is just resizing images, so calling it once is enough
-            grid[0][0].setup();
-        }
+        //Cell.setup is just resizing images, so calling it once is enough
+        grid[0][0].setup();
+        //}
 
         //Initial State
         progress = 0;
@@ -310,7 +313,7 @@ export const sketch = (s) => {
     }
 
     Cell.prototype.setup = function() {
-        for (var i = 0; i < AILENS_IMG.length; i++) {
+        for (let i = 0; i < AILENS_IMG.length; i++) {
             s.resizeImg(AILENS_IMG[i], this.w - 1, this.w - 1);
         }
         s.resizeImg(FLAG_IMG, this.w - 1, this.w - 1);
@@ -386,16 +389,16 @@ export const sketch = (s) => {
             this.neighborCount = -1;
             return;
         }
-        var total = 0;
-        for (var xoff = -1; xoff <= 1; xoff++) {
-            var i = this.i + xoff;
+        let total = 0;
+        for (let xoff = -1; xoff <= 1; xoff++) {
+            let i = this.i + xoff;
             if (i < 0 || i >= cols) continue;
 
-            for (var yoff = -1; yoff <= 1; yoff++) {
-                var j = this.j + yoff;
+            for (let yoff = -1; yoff <= 1; yoff++) {
+                let j = this.j + yoff;
                 if (j < 0 || j >= rows) continue;
 
-                var neighbor = grid[i][j];
+                let neighbor = grid[i][j];
                 if (neighbor.ailen) {
                     total++;
                 }
@@ -409,15 +412,15 @@ export const sketch = (s) => {
     }
 
     Cell.prototype.floodFill = function() {
-        for (var xoff = -1; xoff <= 1; xoff++) {
-            var i = this.i + xoff;
+        for (let xoff = -1; xoff <= 1; xoff++) {
+            let i = this.i + xoff;
             if (i < 0 || i >= cols) continue;
 
-            for (var yoff = -1; yoff <= 1; yoff++) {
-                var j = this.j + yoff;
+            for (let yoff = -1; yoff <= 1; yoff++) {
+                let j = this.j + yoff;
                 if (j < 0 || j >= rows) continue;
 
-                var neighbor = grid[i][j];
+                let neighbor = grid[i][j];
                 // Note the neighbor.ailen check was not required.
                 // See issue #184
                 if (!neighbor.revealed && !neighbor.flagged) {
@@ -489,12 +492,13 @@ export const sketch = (s) => {
 
         s.resizeImg(FLAG_IMG_GAMEBAR, this.yBound * 0.8, this.yBound * 0.8);
         s.resizeImg(AILENS_IMG_GAMEBAR, this.yBound * 0.8, this.yBound * 0.8);
-        for (var i = 0; i < DEATH_IMG.length; i++) {
+
+        for (let i = 0; i < DEATH_IMG.length; i++) {
             s.resizeImg(DEATH_IMG[i], this.yBound * 0.8, this.yBound * 0.8);
             s.resizeImg(LIVES_IMG[i], this.yBound * 0.6, this.yBound * 0.6);
         }
 
-        for (var i = 0; i < ALIVE_IMG.length; i++) {
+        for (let i = 0; i < ALIVE_IMG.length; i++) {
             s.resizeImg(ALIVE_IMG[i], this.yBound * 0.8 + i / 10, this.yBound * 0.8 + i / 10);
         }
 

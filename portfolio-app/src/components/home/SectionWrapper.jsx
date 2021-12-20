@@ -1,12 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 const img_route = "./images/"
 
 export class SectionWrapper extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return(
@@ -27,7 +23,7 @@ export class SectionWrapper extends React.Component {
                                              <h2 className="font-bold text-lg">{card.title}</h2>
                                          </div>
                                          <div>
-                                        <a target="blank" href={card.link}>
+                                        <a target="blank" href={card.link} onClick={() => this.props.handleRedirect("showoff")}>
                                             <img className="max-h-48 md:max-h-64 2xl:max-h-56 w-full mx-auto" src={img_route + card.img} alt={card.title}/>
                                         </a>
                                     </div>

@@ -6,9 +6,6 @@ import { Separador } from './Separador.jsx'
 import home_config from './home_config';
 
 export class Home extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return(
@@ -24,9 +21,10 @@ export class Home extends React.Component {
                         title:section.title, 
                         hasImg: section.hasImg,
                         img: section.img,
-                        cards:section.cards
+                        cards:section.cards,
+                        handleRedirect: this.props.handleRedirect
                       })}
-                        <Separador/>
+                        <Separador key={this.props.currentKey}/>
                       </div>
 
                     })}

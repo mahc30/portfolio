@@ -9,8 +9,8 @@ export class Ailensweeper extends React.Component {
         this.myRef = React.createRef()
     }
    
-    componentDidMount() {
-       this.myP5 = new p5(sketch, this.myRef.current)
+    async componentDidMount() {
+       this.myP5 = await new p5(sketch, this.myRef.current)
     }
     
     render() {

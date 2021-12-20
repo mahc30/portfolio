@@ -1,9 +1,6 @@
 import React from 'react'
 
 export class Separador extends React.Component {
-    constructor(props) {
-        super(props);    
-    }
 
     render() {
         let backgroundImage = Math.floor(Math.random() * 3 + 1)
