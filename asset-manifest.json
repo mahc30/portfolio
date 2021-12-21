@@ -1,18 +1,25 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.b00a0e44.css",
-    "main.js": "/portfolio/static/js/main.561fffd7.js",
+    "main.css": "/portfolio/static/css/main.f381532f.css",
+    "main.js": "/portfolio/static/js/main.701ddf16.js",
     "static/js/787.cdf2507a.chunk.js": "/portfolio/static/js/787.cdf2507a.chunk.js",
     "static/media/separador_2.png": "/portfolio/static/media/separador_2.cf7eccb3f045a61bb01d.png",
     "static/media/separador_1.png": "/portfolio/static/media/separador_1.f7698846465ea0d0b2d2.png",
     "static/media/separador_3.png": "/portfolio/static/media/separador_3.5493ffb2ce47392da99c.png",
+    "static/media/Market_Deco.ttf": "/portfolio/static/media/Market_Deco.81315f1a8b740b5efce6.ttf",
+    "static/media/death3.png": "/portfolio/static/media/death3.49ccdce612a359fff2e6.png",
+    "static/media/ailen8.png": "/portfolio/static/media/ailen8.bb7bc9f0de535149ba07.png",
+    "static/media/death2.png": "/portfolio/static/media/death2.ddab22028e13391f70c8.png",
+    "static/media/ailen1.png": "/portfolio/static/media/ailen1.d4f546eb41752745a7b8.png",
+    "static/media/ailen7.png": "/portfolio/static/media/ailen7.86fb183798ba2a5e120e.png",
+    "static/media/ailen_flag.png": "/portfolio/static/media/ailen_flag.9b9c8599297dc7617505.png",
     "index.html": "/portfolio/index.html",
-    "main.b00a0e44.css.map": "/portfolio/static/css/main.b00a0e44.css.map",
-    "main.561fffd7.js.map": "/portfolio/static/js/main.561fffd7.js.map",
+    "main.f381532f.css.map": "/portfolio/static/css/main.f381532f.css.map",
+    "main.701ddf16.js.map": "/portfolio/static/js/main.701ddf16.js.map",
     "787.cdf2507a.chunk.js.map": "/portfolio/static/js/787.cdf2507a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b00a0e44.css",
-    "static/js/main.561fffd7.js"
+    "static/css/main.f381532f.css",
+    "static/js/main.701ddf16.js"
   ]
 }
