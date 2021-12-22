@@ -114,8 +114,8 @@ export const sketch = async(s) => {
 
         //Ailensweeper
         //Create 14xN or 32XN grid based on vertical or horizontal view
-        if (width < 420) {
-            w = 420 / 15
+        if (width < 360) {
+            w = 360 / 15
         } else if (width < height) {
             w = width / 15;
         } else {
@@ -201,15 +201,20 @@ export const sketch = async(s) => {
 
     s.mousePressed = () => {
 
+        // Return value affects how mobile touch behaves in the entire screen
+        // Returning True or False will break Swipe movement, so scrollable divs will not work
+        // Everything inside the canvas will return false, and if click or tap was outside any element
+        // it will return no value so scroll works
+
         if (gamebar.containsRestartBtn(s.mouseX, s.mouseY)) {
             s.restartGame();
-            return;
+            return false;
         }
 
         if (gamebar.containsFlagModeBtn(s.mouseX, s.mouseY)) {
             flagMode = !flagMode;
             gamebar.setFlagMode(!gamebar.flagMode);
-            return;
+            return false;
         }
 
         for (let i = 0; i < cols; i++) {
@@ -231,11 +236,11 @@ export const sketch = async(s) => {
                             grid[i][j].img = AILENS_IMG[s.RandomInt(0, AILENS_IMG.length)];
                         }
                         gamebar.updateAilensLeft(totalAilens - numFlagged);
-                        return;
+                        return false;
                     }
 
                     if (grid[i][j].flagged) {
-                        return;
+                        return false;
                     }
 
                     if (grid[i][j].ailen) {
@@ -249,7 +254,7 @@ export const sketch = async(s) => {
 
                     grid[i][j].reveal();
                     s.updateProgress(progress++);
-                    return;
+                    return false;
                 }
             }
         }
