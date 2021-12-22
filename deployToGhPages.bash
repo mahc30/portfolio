@@ -1,10 +1,10 @@
 #!/bin/bash
 
 git checkout main
-cd ../portfolio-app/
+cd ./portfolio-app/
 npm run build
-mv ./portfolio-app/build ../myStuff/
-cd ..
+mv ./build ../myStuff/
+cd .. #Back to root
 git checkout gh-pages
 rm -r ./images
 rm -r ./static
