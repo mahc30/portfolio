@@ -1,3 +1,0 @@
-bg: #C3C7CF
-frontStuff: #A1ABC7
-darkerFrontStuff: #727A90
