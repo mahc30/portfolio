@@ -11,6 +11,7 @@ export class Ailensweeper extends React.Component {
    
     async componentDidMount() {
        this.myP5 = await new p5(sketch, this.myRef.current)
+       document.getElementById("viewport").oncontextmenu = function() { return false; }
     }
     
     render() {

@@ -114,7 +114,9 @@ export const sketch = async(s) => {
 
         //Ailensweeper
         //Create 14xN or 32XN grid based on vertical or horizontal view
-        if (width < height) {
+        if (width < 420) {
+            w = 420 / 15
+        } else if (width < height) {
             w = width / 15;
         } else {
             w = width / 32;
@@ -198,22 +200,23 @@ export const sketch = async(s) => {
     }
 
     s.mousePressed = () => {
+
         if (gamebar.containsRestartBtn(s.mouseX, s.mouseY)) {
             s.restartGame();
-            return false;
+            return;
         }
 
         if (gamebar.containsFlagModeBtn(s.mouseX, s.mouseY)) {
             flagMode = !flagMode;
             gamebar.setFlagMode(!gamebar.flagMode);
-            return false;
+            return;
         }
 
         for (let i = 0; i < cols; i++) {
             for (let j = 0; j < rows; j++) {
                 if (grid[i][j].contains(s.mouseX, s.mouseY)) {
                     if (grid[i][j].revealed) {
-                        return false;
+                        return;
                     }
 
                     if (flagMode) {
@@ -228,11 +231,11 @@ export const sketch = async(s) => {
                             grid[i][j].img = AILENS_IMG[s.RandomInt(0, AILENS_IMG.length)];
                         }
                         gamebar.updateAilensLeft(totalAilens - numFlagged);
-                        return false;
+                        return;
                     }
 
                     if (grid[i][j].flagged) {
-                        return false;
+                        return;
                     }
 
                     if (grid[i][j].ailen) {
@@ -246,11 +249,11 @@ export const sketch = async(s) => {
 
                     grid[i][j].reveal();
                     s.updateProgress(progress++);
-                    return false;
+                    return;
                 }
             }
         }
-        return false;
+        return;
     }
 
     s.updateProgress = (progress) => {

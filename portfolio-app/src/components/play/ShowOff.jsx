@@ -9,7 +9,6 @@ import { Ailensweeper } from './ailens/Ailensweeper';
 export class ShowOff extends React.Component {
     constructor(props){
         super(props)
-        document.oncontextmenu = function() { return false; }
     }
     
     render() {
@@ -21,7 +20,7 @@ export class ShowOff extends React.Component {
                         <Ailensweeper/>
                     </div>
             
-                    <div id="instructions" className="row-span-4 overflow-y-scroll overflow-x-hidden xl:overflow-hidden">
+                    <div id="instructions" className="row-span-4 overflow-y-scroll xl:overflow-hidden">
 
                         <div className="w-full bg-custom-ailensweeper hidden md:block md:mt-16 xl:mt-20">
                              <Separador/>
@@ -45,6 +44,10 @@ export class ShowOff extends React.Component {
                             <h1 className="color-custom-ailensweeper-shine text-lg font-extrabold ml-2 underline hover:cursor-pointer" onClick={ () => this.props.handleRedirect("portfolio")}> Take me Back to Home </h1>
                         </div>
                         }
+
+                        <div className="w-full bg-custom-ailensweeper">
+                             <Separador/>
+                        </div>
                     </div>
                 </div>
             </div>
