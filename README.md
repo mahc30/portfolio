@@ -1,1 +1,0 @@
-I needed to relearn react and chose this project to do it
