@@ -19,7 +19,7 @@ export class Landing extends React.Component {
                     </div>
 
                     <div className="flex justify-around max-h-20 md:max-h-24 h-1/6 sm:h-1/5 shadow-custom-1 xl:w-5/6 mx-auto bg-custom-600 px-28 sm:px-32 md:px-48 lg:px-64 xl:px-80 2xl:px-96">
-                        <div className="my-auto">
+                        <div className="my-auto mx-2">
                             <a target="blank" href="https://www.linkedin.com/in/miguel-hincapie-b970ab17a/">
                                 <img className="h-14 sm:h-16 max-h-full md:max-h-screen" src="./images/linkedin_icon.png" alt="LinkedIn"/>
                             </a>
@@ -31,7 +31,7 @@ export class Landing extends React.Component {
                             </a>
                         </div>
 
-                        <div className="my-auto">
+                        <div className="my-auto mx-2">
                             <a target="blank" href="https://twitter.com/MiguelHinkpie">
                                 <img className="h-14 sm:h-16 max-h-full md:max-h-screen" src="./images/twitter_icon.png" alt="Twitter"/>
                             </a>
