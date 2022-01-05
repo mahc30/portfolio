@@ -1,6 +1,7 @@
 #!/bin/bash
 
 git checkout main
+mkdir myStuff
 cd ./portfolio-app/
 npm run build
 mv ./build ../myStuff/
