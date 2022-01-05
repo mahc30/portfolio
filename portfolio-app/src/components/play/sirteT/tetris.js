@@ -17,15 +17,24 @@ const BORDER_COLOR = COLORS[7].dark;
 const BOARD_GRID_COLOR = COLORS[7].dark;
 
 //Tetris rules
+const DEATH_ZONE_SIZE = 2;
 const NUM_COLUMNS = 10;
-const NUM_ROWS = 20;
-const GRID_EMPTY_VALUE = -2;
-
+const NUM_ROWS = 20 + DEATH_ZONE_SIZE;
+const GRID_EMPTY_VALUE = -1;
+const GRID_DEATH_ZONE_VALUE = -2;
+const TETROMINO_START_X = 3;
+const TETROMINO_START_Y = -1;
 const TETROMINO_MATRIX_DIMENSIONS = 4;
+const STARTING_TICK_INTERVAL = 200;
+const TETROMINO_START_ROTATION = 0;
 
 //Gameplay Options
-let tick_interval = 400;
-
+let tick_interval = STARTING_TICK_INTERVAL;
+let tick_handler;
+let grace_period_time = 400;
+let grace_period = false;
+let grace_period_handler;
+let check_fast_drop = true;
 
 /*
 LEGEND
@@ -48,7 +57,7 @@ const I = {
 
 const J = {
     shape_options: [
-        [6, 10, 13, 14],
+        [5, 9, 13, 12],
         [6, 10, 4, 5],
         [6, 5, 9, 13],
         [4, 8, 9, 10],
@@ -80,8 +89,8 @@ const S = {
     shape_options: [
         [4, 8, 9, 13],
         [12, 13, 9, 10],
-        [4, 8, 9, 13],
-        [11, 10, 14, 13],
+        [0, 4, 5, 9],
+        [8, 9, 5, 6],
     ],
     color: 2
 }
@@ -89,9 +98,9 @@ const S = {
 const Z = {
     shape_options: [
         [12, 8, 9, 5],
-        [9, 10, 14, 15],
-        [13, 9, 10, 6],
-        [5, 6, 10, 11],
+        [8, 9, 13, 14],
+        [8, 4, 5, 1],
+        [4, 5, 9, 10],
     ],
     color: 6
 }
@@ -151,11 +160,9 @@ export const sketch = (s) => {
 
         let canvas = s.createCanvas(board_w + status_bar_w, board_h);
         canvas.parent("tetris_viewport");
+        tick_handler = start_tick_interval()
     }
 
-    setInterval(() => {
-        board.tick();
-    }, tick_interval);
 
     s.draw = () => {
         s.background(BACKGROUND_COLOR)
@@ -174,6 +181,15 @@ export const sketch = (s) => {
 
         for (let i = 0; i < NUM_COLUMNS; i++) {
             this.grid[i] = new Array(NUM_ROWS).fill(GRID_EMPTY_VALUE)
+            this.grid[i][0] = GRID_DEATH_ZONE_VALUE;
+            this.grid[i][1] = GRID_DEATH_ZONE_VALUE;
+        }
+
+        for (let i = 0; i < NUM_COLUMNS; i++) {
+            for (let j = 0; j <= DEATH_ZONE_SIZE; j++) {
+                this.grid[i][j] = GRID_DEATH_ZONE_VALUE;
+                this.grid[i][j] = GRID_DEATH_ZONE_VALUE;
+            }
         }
 
         Tetromino.update_tetromino_queue();
@@ -200,19 +216,25 @@ export const sketch = (s) => {
         }
 
         this.draw_trash();
-        this.check_fast_drop();
+        if(check_fast_drop) this.check_fast_drop();
         current_tetromino.draw();
     }
 
     Tetris_Board.prototype.tick = function () {
 
         //Try Move current Tetromino
-        if (!this.will_collision_down()) {
+        if (!this.will_collision_down(current_tetromino)) {
             current_tetromino.move_down();
+            restart_grace_period_timeout();
             return;
         }
 
-        if (this.create_trash()) this.game_over();
+        if (grace_period) return;
+
+        if (this.create_trash()) {
+            this.game_over();
+            return;
+        }
         //Check for complete rows
         let full_rows = this.check_full_row()
 
@@ -221,6 +243,8 @@ export const sketch = (s) => {
         }
 
         Tetromino.update_current_tetromino()
+
+        grace_period = false;
         can_swap_hold = true;
     }
 
@@ -240,7 +264,8 @@ export const sketch = (s) => {
                         if (relative_offset_x >= NUM_COLUMNS) return true;//Out of bounds
 
                         let nextBlockRight = this.grid[relative_offset_x][relative_offset_y];
-                        if (nextBlockRight !== GRID_EMPTY_VALUE) return true;
+                        if (nextBlockRight !== GRID_EMPTY_VALUE &&
+                            nextBlockRight !== GRID_DEATH_ZONE_VALUE) return true;
                     }
                 }
             }
@@ -262,14 +287,15 @@ export const sketch = (s) => {
                         if (relative_offset_x < 0) return true;  //Out of bounds
 
                         let nextBlockLeft = this.grid[relative_offset_x][relative_offset_y];
-                        if (nextBlockLeft !== GRID_EMPTY_VALUE) return true;  //Hay basura 
+                        if (nextBlockLeft !== GRID_EMPTY_VALUE &&
+                            nextBlockLeft !== GRID_DEATH_ZONE_VALUE) return true;  //Hay basura 
                     }
                 }
             }
         }
     }
 
-    Tetris_Board.prototype.will_collision_down = function () {
+    Tetris_Board.prototype.will_collision_down = function (current_tetromino) {
         let p;
 
         for (let i = 0; i < TETROMINO_MATRIX_DIMENSIONS; i++) {
@@ -284,13 +310,16 @@ export const sketch = (s) => {
 
                         let nextBlockDown = this.grid[relative_offset_x][relative_offset_y];
                         if (
-                            nextBlockDown !== GRID_EMPTY_VALUE //Hay basura 
+                            nextBlockDown !== GRID_EMPTY_VALUE &&
+                            nextBlockDown !== GRID_DEATH_ZONE_VALUE
                         ) return true;
 
                     }
                 }
             }
         }
+
+        return false;
     }
 
     Tetris_Board.prototype.will_collision_rotate_right = function () {
@@ -309,13 +338,14 @@ export const sketch = (s) => {
                     if (p === next_shape[k]) {
                         //Si esta posición es parte de una figura
                         let relative_offset_x = current_tetromino.x + i;
-                        let relative_offset_y = current_tetromino.y + j + 1;
+                        let relative_offset_y = current_tetromino.y + j;
                         if (relative_offset_y >= NUM_ROWS) return true  //Out of bounds
                         if (relative_offset_x >= NUM_COLUMNS || relative_offset_x < 0) return true  //Out of bounds
 
                         let nextBlockDown = this.grid[relative_offset_x][relative_offset_y];
                         if (
-                            nextBlockDown !== GRID_EMPTY_VALUE //Hay basura 
+                            nextBlockDown !== GRID_EMPTY_VALUE &&
+                            nextBlockDown !== GRID_DEATH_ZONE_VALUE//Hay basura 
                         ) return true;
 
                     }
@@ -341,20 +371,64 @@ export const sketch = (s) => {
                     if (p === next_shape[k]) {
                         //Si esta posición es parte de una figura
                         let relative_offset_x = current_tetromino.x + i;
-                        let relative_offset_y = current_tetromino.y + j + 1;
+                        let relative_offset_y = current_tetromino.y + j;
                         if (relative_offset_y >= NUM_ROWS) return true  //Out of bounds
                         if (relative_offset_x >= NUM_COLUMNS || relative_offset_x < 0) return true  //Out of bounds
 
                         let nextBlockDown = this.grid[relative_offset_x][relative_offset_y];
                         if (
-                            nextBlockDown !== GRID_EMPTY_VALUE //Hay basura 
+                            nextBlockDown !== GRID_EMPTY_VALUE &&
+                            nextBlockDown !== GRID_DEATH_ZONE_VALUE//Hay basura
+
                         ) return true;
 
                     }
                 }
             }
         }
+    }
 
+    Tetris_Board.prototype.will_collision_rotate_180 = function () {
+
+        let next_rotation = current_tetromino.rotation;
+        next_rotation === 0 ? next_rotation = 3 : next_rotation--;
+        next_rotation === 0 ? next_rotation = 3 : next_rotation--;
+
+        let next_shape = current_tetromino.shape_options[next_rotation];
+
+        let p;
+
+        for (let i = 0; i < TETROMINO_MATRIX_DIMENSIONS; i++) {
+            for (let j = 0; j < TETROMINO_MATRIX_DIMENSIONS; j++) {
+                p = i * TETROMINO_MATRIX_DIMENSIONS + j
+                for (let k = 0; k < current_tetromino.shape.length; k++) {
+                    if (p === next_shape[k]) {
+                        //Si esta posición es parte de una figura
+                        let relative_offset_x = current_tetromino.x + i;
+                        let relative_offset_y = current_tetromino.y + j + 1;
+                        if (relative_offset_y >= NUM_ROWS) return true  //Out of bounds
+                        if (relative_offset_x >= NUM_COLUMNS || relative_offset_x < 0) return true  //Out of bounds
+
+                        let nextBlockDown = this.grid[relative_offset_x][relative_offset_y];
+                        if (
+                            nextBlockDown !== GRID_EMPTY_VALUE &&
+                            nextBlockDown !== GRID_DEATH_ZONE_VALUE//Hay basura 
+                        ) return true;
+
+                    }
+                }
+            }
+        }
+    }
+
+    Tetris_Board.prototype.hard_drop = function () {
+        let ghost = new Tetromino(current_tetromino.x, current_tetromino.y, current_tetromino.w, current_tetromino.shape_options, current_tetromino.color, current_tetromino.shape)
+
+        while (!this.will_collision_down(ghost)) {
+            ghost.move_down();
+        }
+
+        current_tetromino.hard_drop(ghost.x, ghost.y);
     }
 
     Tetris_Board.prototype.create_trash = function () {
@@ -370,8 +444,7 @@ export const sketch = (s) => {
                         if (x_offset < 0) x_offset = 0;
                         if (y_offset >= NUM_ROWS) y_offset = NUM_ROWS - 1;
                         this.grid[x_offset][y_offset] = current_tetromino.color
-                        //this.trash.push(current_tetromino)
-                        if (y_offset <= 0) return true //Attempting to create trash on top will cause game to end
+                        if (y_offset <= DEATH_ZONE_SIZE) return true //Attempting to create trash above death zone will cause game to end
                     }
                 }
             }
@@ -383,8 +456,9 @@ export const sketch = (s) => {
         for (let i = 0; i < this.grid.length; i++) {
             for (let j = 0; j < this.grid[0].length; j++) {
                 if (this.grid[i][j] === GRID_EMPTY_VALUE) continue;
-                s.fill(COLORS[this.grid[i][j]].light);
-                s.stroke(COLORS[this.grid[i][j]].dark)
+                let color_code = Math.abs(this.grid[i][j])
+                s.fill(COLORS[color_code].light);
+                s.stroke(COLORS[color_code].dark)
                 s.rect(cols_width * i, rows_height * j, cols_width, rows_height)
             }
         }
@@ -413,7 +487,7 @@ export const sketch = (s) => {
         let next_row;
         while (row_indexes.length > 0) {
             next_row = row_indexes.pop();
-            for (let i = next_row; i >= 1; i--) {
+            for (let i = next_row; i > DEATH_ZONE_SIZE + 1; i--) {
                 for (let j = 0; j < NUM_COLUMNS; j++) {
                     this.grid[j][i] = this.grid[j][i - 1];
                 }
@@ -423,18 +497,29 @@ export const sketch = (s) => {
 
     Tetris_Board.prototype.check_fast_drop = function () {
         if (s.keyIsDown(s.DOWN_ARROW)) {
-            if (board.will_collision_down()) return
+
+            if (board.will_collision_down(current_tetromino)) return
             current_tetromino.move_down();
         }
     }
 
     Tetris_Board.prototype.game_over = function () {
-        for (let i = 0; i < this.grid.length; i++) {
-            for (let j = 0; j < this.grid[0].length; j++) {
-                this.grid[i][j] = GRID_EMPTY_VALUE;
+        for (let i = 0; i < NUM_COLUMNS; i++) {
+            this.grid[i] = new Array(NUM_ROWS).fill(GRID_EMPTY_VALUE)
+            this.grid[i][0] = GRID_DEATH_ZONE_VALUE;
+            this.grid[i][1] = GRID_DEATH_ZONE_VALUE;
+        }
+
+        for (let i = 0; i < NUM_COLUMNS; i++) {
+            for (let j = 0; j <= DEATH_ZONE_SIZE; j++) {
+                this.grid[i][j] = GRID_DEATH_ZONE_VALUE;
+                this.grid[i][j] = GRID_DEATH_ZONE_VALUE;
             }
         }
+
         tetromino_hold = null;
+        tick_interval = STARTING_TICK_INTERVAL;
+        Tetromino.update_current_tetromino()
     }
 
     let Tetromino = function (x, y, w, shape_options, color, shape) {
@@ -479,6 +564,11 @@ export const sketch = (s) => {
         this.x++;
     }
 
+    Tetromino.prototype.hard_drop = function (x, y) {
+        this.x = x;
+        this.y = y;
+    }
+
     Tetromino.prototype.rotate_90_right = function () {
 
         if (this.rotation === 3) {
@@ -503,10 +593,25 @@ export const sketch = (s) => {
         this.shape = this.shape_options[this.rotation]
     }
 
+    Tetromino.prototype.rotate_180 = function () {
+
+        for (let i = 1; i <= 2; i++) {
+
+            if (this.rotation === 3) {
+                this.rotation = 0;
+            }
+            else {
+                this.rotation++;
+            }
+        }
+
+        this.shape = this.shape_options[this.rotation]
+    }
+
     Tetromino.update_tetromino_queue = () => {
         let set = [];
         for (let i = 0; i < figures.length; i++) {
-            set.push(new Tetromino(3, 0, cols_width, figures[i].shape_options, figures[i].color))
+            set.push(new Tetromino(TETROMINO_START_X, TETROMINO_START_Y, cols_width, figures[i].shape_options, figures[i].color))
         }
         //Shuffle set
         for (let i = 0; i < set.length; i++) {
@@ -523,12 +628,18 @@ export const sketch = (s) => {
     Tetromino.update_current_tetromino = () => {
         current_tetromino = tetromino_queue.splice(0, 1)[0];
         if (tetromino_queue.length <= 4) Tetromino.update_tetromino_queue();
+        increase_tick_speed()
+        check_fast_drop = false
     }
 
     Tetromino.hold = () => {
         can_swap_hold = false;
         if (!tetromino_hold) {
             tetromino_hold = current_tetromino;
+            tetromino_hold = current_tetromino;
+            tetromino_hold.shape = tetromino_hold.shape_options[TETROMINO_START_ROTATION]
+            tetromino_hold.rotation = TETROMINO_START_ROTATION;
+
             Tetromino.update_current_tetromino()
             return;
         }
@@ -536,14 +647,13 @@ export const sketch = (s) => {
         //If there is already one, swap and reset
         let temp = tetromino_hold;
         tetromino_hold = current_tetromino;
-        tetromino_hold.shape = tetromino_hold.shape_options[0]
+        tetromino_hold.shape = tetromino_hold.shape_options[TETROMINO_START_ROTATION]
+        tetromino_hold.rotation = TETROMINO_START_ROTATION;
 
         current_tetromino = temp;
         current_tetromino.x = 3;
         current_tetromino.y = 0;
     }
-
-
 
     let Status_Bar = function (x, y, w, h) {
         this.x = x;
@@ -636,30 +746,78 @@ export const sketch = (s) => {
         }
 
         s.fill(BACKGROUND_COLOR)
+
+    }
+
+    //Gameplay
+    function increase_tick_speed() {
+        let ds = 1;
+        if (tick_interval >= 100)
+            tick_interval -= ds;
+    }
+
+    function start_tick_interval() {
+        return window.setInterval(() => {
+            board.tick();
+        }, tick_interval);
+    }
+
+    function start_grace_period_timeout() {
+        grace_period = true;
+        grace_period_handler = window.setTimeout(() => {
+            grace_period = false;
+        }, grace_period_time)
+    }
+
+    function restart_grace_period_timeout() {
+        window.clearTimeout(grace_period_handler)
+        start_grace_period_timeout()
+    }
+
+    function skip_grace_period() {
+        window.clearTimeout(grace_period_handler)
+        grace_period = false;
+        board.tick();
     }
 
     // CONTROLS
     s.keyPressed = () => {
+
         switch (s.keyCode) {
             case s.RIGHT_ARROW:
                 if (board.will_collision_right()) break;
                 current_tetromino.move_right();
+                restart_grace_period_timeout(grace_period_handler)
                 break;
             case s.LEFT_ARROW:
                 if (board.will_collision_left()) break;
                 current_tetromino.move_left();
+                restart_grace_period_timeout(grace_period_handler)
                 break;
             case s.DOWN_ARROW:
-                if (board.will_collision_down()) break;
+                check_fast_drop = true;
+                if (board.will_collision_down(current_tetromino)) break;
                 current_tetromino.move_down();
+                restart_grace_period_timeout(grace_period_handler)
                 break;
             case 69: //E
                 if (board.will_collision_rotate_right()) break;
                 current_tetromino.rotate_90_right();
+                restart_grace_period_timeout(grace_period_handler)
                 break;
             case 81: //Q
                 if (board.will_collision_rotate_left()) break;
                 current_tetromino.rotate_90_left();
+                restart_grace_period_timeout(grace_period_handler)
+                break;
+            case 87: //W
+                if (board.will_collision_rotate_left()) break;
+                current_tetromino.rotate_180();
+                restart_grace_period_timeout(grace_period_handler)
+                break;
+            case 32: //Spacebar
+                board.hard_drop();
+                skip_grace_period()
                 break;
             case 16: //Shift
                 if (!can_swap_hold) break;
@@ -672,6 +830,11 @@ export const sketch = (s) => {
     }
 
     s.mousePressed = () => {
+
+        if (grace_period) {
+            restart_grace_period_timeout(grace_period_handler)
+        }
+
         if (board.will_collision_rotate_right()) return;
         current_tetromino.rotate_90_right();
     }
@@ -715,8 +878,8 @@ export const sketch = (s) => {
                     Tetromino.hold()
             } else {
                 //Swipe down
-                if (!board.will_collision_rotate_left())
-                    current_tetromino.rotate_90_left();
+                board.hard_drop();
+                skip_grace_period()
             }
         }
         /* reset values */

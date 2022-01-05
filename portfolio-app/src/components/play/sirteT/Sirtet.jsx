@@ -32,9 +32,9 @@ export class Tetris extends React.Component {
                         <h1 className="color-custom-tetris-light text-xl font-extrabold underline ml-2 mt-3"> Mobile Controls </h1>
                         <ol className="color-custom-tetris-dark text-lg list-disc ml-6 mt-3">
                             <li> Tap - Rotate 90° Right</li>
-                            <li> Swpe Down - Rotate 90° Left </li>
+                            <li> Swpe Down - Hard Drop </li>
                             <li> Swipe Left and Right - Move Horizontally</li>
-                            <li> Swipe Up - Swap piece</li>
+                            <li> Swipe Up - Swap Tetromino</li>
                         </ol>
 
                         <h1 className="color-custom-tetris-light text-xl font-extrabold underline ml-2 mt-3"> Keyboard Controls </h1>
@@ -42,8 +42,9 @@ export class Tetris extends React.Component {
                             <li> E - Rotate 90° Right</li>
                             <li> Q - Rotate 90° Left </li>
                             <li> Left and Right Arrows - Move Horizontally</li>
-                            <li> Down Arrow - Fast Drop </li>
-                            <li> Shift - Swap piece</li>
+                            <li> Down Arrow - Soft Drop </li>
+                            <li> Space Bar - Hard Drop </li>
+                            <li> Shift - Swap Tetromino</li>
                         </ol>
 
                         {
