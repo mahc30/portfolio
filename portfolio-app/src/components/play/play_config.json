@@ -1,0 +1,16 @@
+{
+    "games": [
+        {
+            "title": "AilenSweeper",
+            "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay.",
+            "img": "ailensweeper_logo.png",
+            "link": "ailensweeper"
+        },
+        {
+            "title": "Tetris",
+            "description": "¡Tetris!",
+            "img": "tetris_logo.png",
+            "link": "tetris"
+        }
+    ]
+}

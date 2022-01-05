@@ -72,6 +72,26 @@ code {
     color: #cc0077;
 }
 
+.bg-custom-tetris {
+    --tw-bg-opacity: 1;
+    background-color: #c1edd9;
+}
+
+.bg-custom-tetris-dark {
+    --tw-bg-opacity: 1;
+    background-color:#58c9e5;
+}
+
+.color-custom-tetris-dark{
+    --tw-bg-opacity: 1;
+    color: #0c5885;
+}
+
+.color-custom-tetris-light{
+    --tw-bg-opacity: 1;
+    color: #298bc5;
+}
+
 .border-custom-100 {
     --tw-border-opacity: 1;
     border-color: rgba(62, 71, 86, var(--tw-border-opacity));

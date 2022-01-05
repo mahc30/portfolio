@@ -23,9 +23,17 @@ export class SectionWrapper extends React.Component {
                                              <h2 className="font-bold text-lg">{card.title}</h2>
                                          </div>
                                          <div>
-                                        <a target="blank" href={card.link} onClick={() => this.props.handleRedirect("showoff")}>
+
+                                        {card.link ?
+                                        <a target="blank" href={card.link}>
                                             <img className="max-h-48 md:max-h-64 2xl:max-h-56 w-full mx-auto" src={img_route + card.img} alt={card.title}/>
                                         </a>
+                                        : //Custom routing
+                                        <a onClick={() => this.props.handleRedirect("showoff")}>
+                                            <img className="max-h-48 md:max-h-64 2xl:max-h-56 w-full mx-auto" src={img_route + card.img} alt={card.title}/>
+                                        </a>
+                                        }
+                                        
                                     </div>
                                     
                                     <div className="text my-8 align-middle px-2 text-center">

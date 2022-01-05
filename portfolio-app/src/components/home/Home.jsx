@@ -3,6 +3,7 @@ import { SectionWrapper }  from './SectionWrapper.jsx'
 import { Landing } from './Landing.jsx'
 import { ContactMe } from './ContactMe.jsx'
 import { Separador } from './Separador.jsx'
+import { ShowOff } from '../play/ShowOff.jsx'
 import home_config from './home_config';
 
 export class Home extends React.Component {
@@ -29,6 +30,8 @@ export class Home extends React.Component {
 
                     })}
                 </>
+                <ShowOff handleRedirect={this.props.handleRedirect}/>
+                <Separador/>
                 <ContactMe/>
 
             </div>     

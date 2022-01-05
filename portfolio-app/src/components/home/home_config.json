@@ -25,7 +25,7 @@
                     "title": "Education Clusters Analysis",
                     "description": "Statistic Analysis of posible education focuses for the creation of a city wide studies plan amid covid19 pandemic economic recovery efforts.",
                     "img": "cluster_1.png",
-                    "link": ""
+                    "link": "/"
                 }
             ]
         },
@@ -52,12 +52,14 @@
             "cards": [{
                     "title": "Computer Science",
                     "description": "Studied Computer Science in Universidad Pontificia Bolivariana, (expecting to be) graduated in 2022 with the title 'Ingeniero de Sistemas e Informática'.",
-                    "img": "upb_logo.png"
+                    "img": "upb_logo.png",
+                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
                 },
                 {
                     "title": "Architecting with Google Compute Engine Specialization",
                     "description": "Completed a 9 week course about the google cloud infrastructure, from essential core services such as compute engine up to scaling and automation. ",
-                    "img": "googleCloud_logo.png"
+                    "img": "googleCloud_logo.png",
+                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
                 },
                 {
                     "title": "Coursera",
@@ -66,14 +68,6 @@
                     "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
                 }
             ]
-        },
-        {
-            "title": "Want to see more?",
-            "cards": [{
-                "title": "¡Play Now!",
-                "description": "¡You can actually play with some of my projects in this site! just click on the image to be redirected.",
-                "img": "console_controller.png"
-            }]
         }
     ]
 

@@ -1,10 +1,13 @@
 import React from 'react'
 import { Home } from './home/Home.jsx'
-import { ShowOff } from './play/ShowOff.jsx';
+import { Ailensweeper } from './play/ailens/Ailensweeper'
+import { Tetris } from './play/sirteT/Sirtet'
+
 
 let routes = {
     "portfolio": Home,
-    "showoff": ShowOff
+    "ailensweeper": Ailensweeper,
+    "tetris": Tetris
 }
 
 export class MyRouter extends React.Component {
@@ -12,7 +15,8 @@ export class MyRouter extends React.Component {
         super(props);
         this.state = {
             currentPage: Home,
-            currentKey: 0
+            currentKey: 0,
+            play_pick: false
         };
 
         this.handleRedirect = this.handleRedirect.bind(this);
@@ -24,6 +28,8 @@ export class MyRouter extends React.Component {
             currentKey: this.state.currentKey + 1
         })
     }
+
+    
 
     render() {
         return(
