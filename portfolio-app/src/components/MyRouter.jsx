@@ -2,19 +2,20 @@ import React from 'react'
 import { Home } from './home/Home.jsx'
 import { Ailensweeper } from './play/ailens/Ailensweeper'
 import { Tetris } from './play/sirteT/Sirtet'
-
+import { Djikstra } from './play/djikstra/Djikstra'
 
 let routes = {
     "portfolio": Home,
     "ailensweeper": Ailensweeper,
-    "tetris": Tetris
+    "tetris": Tetris,
+    "djikstra": Djikstra
 }
 
 export class MyRouter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentPage: Home,
+            currentPage: Djikstra,
             currentKey: 0,
             play_pick: false
         };
