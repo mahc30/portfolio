@@ -56,31 +56,35 @@ export class Board<T> {
         }
     }
 
-    drawCartesianPointsGridGraph() {
+    drawDjikstraCartesianPointsGridGraph() {
         if (typeof this.custom === undefined) return;
-        let graph: Graph<Point> = this.custom as Graph<Point>;
+        let graph: Graph<T> = this.custom as Graph<T>;
         let nodes = graph.getNodes();
         let data: DjikstraNodeData;
         nodes.forEach(node => {
+
             data = node.getData() as DjikstraNodeData;
             this.s.noFill()
-            this.s.rect(node.getKey().getX() * this.cols_width, node.getKey().getY() * this.rows_height, this.cols_width, this.rows_height);
+            //this.s.rect(data.getPoint().getX() * this.cols_width, data.getPoint().getY() * this.rows_height, this.cols_width, this.rows_height);
 
-            this.s.fill("BLUE");
-            this.s.circle(node.getKey().getX() * this.cols_width + this.offset, node.getKey().getY() * this.rows_height + this.offset, this.offset);
+            //console.log(data.isVisited())
+            data.isVisited() ? this.s.fill("RED") : this.s.fill("BLACK");
+            this.s.circle(data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset, this.offset);
 
             node.getAdjacent().forEach(neighbor => {
-                this.s.line(node.getKey().getX() * this.cols_width + this.offset,
-                    node.getKey().getY() * this.rows_height + this.offset,
+                let nData = neighbor.getData() as DjikstraNodeData;
 
-                    neighbor.getKey().getX() * this.cols_width + this.offset,
-                    neighbor.getKey().getY() * this.rows_height + this.offset,
+                this.s.line(data.getPoint().getX() * this.cols_width + this.offset,
+                    data.getPoint().getY() * this.rows_height + this.offset,
+                    
+                    nData.getPoint().getX() * this.cols_width + this.offset,
+                    nData.getPoint().getY() * this.rows_height + this.offset,
 
                 )
             })
+            this.s.fill("BLUE");
 
-            data.isVisited() ? this.s.fill("RED") : this.s.fill("WHITE");
-            this.s.text(`${node.getKey().getX()},${node.getKey().getY()}\nCost: ${data.getCost()}\nTentativeD: ${data.getTentativeDistance()}`, node.getKey().getX() * this.cols_width + this.offset, node.getKey().getY() * this.rows_height + this.offset);
+            this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}\nCost: ${data.getCost()}\nTentativeD: ${data.getTentativeDistance()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
         })
     }
 }

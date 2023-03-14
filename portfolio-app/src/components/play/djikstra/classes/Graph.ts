@@ -1,7 +1,8 @@
 import { Node } from "../helpers/node";
-import { Point } from "../helpers/point";
-import { DjikstraNodeData } from "../helpers/djikstraNodeData";
 import { Queue } from "../helpers/queue";
+import { listToMatrix } from "../helpers/arrayHelpers";
+import { DjikstraNodeData } from "../helpers/djikstraNodeData";
+import { Point } from "../helpers/point";
 
 export class Graph<T> {
     private nodes: Map<T, Node<T>> = new Map();
@@ -10,7 +11,7 @@ export class Graph<T> {
         this.comparator = comparator;
     }
 
-    getNodes() : Map<T, Node<T>>{
+    getNodes(): Map<T, Node<T>> {
         return this.nodes;
     }
     /**
@@ -137,46 +138,7 @@ export class Graph<T> {
         });
     }
 
-    djikstraPathFinding(initialNodeKey: T, targetNodeKey: T) {
-        let initialNode = this.nodes.get(initialNodeKey);
-        if (initialNode === undefined) return;
 
-        let visited: Map<T, boolean> = new Map();
-        let initialNodeData: DjikstraNodeData = this.nodes.get(initialNodeKey)?.getData() as DjikstraNodeData;
-        initialNodeData.setTentativeDistance(0);
-
-        let currentPoint = initialNode.getKey() as Point;
-        const queue: Queue<Node<T>> = new Queue();
-        queue.push(initialNode);
-        visited.set(initialNodeKey, true);
-
-        while (!queue.isEmpty()) {
-            let currentNode = queue.pop();
-            if (!currentNode) continue;
-
-            currentNode.getAdjacent().forEach((neighborNode) => {
-                let neighborData = neighborNode.getData() as DjikstraNodeData;
-                if (!visited.has(neighborNode.getKey())) {
-                    queue.push(neighborNode)
-                    let neighborCost = neighborData.getCost();
-                    let neighborPoint = neighborNode.getKey() as Point;
-
-                    let currentDistance = Math.floor(Math.sqrt(Math.pow(currentPoint.getX(), 2) + Math.pow(currentPoint.getY(), 2)));;
-                    let neighborDistance = Math.sqrt(Math.pow(neighborPoint.getX(), 2) + Math.pow(neighborPoint.getY(), 2));;
-
-                    let relativeDistance = Math.abs(currentDistance - neighborDistance);
-
-                    let totalCost = currentDistance + neighborCost + relativeDistance;
-
-                    if (totalCost > neighborDistance) neighborData.setTentativeDistance(totalCost);
-
-                    visited.set(neighborNode.getKey(), true);
-                    if(visited.has(targetNodeKey)) console.log("SE FINI")
-                    neighborNode.setData(neighborData as T);
-                }
-            });
-        }
-    }
 }
 
 export class GraphFactory<T> {
@@ -246,9 +208,29 @@ export class GraphFactory<T> {
             head = objectIterator.next();
         }
 
-        for(let i = 1; i < points.length; i++){
-            graph.addEdge(points[i], points[i-1])
+        let grid: T[][] = listToMatrix(points, n);
+        for (let x = 0; x < grid.length; x++) {
+
+            for (let y = 0; y < grid.length; y++) {
+                if (grid[x + 1] != undefined) {
+                    graph.addEdge(grid[x][y], grid[x + 1][y])
+                }
+                if (grid[x][y + 1] != undefined) {
+                    graph.addEdge(grid[x][y], grid[x][y + 1])
+                }
+
+                if (grid[x + 1] != undefined && grid[x][y + 1] != undefined) graph.addEdge(grid[x][y], grid[x + 1][y + 1])
+            }
         }
+
+        return graph;
+    }
+
+    generateCustomGraph(map: Map<T, Node<T>>): Graph<T> {
+        let graph: Graph<T> = new Graph(this.comparator);
+        map.forEach(node => {
+            graph.addNode(node.getKey(), node.getData());
+        });
 
         return graph;
     }

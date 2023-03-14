@@ -20,4 +20,8 @@ export class Point {
         if(a.x != b.x) return 1;
         return 0;
     }
+
+    static distance(a: Point, b: Point){
+        return Math.sqrt(Math.pow(a.getX(),2) - Math.pow(b.getX(),2) + Math.pow(a.getY(), 2) - Math.pow(b.getY(), 2));
+    }
 }
