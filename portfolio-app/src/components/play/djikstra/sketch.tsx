@@ -39,25 +39,25 @@ let rows: number;
 let board: Board<Node<Point>>;
 
 let initialPoint = 1;
-let finalPoint = 16;
+let finalPoint = 14;
 
 let squareGridPointMap = new Map<number, Object>([
     [initialPoint, new DjikstraNodeData(1, new Point(0, 0))],
     [2, new DjikstraNodeData(100, new Point(0, 1))],
-    [3, new DjikstraNodeData(100, new Point(0, 2))],
-    [4, new DjikstraNodeData(100, new Point(0, 3))],
+    [3, new DjikstraNodeData(120, new Point(0, 2))],
+    [4, new DjikstraNodeData(150, new Point(0, 3))],
     [5, new DjikstraNodeData(100, new Point(1, 0))],
     [6, new DjikstraNodeData(100, new Point(1, 1))],
     [7, new DjikstraNodeData(100, new Point(1, 2))],
-    [8, new DjikstraNodeData(100, new Point(1, 3))],
+    [8, new DjikstraNodeData(130, new Point(1, 3))],
     [9, new DjikstraNodeData(100, new Point(2, 0))],
     [10, new DjikstraNodeData(100, new Point(2, 1))],
-    [11, new DjikstraNodeData(100, new Point(2, 2))],
-    [12, new DjikstraNodeData(100, new Point(2, 3))],
+    [11, new DjikstraNodeData(10, new Point(2, 2))],
+    [12, new DjikstraNodeData(0, new Point(2, 3))],
     [13, new DjikstraNodeData(100, new Point(3, 0))],
-    [14, new DjikstraNodeData(100, new Point(3, 1))],
+    [finalPoint, new DjikstraNodeData(100, new Point(3, 1))],
     [15, new DjikstraNodeData(100, new Point(3, 2))],
-    [finalPoint, new DjikstraNodeData(100, new Point(3, 3))]
+    [16, new DjikstraNodeData(100, new Point(3, 3))]
 ]);
 function comparator(a: number, b: number) {
     if (a < b) return -1;
@@ -69,10 +69,12 @@ let pointGraphFactory = new GraphFactory<number>(comparator, squareGridPointMap)
 
 pointGraphFactory.object = squareGridPointMap;
 let cartesianGridGraph = pointGraphFactory.generateGridGraph(NUM_ROWS, NUM_COLUMNS);
-let djikstra = Djikstra.djikstra(cartesianGridGraph, initialPoint, finalPoint);
-//console.log(djikstra)
+//Djikstra.djikstra(cartesianGridGraph, initialPoint, finalPoint);
 let linearPointGraph = pointGraphFactory.generateLinearGraph();
+//Djikstra.djikstra(linearPointGraph, initialPoint, finalPoint);
+
 let randomPointGraph = pointGraphFactory.generateRandomGraph();
+Djikstra.djikstra(randomPointGraph, initialPoint, finalPoint);
 
 export const sketch = (s: any) => {
     s.setup = () => {
@@ -95,7 +97,7 @@ export const sketch = (s: any) => {
         //let pathGraph = pointGraphFactory.generateCustomGraph(path);
         //console.log(pathGraph)
 
-        board = new Board(s, 0,0, board_w, board_h, NUM_COLUMNS, NUM_ROWS, COLORS, cartesianGridGraph);
+        board = new Board(s, 0,0, board_w, board_h, NUM_COLUMNS, NUM_ROWS, COLORS, randomPointGraph);
         board.setup();
         let canvas = s.createCanvas(board_w, board_h);
 

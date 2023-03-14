@@ -41,6 +41,7 @@ export class Djikstra {
                     
                     visited.set(neighbour.getKey(), true);
                     nData.setVisited(true);
+                    if(visited.has(targetNodeKey)) console.log("End")
                 }
             });
         }
