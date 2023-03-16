@@ -1,6 +1,7 @@
 import { Board } from "./classes/Board";
 import { Djikstra } from "./classes/Djikstra";
 import { GraphFactory } from "./classes/Graph";
+import { numberComparator } from "./helpers/comparators";
 import { DjikstraNodeData } from "./helpers/djikstraNodeData";
 import { Node } from "./helpers/node";
 import { Point } from "./helpers/point";
@@ -79,18 +80,13 @@ let squareGridPointMap = new Map<number, Object>([
     [54, new DjikstraNodeData(1, new Point(5, 4))],
     [55, new DjikstraNodeData(1, new Point(5, 5))],
 ]);
-function comparator(a: number, b: number) {
-    if (a < b) return -1;
-    if (a > b) return 1;
-    return 0;
-}
 
-let pointGraphFactory = new GraphFactory<number>(comparator, squareGridPointMap);
+let pointGraphFactory = new GraphFactory<number>(numberComparator, squareGridPointMap);
 
 pointGraphFactory.object = squareGridPointMap;
-let graph = pointGraphFactory.generateGridGraph(NUM_ROWS, NUM_COLUMNS);
+let graph = pointGraphFactory.generateRandomGraph();
 let path = Djikstra.djikstra(graph, initialPoint, finalPoint);
-console.log(path.getNodes().get(6))
+console.log(path)
 //graph = pointGraphFactory.generateLinearGraph();
 
 //let suggestedPath = Djikstra.djikstra(graph, initialPoint, finalPoint);

@@ -1,3 +1,4 @@
+import { numberComparator } from "../helpers/comparators";
 import { DjikstraNodeData } from "../helpers/djikstraNodeData";
 import { Node } from "../helpers/node";
 import { PriorityQueue } from "../helpers/priorityQueue";
@@ -37,7 +38,6 @@ export class Djikstra {
                     let nData = neighbour.getData() as DjikstraNodeData;
                     let nCost = nData.getCost();
                     let newcost = nCost + currentData.getTentativeDistance();
-                    console.log(newcost, `(${current?.getKey()}, ${neighbour.getKey()})`);
                     if (newcost < nData.getTentativeDistance()) {
                         nData.setTentativeDistance(newcost);
                         if (current) {
@@ -50,8 +50,7 @@ export class Djikstra {
             });
         }
 
-        console.log(outPath)
-        let shortestPath : Map<Number, Node<number>> = new Map();
+        let shortestPath : Map<number, Node<number>> = new Map();
         let head = outPath.get(targetNodeKey)
 
         while(head && head.getKey() !== initialNodeKey){
@@ -61,8 +60,8 @@ export class Djikstra {
             head = outPath.get(head.getKey())
         }
 
-        let pathGraph: Graph<number> = new Graph(graph.comparator);
-        let graphFactory = new GraphFactory(graph.comparator, outPath)
+        let pathGraph: Graph<number> = new Graph(numberComparator);
+        let graphFactory = new GraphFactory(numberComparator, shortestPath)
         pathGraph = graphFactory.generateLinearGraph();
         let targetNode = nodes.get(targetNodeKey);
         if(targetNode) targetNode.getData().setIsTarget(true);
