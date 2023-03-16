@@ -211,15 +211,19 @@ export class GraphFactory<T> {
         let grid: T[][] = listToMatrix(points, n);
         for (let x = 0; x < grid.length; x++) {
 
-            for (let y = 0; y < grid.length; y++) {
+            for (let y = 0; y < grid[x].length; y++) {
                 if (grid[x + 1] != undefined) {
                     graph.addEdge(grid[x][y], grid[x + 1][y])
                 }
                 if (grid[x][y + 1] != undefined) {
                     graph.addEdge(grid[x][y], grid[x][y + 1])
-                }
 
+                }
+                if (grid[x][y - 1] != undefined) {
+                    graph.addEdge(grid[x][y], grid[x][y - 1])
+                }
                 if (grid[x + 1] != undefined && grid[x][y + 1] != undefined) graph.addEdge(grid[x][y], grid[x + 1][y + 1])
+                if (grid[x + 1] != undefined && grid[x][y - 1] != undefined) graph.addEdge(grid[x][y], grid[x + 1][y - 1])
             }
         }
 

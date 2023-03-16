@@ -1,4 +1,4 @@
-
+//Works as Stack won't rename it
 export class PriorityQueue<T> {
     data: [number, T][] = [];
     constructor() {
@@ -16,7 +16,7 @@ export class PriorityQueue<T> {
                 return
             }
 
-            if (this.data[index][0] > p) {
+            if (this.data[index][0] < p) {
                 this.data.splice(index, 0, [p, i])
                 return
             }

@@ -68,21 +68,23 @@ export class Board<T> {
             //this.s.rect(data.getPoint().getX() * this.cols_width, data.getPoint().getY() * this.rows_height, this.cols_width, this.rows_height);
 
             //console.log(data.isVisited())
-            data.isVisited() ? this.s.fill("RED") : this.s.fill("BLACK");
+            data.isVisited() ? this.s.fill("RED") : this.s.fill("WHITE");
+            if(data.isPath()) this.s.fill("Green");
+            if(data.isTarget()) this.s.fill("YELLOW");
+            
             this.s.circle(data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset, this.offset);
 
             node.getAdjacent().forEach(neighbor => {
                 let nData = neighbor.getData() as DjikstraNodeData;
 
-                this.s.line(data.getPoint().getX() * this.cols_width + this.offset,
+                this.s.line(
+                    data.getPoint().getX() * this.cols_width + this.offset,
                     data.getPoint().getY() * this.rows_height + this.offset,
-                    
                     nData.getPoint().getX() * this.cols_width + this.offset,
                     nData.getPoint().getY() * this.rows_height + this.offset,
-
                 )
             })
-            this.s.fill("BLUE");
+            this.s.fill("BLACK");
 
             this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}\nCost: ${data.getCost()}\nTentativeD: ${data.getTentativeDistance()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
         })

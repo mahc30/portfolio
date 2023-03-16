@@ -24,8 +24,8 @@ const BORDER_COLOR = COLORS[7].dark;
 const BOARD_GRID_COLOR = COLORS[7].dark;
 
 //Game State
-const NUM_COLUMNS = 4;
-const NUM_ROWS = 4;
+const NUM_COLUMNS = 6;
+const NUM_ROWS = 6;
 
 //Others
 let width: number;
@@ -38,26 +38,46 @@ let rows: number;
 
 let board: Board<Node<Point>>;
 
-let initialPoint = 1;
-let finalPoint = 14;
+let initialPoint = 12;
+let finalPoint = 35;
 
 let squareGridPointMap = new Map<number, Object>([
-    [initialPoint, new DjikstraNodeData(1, new Point(0, 0))],
-    [2, new DjikstraNodeData(100, new Point(0, 1))],
-    [3, new DjikstraNodeData(120, new Point(0, 2))],
-    [4, new DjikstraNodeData(150, new Point(0, 3))],
-    [5, new DjikstraNodeData(100, new Point(1, 0))],
-    [6, new DjikstraNodeData(100, new Point(1, 1))],
-    [7, new DjikstraNodeData(100, new Point(1, 2))],
-    [8, new DjikstraNodeData(130, new Point(1, 3))],
-    [9, new DjikstraNodeData(100, new Point(2, 0))],
-    [10, new DjikstraNodeData(100, new Point(2, 1))],
-    [11, new DjikstraNodeData(10, new Point(2, 2))],
-    [12, new DjikstraNodeData(0, new Point(2, 3))],
-    [13, new DjikstraNodeData(100, new Point(3, 0))],
-    [finalPoint, new DjikstraNodeData(100, new Point(3, 1))],
-    [15, new DjikstraNodeData(100, new Point(3, 2))],
-    [16, new DjikstraNodeData(100, new Point(3, 3))]
+    [1, new DjikstraNodeData(0, new Point(0, 0))],
+    [2, new DjikstraNodeData(1, new Point(0, 1))],
+    [3, new DjikstraNodeData(1, new Point(0, 2))],
+    [4, new DjikstraNodeData(1, new Point(0, 3))],
+    [5, new DjikstraNodeData(1, new Point(0, 4))],
+    [6, new DjikstraNodeData(1, new Point(0, 5))],
+    [10, new DjikstraNodeData(1, new Point(1, 0))],
+    [11, new DjikstraNodeData(1, new Point(1, 1))],
+    [initialPoint, new DjikstraNodeData(1, new Point(1, 2))],
+    [13, new DjikstraNodeData(1, new Point(1, 3))],
+    [14, new DjikstraNodeData(1, new Point(1, 4))],
+    [15, new DjikstraNodeData(1, new Point(1, 5))],
+    [20, new DjikstraNodeData(1, new Point(2, 0))],
+    [21, new DjikstraNodeData(1, new Point(2, 1))],
+    [22, new DjikstraNodeData(1, new Point(2, 2))],
+    [23, new DjikstraNodeData(1, new Point(2, 3))],
+    [24, new DjikstraNodeData(1, new Point(2, 4))],
+    [25, new DjikstraNodeData(1, new Point(2, 5))],
+    [30, new DjikstraNodeData(1, new Point(3, 0))],
+    [31, new DjikstraNodeData(1, new Point(3, 1))],
+    [32, new DjikstraNodeData(1, new Point(3, 2))],
+    [33, new DjikstraNodeData(1, new Point(3, 3))],
+    [34, new DjikstraNodeData(1, new Point(3, 4))],
+    [finalPoint, new DjikstraNodeData(1, new Point(3, 5))],
+    [40, new DjikstraNodeData(1, new Point(4, 0))],
+    [41, new DjikstraNodeData(1, new Point(4, 1))],
+    [42, new DjikstraNodeData(1, new Point(4, 2))],
+    [43, new DjikstraNodeData(1, new Point(4, 3))],
+    [44, new DjikstraNodeData(1, new Point(4, 4))],
+    [45, new DjikstraNodeData(1, new Point(4, 5))],
+    [50, new DjikstraNodeData(1, new Point(5, 0))],
+    [51, new DjikstraNodeData(1, new Point(5, 1))],
+    [52, new DjikstraNodeData(1, new Point(5, 2))],
+    [53, new DjikstraNodeData(1, new Point(5, 3))],
+    [54, new DjikstraNodeData(1, new Point(5, 4))],
+    [55, new DjikstraNodeData(1, new Point(5, 5))],
 ]);
 function comparator(a: number, b: number) {
     if (a < b) return -1;
@@ -68,13 +88,15 @@ function comparator(a: number, b: number) {
 let pointGraphFactory = new GraphFactory<number>(comparator, squareGridPointMap);
 
 pointGraphFactory.object = squareGridPointMap;
-let cartesianGridGraph = pointGraphFactory.generateGridGraph(NUM_ROWS, NUM_COLUMNS);
-//Djikstra.djikstra(cartesianGridGraph, initialPoint, finalPoint);
-let linearPointGraph = pointGraphFactory.generateLinearGraph();
-//Djikstra.djikstra(linearPointGraph, initialPoint, finalPoint);
+let graph = pointGraphFactory.generateGridGraph(NUM_ROWS, NUM_COLUMNS);
+let path = Djikstra.djikstra(graph, initialPoint, finalPoint);
+console.log(path.getNodes().get(6))
+//graph = pointGraphFactory.generateLinearGraph();
 
+//let suggestedPath = Djikstra.djikstra(graph, initialPoint, finalPoint);
+//console.log(suggestedPath)
 let randomPointGraph = pointGraphFactory.generateRandomGraph();
-Djikstra.djikstra(randomPointGraph, initialPoint, finalPoint);
+//Djikstra.djikstra(randomPointGraph, initialPoint, finalPoint);
 
 export const sketch = (s: any) => {
     s.setup = () => {
@@ -93,11 +115,11 @@ export const sketch = (s: any) => {
         s.fill(BACKGROUND_COLOR)
         s.frameRate()
 
-        //let path = cartesianGridGraph.djikstraPathFinding(initialPoint, finalPoint);
+        //let path = graph.djikstraPathFinding(initialPoint, finalPoint);
         //let pathGraph = pointGraphFactory.generateCustomGraph(path);
         //console.log(pathGraph)
 
-        board = new Board(s, 0,0, board_w, board_h, NUM_COLUMNS, NUM_ROWS, COLORS, randomPointGraph);
+        board = new Board(s, 0,0, board_w, board_h, NUM_COLUMNS, NUM_ROWS, COLORS, graph);
         board.setup();
         let canvas = s.createCanvas(board_w, board_h);
 

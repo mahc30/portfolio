@@ -1,10 +1,13 @@
 import { Point } from "./point";
+import { Stack } from "./stack";
 
 export class DjikstraNodeData {
     private cost : number;
     private tentativeDistance: number = Math.pow(10,1000);
     private visited: boolean = false;
+    private IsPath: boolean = false;
     private point: Point;
+    private IsTarget: boolean = false;
 
     constructor(cost : number, point: Point) {
         this.cost = cost;        
@@ -33,5 +36,21 @@ export class DjikstraNodeData {
 
     getPoint(): Point {
         return this.point;
+    }
+
+    isPath() : boolean {
+        return this.IsPath;
+    }
+
+    setIsPath(isPath: boolean){
+        this.IsPath = isPath;
+    }
+
+    setIsTarget(isTarget: boolean){
+        this.IsTarget = isTarget;
+    }
+
+    isTarget() : boolean{
+        return this.IsTarget;
     }
 }
