@@ -196,7 +196,6 @@ export class GraphFactory<T> {
 
     generateGridGraph(n: number, m: number): Graph<T> {
         let graph: Graph<T> = new Graph<T>(this.comparator);
-        let nodes: Node<T>[] = [];
         let points: T[] = [];
 
         let objectIterator = this.object.keys();
@@ -204,29 +203,74 @@ export class GraphFactory<T> {
 
         while (head.value) {
             points.push(head.value);
-            nodes.push(graph.addNode(head.value, this.object.get(head.value)))
+            graph.addNode(head.value, this.object.get(head.value))
             head = objectIterator.next();
         }
 
         let grid: T[][] = listToNxMMatrix(points, n, m);
-        console.log(grid)
+
         for (let x = 0; x < grid.length; x++) {
-
+            let edgeRight: boolean = grid[x + 1] !== undefined;
+            let edgeLeft: boolean = grid[x - 1] !== undefined;
             for (let y = 0; y < grid[x].length; y++) {
-                if (grid[x + 1] != undefined) graph.addEdge(grid[x][y], grid[x + 1][y]);
-                if (grid[x][y + 1] != undefined) graph.addEdge(grid[x][y], grid[x][y + 1]);
-                if (grid[x][y - 1] != undefined) graph.addEdge(grid[x][y], grid[x][y - 1]);
-                if (grid[x + 1] != undefined && grid[x][y + 1] != undefined)graph.addEdge(grid[x][y], grid[x + 1][y + 1]);
-                if (grid[x + 1] != undefined && grid[x][y - 1] != undefined) graph.addEdge(grid[x][y], grid[x + 1][y - 1]);
+                if (edgeRight) {
+                    if (grid[x][y + 1]) graph.addEdge(grid[x][y], grid[x + 1][y + 1]);
+                    if (grid[x][y - 1]) graph.addEdge(grid[x][y], grid[x + 1][y - 1]);
+                    graph.addEdge(grid[x][y], grid[x + 1][y]);
+                }
 
-                if(grid[x-1] !== undefined) graph.addEdge(grid[x][y], grid[x-1][y]);
-                if(grid[x-1] !== undefined && grid[x-1][y-1] !== undefined) graph.addEdge(grid[x][y], grid[x-1][y-1]);
-                if(grid[x-1] !== undefined && grid[x-1][y+1] !== undefined) graph.addEdge(grid[x][y], grid[x-1][y+1]);
+                if (edgeLeft) {
+                    if (grid[x - 1][y - 1]) graph.addEdge(grid[x][y], grid[x - 1][y - 1]);
+                    if (grid[x - 1][y + 1]) graph.addEdge(grid[x][y], grid[x - 1][y + 1]);
+                    graph.addEdge(grid[x][y], grid[x - 1][y]);
+                }
+
+                if(grid[x][y+1]) graph.addEdge(grid[x][y], grid[x][y+1]);
+                if(grid[x][y-1]) graph.addEdge(grid[x][y], grid[x][y-1]);
             }
         }
 
+        console.log(graph)
         return graph;
     }
+
+    generateDiagonalGridGraph(n: number, m: number): Graph<T> {
+        let graph: Graph<T> = new Graph<T>(this.comparator);
+        let points: T[] = [];
+
+        let objectIterator = this.object.keys();
+        let head = objectIterator.next();
+
+        while (head.value) {
+            points.push(head.value);
+            graph.addNode(head.value, this.object.get(head.value))
+            head = objectIterator.next();
+        }
+
+        let grid: T[][] = listToNxMMatrix(points, n, m);
+
+        for (let x = 0; x < grid.length; x++) {
+            let edgeRight: boolean = grid[x + 1] !== undefined;
+            let edgeLeft: boolean = grid[x - 1] !== undefined;
+            for (let y = 0; y < grid[x].length; y++) {
+                if (edgeRight) {
+                    if (grid[x][y + 1]) graph.addEdge(grid[x][y], grid[x + 1][y + 1]);
+                    if (grid[x][y - 1]) graph.addEdge(grid[x][y], grid[x + 1][y - 1]);
+                }
+
+                if (edgeLeft) {
+                    if (grid[x - 1][y - 1]) graph.addEdge(grid[x][y], grid[x - 1][y - 1]);
+                    if (grid[x - 1][y + 1]) graph.addEdge(grid[x][y], grid[x - 1][y + 1]);
+                }
+
+                if(grid[x][y+1]) graph.addEdge(grid[x][y], grid[x][y+1]);
+                if(grid[x][y-1]) graph.addEdge(grid[x][y], grid[x][y-1]);
+            }
+        }
+        
+        return graph;
+    }
+
 
     generateCustomGraph(map: Map<T, Node<T>>): Graph<T> {
         let graph: Graph<T> = new Graph(this.comparator);

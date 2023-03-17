@@ -12,13 +12,14 @@ export class Djikstra {
         let pQ = new PriorityQueue<Node<number>>();
         let outPath: Map<number, Node<number>> = new Map();
 
+        let shortestPath: Map<number, DjikstraNodeData> = new Map();
         let nodes = graph.getNodes();
         let current = nodes.get(initialNodeKey);
-        if (current === undefined) return graph;
-        outPath.set(initialNodeKey, current);
-
+        let targetNode = nodes.get(targetNodeKey);
+        if (!current || !targetNode || current.getKey() === targetNodeKey) return graph;
         let currentData = current.getData() as DjikstraNodeData;
 
+        outPath.set(initialNodeKey, current);
         currentData.setVisited(true);
         currentData.setIsPath(true);
         visited.set(current.getKey(), true);
@@ -27,7 +28,7 @@ export class Djikstra {
         pQ.insertWithPriority(current, 100);
         while (!pQ.isEmpty()) {
             current = pQ.pop();
-            if (current === undefined) break;
+            if (current === undefined || current.getKey() === targetNodeKey) break;
 
             visited.set(current.getKey(), true);
             currentData = current.getData();
@@ -52,21 +53,22 @@ export class Djikstra {
             });
         }
 
-        let shortestPath: Map<number, Node<number>> = new Map();
-        let head = outPath.get(targetNodeKey)
+        let pathGraph: Graph<number> = new Graph(numberComparator);
+        let head = outPath.get(targetNodeKey);
 
-        while (head && head.getKey() !== initialNodeKey) {
+        shortestPath.set(targetNodeKey, targetNode.getData());
+        while (head) {
             head.getData().setIsPath(true);
 
-            shortestPath.set(head.getKey(), head);
-            head = outPath.get(head.getKey())
+            shortestPath.set(head.getKey(), head.getData());
+            if (head.getKey() === initialNodeKey) break;
+            head = outPath.get(head.getKey());
         }
 
-        let pathGraph: Graph<number> = new Graph(numberComparator);
         let graphFactory = new GraphFactory(numberComparator, shortestPath)
         pathGraph = graphFactory.generateLinearGraph();
-        let targetNode = nodes.get(targetNodeKey);
-        if (targetNode) targetNode.getData().setIsTarget(true);
+        targetNode.getData().setIsTarget(true);
+
         return pathGraph;
     }
 
@@ -87,4 +89,3 @@ export class Djikstra {
         return pointMap;
     }
 }
-

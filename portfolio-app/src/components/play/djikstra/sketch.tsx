@@ -23,8 +23,10 @@ const BACKGROUND_COLOR = COLORS[2].light;
 const BOARD_BACKGROUND_COLOR = COLORS[7].hex
 const BORDER_COLOR = COLORS[7].dark;
 const BOARD_GRID_COLOR = COLORS[7].dark;
-const NUM_COLUMNS = 10;
-const NUM_ROWS = 5;
+const NUM_COLUMNS = 12;
+const NUM_ROWS = 6;
+let initialKey = 1;
+let targetKey = 59;
 
 //Game State
 let num_columns: number;
@@ -55,20 +57,19 @@ export const sketch = (s: any) => {
         
         cols_width = Math.floor(width / NUM_COLUMNS);
         rows_height = Math.floor(height / NUM_ROWS)
-        console.log(NUM_COLUMNS*NUM_ROWS)
         gridMap = Djikstra.generateGenericNodeListSingleValue(NUM_COLUMNS, NUM_ROWS);
         graphFactory = new GraphFactory(numberComparator, gridMap);
-        graph = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
-        path = Djikstra.djikstra(graph, 26, 2);
+        graph = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
+        path = Djikstra.djikstra(graph, initialKey, targetKey);
         console.log(path)
         s.fill(BACKGROUND_COLOR);
-        s.frameRate();
+        s.frameRate(1);
 
         //let path = graph.djikstraPathFinding(initialPoint, finalPoint);
         //let pathGraph = pointGraphFactory.generateCustomGraph(path);
         //console.log(pathGraph)
 
-        board = new Board(s, 0, 0, width, height, NUM_COLUMNS, NUM_ROWS, COLORS, graph);
+        board = new Board(s, 0, 0, width, height, NUM_COLUMNS, NUM_ROWS, COLORS, path);
         board.setup();
         let canvas = s.createCanvas(width, height);
         board.drawDjikstraCartesianPointsGridGraph();

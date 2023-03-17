@@ -68,9 +68,9 @@ export class Board<T> {
             this.s.noFill()
             //this.s.rect(data.getPoint().getX() * this.cols_width, data.getPoint().getY() * this.rows_height, this.cols_width, this.rows_height);
 
+            if(data.isVisited()) this.s.fill("RED")
             if (data.isPath()) this.s.fill("Green");
             if(data.isTarget()) this.s.fill("YELLOW");
-
             this.s.circle(data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset, this.offset);
 
             node.getAdjacent().forEach(neighbor => {
