@@ -1,6 +1,7 @@
 import { numberComparator } from "../helpers/comparators";
 import { DjikstraNodeData } from "../helpers/djikstraNodeData";
 import { Node } from "../helpers/node";
+import { Point } from "../helpers/point";
 import { PriorityQueue } from "../helpers/priorityQueue";
 import { Graph, GraphFactory } from "./Graph";
 
@@ -17,6 +18,7 @@ export class Djikstra {
         outPath.set(initialNodeKey, current);
 
         let currentData = current.getData() as DjikstraNodeData;
+
         currentData.setVisited(true);
         currentData.setIsPath(true);
         visited.set(current.getKey(), true);
@@ -44,16 +46,16 @@ export class Djikstra {
                             outPath.set(neighbour.getKey(), current)
                         }
                     }
-                    
+
                     pQ.insertWithPriority(neighbour, newcost);
                 }
             });
         }
 
-        let shortestPath : Map<number, Node<number>> = new Map();
+        let shortestPath: Map<number, Node<number>> = new Map();
         let head = outPath.get(targetNodeKey)
 
-        while(head && head.getKey() !== initialNodeKey){
+        while (head && head.getKey() !== initialNodeKey) {
             head.getData().setIsPath(true);
 
             shortestPath.set(head.getKey(), head);
@@ -64,8 +66,25 @@ export class Djikstra {
         let graphFactory = new GraphFactory(numberComparator, shortestPath)
         pathGraph = graphFactory.generateLinearGraph();
         let targetNode = nodes.get(targetNodeKey);
-        if(targetNode) targetNode.getData().setIsTarget(true);
+        if (targetNode) targetNode.getData().setIsTarget(true);
         return pathGraph;
+    }
+
+    static generateGenericNodeListSingleValue(n: number, m: number): Map<number, DjikstraNodeData> {
+
+        let pointMap: Map<number, DjikstraNodeData> = new Map();
+        let index = 1;
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < m; j++) {
+                let point = new Point(i, j);
+                let key = index++;
+                let data = new DjikstraNodeData(1, point);
+
+                pointMap.set(key, data);
+            }
+        }
+
+        return pointMap;
     }
 }
 

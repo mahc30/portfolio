@@ -1,6 +1,6 @@
 import { Node } from "../helpers/node";
 import { Queue } from "../helpers/queue";
-import { listToMatrix } from "../helpers/arrayHelpers";
+import { listToNxMMatrix } from "../helpers/arrayHelpers";
 import { DjikstraNodeData } from "../helpers/djikstraNodeData";
 import { Point } from "../helpers/point";
 
@@ -208,22 +208,20 @@ export class GraphFactory<T> {
             head = objectIterator.next();
         }
 
-        let grid: T[][] = listToMatrix(points, n);
+        let grid: T[][] = listToNxMMatrix(points, n, m);
+        console.log(grid)
         for (let x = 0; x < grid.length; x++) {
 
             for (let y = 0; y < grid[x].length; y++) {
-                if (grid[x + 1] != undefined) {
-                    graph.addEdge(grid[x][y], grid[x + 1][y])
-                }
-                if (grid[x][y + 1] != undefined) {
-                    graph.addEdge(grid[x][y], grid[x][y + 1])
+                if (grid[x + 1] != undefined) graph.addEdge(grid[x][y], grid[x + 1][y]);
+                if (grid[x][y + 1] != undefined) graph.addEdge(grid[x][y], grid[x][y + 1]);
+                if (grid[x][y - 1] != undefined) graph.addEdge(grid[x][y], grid[x][y - 1]);
+                if (grid[x + 1] != undefined && grid[x][y + 1] != undefined)graph.addEdge(grid[x][y], grid[x + 1][y + 1]);
+                if (grid[x + 1] != undefined && grid[x][y - 1] != undefined) graph.addEdge(grid[x][y], grid[x + 1][y - 1]);
 
-                }
-                if (grid[x][y - 1] != undefined) {
-                    graph.addEdge(grid[x][y], grid[x][y - 1])
-                }
-                if (grid[x + 1] != undefined && grid[x][y + 1] != undefined) graph.addEdge(grid[x][y], grid[x + 1][y + 1])
-                if (grid[x + 1] != undefined && grid[x][y - 1] != undefined) graph.addEdge(grid[x][y], grid[x + 1][y - 1])
+                if(grid[x-1] !== undefined) graph.addEdge(grid[x][y], grid[x-1][y]);
+                if(grid[x-1] !== undefined && grid[x-1][y-1] !== undefined) graph.addEdge(grid[x][y], grid[x-1][y-1]);
+                if(grid[x-1] !== undefined && grid[x-1][y+1] !== undefined) graph.addEdge(grid[x][y], grid[x-1][y+1]);
             }
         }
 

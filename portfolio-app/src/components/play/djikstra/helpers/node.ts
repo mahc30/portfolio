@@ -17,7 +17,7 @@ export class Node<T> {
         return this.key;
     }
 
-    setKey(key: T): void {
+    setKey(key: any): void {
         this.key = key;
     }
 
@@ -25,7 +25,7 @@ export class Node<T> {
         return this.adjacent;
     }
 
-    constructor(comparator: (a: T, b: T) => number, key: T,  data?: T) {
+    constructor(comparator: (a: T, b: T) => number, key: T,  data?: any) {
         this.comparator = comparator;
         this.key = key;
         if (typeof data !== undefined) this.data = data;

@@ -61,17 +61,16 @@ export class Board<T> {
         let graph: Graph<T> = this.custom as Graph<T>;
         let nodes = graph.getNodes();
         let data: DjikstraNodeData;
+
         nodes.forEach(node => {
 
             data = node.getData() as DjikstraNodeData;
             this.s.noFill()
             //this.s.rect(data.getPoint().getX() * this.cols_width, data.getPoint().getY() * this.rows_height, this.cols_width, this.rows_height);
 
-            //console.log(data.isVisited())
-            data.isVisited() ? this.s.fill("RED") : this.s.fill("WHITE");
-            if(data.isPath()) this.s.fill("Green");
+            if (data.isPath()) this.s.fill("Green");
             if(data.isTarget()) this.s.fill("YELLOW");
-            
+
             this.s.circle(data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset, this.offset);
 
             node.getAdjacent().forEach(neighbor => {
@@ -84,9 +83,10 @@ export class Board<T> {
                     nData.getPoint().getY() * this.rows_height + this.offset,
                 )
             })
-            this.s.fill("BLACK");
+            this.s.fill("white");
 
-            this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}\nCost: ${data.getCost()}\nTentativeD: ${data.getTentativeDistance()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
+            this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
+            //this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}\nCost: ${data.getCost()}\nTentativeD: ${data.getTentativeDistance()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
         })
     }
 }
