@@ -7,8 +7,9 @@ import { Point } from "../helpers/point";
 export class Graph<T> {
     private nodes: Map<T, Node<T>> = new Map();
     comparator: (a: T, b: T) => number;
-    constructor(comparator: (a: T, b: T) => number) {
+    constructor(comparator: (a: T, b: T) => number, nodes?: Map<T, Node<T>>) {
         this.comparator = comparator;
+        if(nodes) this.nodes = nodes;
     }
 
     getNodes(): Map<T, Node<T>> {
@@ -101,6 +102,24 @@ export class Graph<T> {
         });
     }
 
+    linearGraphdepthFirstPointSearch(point: Point) : Node<T> | undefined {
+        const visited: Map<T, boolean> = new Map();
+        let iterator = this.nodes.entries();
+        let head = iterator.next()
+
+        while(head.value){
+            let node = head.value[1] as Node<T>;
+            //console.log(node)
+            
+            let data = node.getData() as DjikstraNodeData;
+            //console.log(data)
+
+            if(data.getPoint().getX() === point.getX() && data.getPoint().getY() === point.getY()) break;
+            head = iterator.next();
+        }
+
+        return head.value? head.value[1] as Node<T> : undefined;
+    }
     /**
      * Breadth-first search
      *
@@ -138,6 +157,9 @@ export class Graph<T> {
         });
     }
 
+    clone(){
+        return new Graph(this.comparator, this.nodes)
+    }
 
 }
 
@@ -299,5 +321,22 @@ export class GraphFactory<T> {
                 }
             }, intervalCum);
         });
+    }
+
+    resetDijkstraNodes(){
+        let iterator = this.object.entries();
+        let head = iterator.next();
+
+        while(head.value){
+            
+            let data = head.value[1] as DjikstraNodeData;
+
+            data.setIsPath(false);
+            data.setIsTarget(false);
+            data.setTentativeDistance(10000000000000);
+            data.setVisited(false);
+
+            head = iterator.next();
+        }
     }
 }

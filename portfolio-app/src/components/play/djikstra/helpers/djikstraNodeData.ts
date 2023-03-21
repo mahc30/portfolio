@@ -2,19 +2,19 @@ import { Point } from "./point";
 import { Stack } from "./stack";
 
 export class DjikstraNodeData {
-    private cost : number;
-    private tentativeDistance: number = Math.pow(10,1000);
+    private cost: number;
+    private tentativeDistance: number = Math.pow(10, 1000);
     private visited: boolean = false;
     private IsPath: boolean = false;
     private point: Point;
     private IsTarget: boolean = false;
 
-    constructor(cost : number, point: Point) {
-        this.cost = cost;        
+    constructor(cost: number, point: Point) {
+        this.cost = cost;
         this.point = point;
     }
 
-    getCost() : number {
+    getCost(): number {
         return this.cost;
     }
 
@@ -22,7 +22,7 @@ export class DjikstraNodeData {
         this.tentativeDistance = tentativeDistance;
     }
 
-    getTentativeDistance(): number{
+    getTentativeDistance(): number {
         return this.tentativeDistance;
     }
 
@@ -38,19 +38,19 @@ export class DjikstraNodeData {
         return this.point;
     }
 
-    isPath() : boolean {
+    isPath(): boolean {
         return this.IsPath;
     }
 
-    setIsPath(isPath: boolean){
+    setIsPath(isPath: boolean) {
         this.IsPath = isPath;
     }
 
-    setIsTarget(isTarget: boolean){
+    setIsTarget(isTarget: boolean) {
         this.IsTarget = isTarget;
     }
 
-    isTarget() : boolean{
+    isTarget(): boolean {
         return this.IsTarget;
     }
 }

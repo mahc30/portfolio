@@ -17,7 +17,6 @@ export class Board<T> {
     private BOARD_BACKGROUND_COLOR
     private BORDER_COLOR;
     private BOARD_GRID_COLOR;
-    private custom: any;
     private offset: number;
     private draw_pool: any[];
 
@@ -93,5 +92,12 @@ export class Board<T> {
                 //this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}\nCost: ${data.getCost()}\nTentativeD: ${data.getTentativeDistance()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
             })
         }
+    }
+
+    clickedPoint(x: number, y: number){
+        let clickedX = Math.floor(x / this.cols_width);
+        let clickedY = Math.floor(y / this.rows_height);
+
+        return new Point(clickedX, clickedY);
     }
 }

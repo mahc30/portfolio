@@ -23,19 +23,23 @@ const BACKGROUND_COLOR = COLORS[2].light;
 const BOARD_BACKGROUND_COLOR = COLORS[7].hex
 const BORDER_COLOR = COLORS[7].dark;
 const BOARD_GRID_COLOR = COLORS[7].dark;
-const NUM_COLUMNS = 12;
-const NUM_ROWS = 9;
-  
+const NUM_COLUMNS = 6;
+const NUM_ROWS = 4;
+
 // Animation Settings
 const DIJKSTRA_INTERVAL_MS = 500;
-let current_draw_pool : any[] = [];
+let current_draw_pool: any[] = [];
 const FPS = 30;
 
 //Game State
 let num_columns: number;
 let num_rows: number;
-let initialKey = 9;
-let targetKey = 102;
+let initialKey: number = 2;
+let targetKey: number = 22;
+let selectMode: boolean = false;
+
+//Cache
+let backgroundGenericGridGraph : Graph<number>;
 
 //Others
 let width: number;
@@ -49,18 +53,19 @@ let rows: number;
 let board: Board<Node<Point>>;
 
 
-let graph : Graph<number>; //graph = pointGraphFactory.generateLinearGraph();
+let graph: Graph<number>; //graph = pointGraphFactory.generateLinearGraph();
 let gridMap; //let suggestedPath = Djikstra.djikstra(graph, initialPoint, finalPoint);
 let graphFactory: GraphFactory<number>; //console.log(suggestedPath)
-let path : Graph<number>; //Djikstra.djikstra(randomPointGraph, initialPoint, finalPoint);
+let path: Graph<number>; //Djikstra.djikstra(randomPointGraph, initialPoint, finalPoint);
 
 gridMap = Djikstra.generateGenericNodeListSingleValue(NUM_COLUMNS, NUM_ROWS);
 graphFactory = new GraphFactory(numberComparator, gridMap);
 graph = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
+backgroundGenericGridGraph = graph.clone();
+console.log("BACKUP: ", backgroundGenericGridGraph)
 
 path = Djikstra.djikstra(graph, initialKey, targetKey);
 let current_draw_path = graphFactory.generateEmptyGraph();
-
 GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
 current_draw_pool.push(current_draw_path);
 
@@ -69,10 +74,9 @@ export const sketch = (s: any) => {
 
         width = s.windowWidth;
         height = s.windowHeight;
-        
+
         cols_width = Math.floor(width / NUM_COLUMNS);
         rows_height = Math.floor(height / NUM_ROWS)
-        console.log(path)
         s.fill(BACKGROUND_COLOR);
         s.frameRate(FPS);
 
@@ -88,8 +92,25 @@ export const sketch = (s: any) => {
 
     s.draw = () => {
 
-        //s.background(BORDER_COLOR)
+        s.background(BORDER_COLOR)
 
         board.drawDjikstraCartesianPointsGridGraph();
+    }
+
+    s.mouseClicked = () => {
+        selectMode = !selectMode;
+        let point: Point = board.clickedPoint(s.mouseX, s.mouseY);
+
+        let clickedNode = graph.linearGraphdepthFirstPointSearch(point);
+        if (clickedNode) {
+            initialKey = targetKey;
+            targetKey = clickedNode.getKey()
+            graphFactory.resetDijkstraNodes();
+            path = Djikstra.djikstra(graph ,targetKey, initialKey);
+            current_draw_path = graphFactory.generateEmptyGraph();
+            current_draw_pool.pop();
+            current_draw_pool.push(current_draw_path)
+            GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
+        }
     }
 }
