@@ -151,6 +151,10 @@ export class GraphFactory<T> {
         this.object = object;
     }
 
+    generateEmptyGraph(): Graph<T> {
+        return new Graph(this.comparator);
+    }
+
     generateLinearGraph(): Graph<T> {
         let graph: Graph<T> = new Graph<T>(this.comparator);
         let nodes: Node<T>[] = [];
@@ -225,8 +229,8 @@ export class GraphFactory<T> {
                     graph.addEdge(grid[x][y], grid[x - 1][y]);
                 }
 
-                if(grid[x][y+1]) graph.addEdge(grid[x][y], grid[x][y+1]);
-                if(grid[x][y-1]) graph.addEdge(grid[x][y], grid[x][y-1]);
+                if (grid[x][y + 1]) graph.addEdge(grid[x][y], grid[x][y + 1]);
+                if (grid[x][y - 1]) graph.addEdge(grid[x][y], grid[x][y - 1]);
             }
         }
 
@@ -263,11 +267,11 @@ export class GraphFactory<T> {
                     if (grid[x - 1][y + 1]) graph.addEdge(grid[x][y], grid[x - 1][y + 1]);
                 }
 
-                if(grid[x][y+1]) graph.addEdge(grid[x][y], grid[x][y+1]);
-                if(grid[x][y-1]) graph.addEdge(grid[x][y], grid[x][y-1]);
+                if (grid[x][y + 1]) graph.addEdge(grid[x][y], grid[x][y + 1]);
+                if (grid[x][y - 1]) graph.addEdge(grid[x][y], grid[x][y - 1]);
             }
         }
-        
+
         return graph;
     }
 
@@ -279,5 +283,21 @@ export class GraphFactory<T> {
         });
 
         return graph;
+    }
+
+
+    static pushToGraphInterval(currentGraph: Graph<any>, graphToPush: Graph<any>, interval: number) {
+        let intervalCum = 0;
+        currentGraph.getNodes().forEach(item => {
+
+            intervalCum += interval;
+            setTimeout(() => {
+                if (item.getAdjacent().length > 0) {
+                    graphToPush.addNode(item.getKey(), item.getData())
+                    graphToPush.addNode(item.getAdjacent()[0].getKey(), item.getAdjacent()[0].getData())
+                    graphToPush.addEdge(item.getKey(), item.getAdjacent()[0].getKey());
+                }
+            }, intervalCum);
+        });
     }
 }

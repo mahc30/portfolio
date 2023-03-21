@@ -24,13 +24,18 @@ const BOARD_BACKGROUND_COLOR = COLORS[7].hex
 const BORDER_COLOR = COLORS[7].dark;
 const BOARD_GRID_COLOR = COLORS[7].dark;
 const NUM_COLUMNS = 12;
-const NUM_ROWS = 6;
-let initialKey = 1;
-let targetKey = 59;
+const NUM_ROWS = 9;
+  
+// Animation Settings
+const DIJKSTRA_INTERVAL_MS = 500;
+let current_draw_pool : any[] = [];
+const FPS = 30;
 
 //Game State
 let num_columns: number;
 let num_rows: number;
+let initialKey = 9;
+let targetKey = 102;
 
 //Others
 let width: number;
@@ -47,7 +52,17 @@ let board: Board<Node<Point>>;
 let graph : Graph<number>; //graph = pointGraphFactory.generateLinearGraph();
 let gridMap; //let suggestedPath = Djikstra.djikstra(graph, initialPoint, finalPoint);
 let graphFactory: GraphFactory<number>; //console.log(suggestedPath)
-let path; //Djikstra.djikstra(randomPointGraph, initialPoint, finalPoint);
+let path : Graph<number>; //Djikstra.djikstra(randomPointGraph, initialPoint, finalPoint);
+
+gridMap = Djikstra.generateGenericNodeListSingleValue(NUM_COLUMNS, NUM_ROWS);
+graphFactory = new GraphFactory(numberComparator, gridMap);
+graph = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
+
+path = Djikstra.djikstra(graph, initialKey, targetKey);
+let current_draw_path = graphFactory.generateEmptyGraph();
+
+GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
+current_draw_pool.push(current_draw_path);
 
 export const sketch = (s: any) => {
     s.setup = () => {
@@ -57,28 +72,24 @@ export const sketch = (s: any) => {
         
         cols_width = Math.floor(width / NUM_COLUMNS);
         rows_height = Math.floor(height / NUM_ROWS)
-        gridMap = Djikstra.generateGenericNodeListSingleValue(NUM_COLUMNS, NUM_ROWS);
-        graphFactory = new GraphFactory(numberComparator, gridMap);
-        graph = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
-        path = Djikstra.djikstra(graph, initialKey, targetKey);
         console.log(path)
         s.fill(BACKGROUND_COLOR);
-        s.frameRate(1);
+        s.frameRate(FPS);
 
         //let path = graph.djikstraPathFinding(initialPoint, finalPoint);
         //let pathGraph = pointGraphFactory.generateCustomGraph(path);
         //console.log(pathGraph)
 
-        board = new Board(s, 0, 0, width, height, NUM_COLUMNS, NUM_ROWS, COLORS, path);
+        board = new Board(s, 0, 0, width, height, NUM_COLUMNS, NUM_ROWS, COLORS, current_draw_pool);
         board.setup();
         let canvas = s.createCanvas(width, height);
-        board.drawDjikstraCartesianPointsGridGraph();
+        //board.drawDjikstraCartesianPointsGridGraph();
     }
 
     s.draw = () => {
 
         //s.background(BORDER_COLOR)
-        board.drawDjikstraCartesianPointsGridGraph();
 
+        board.drawDjikstraCartesianPointsGridGraph();
     }
 }

@@ -19,8 +19,9 @@ export class Board<T> {
     private BOARD_GRID_COLOR;
     private custom: any;
     private offset: number;
+    private draw_pool: any[];
 
-    constructor(s: any, x: number, y: number, width: number, height: number, num_cols: number, num_rows: number, colors: object, custom?: any) {
+    constructor(s: any, x: number, y: number, width: number, height: number, num_cols: number, num_rows: number, colors: object, draw_pool?: any[]) {
         this.s = s;
         this.width = width;
         this.height = height;
@@ -35,8 +36,8 @@ export class Board<T> {
         this.BOARD_BACKGROUND_COLOR = this.colors[7].hex
         this.BORDER_COLOR = this.colors[7].dark;
         this.BOARD_GRID_COLOR = this.colors[7].dark;
-        this.custom = custom;
         this.offset = this.cols_width / 2;
+        this.draw_pool = draw_pool || [];
     }
 
     setup() {
@@ -57,36 +58,40 @@ export class Board<T> {
     }
 
     drawDjikstraCartesianPointsGridGraph() {
-        if (typeof this.custom === undefined) return;
-        let graph: Graph<T> = this.custom as Graph<T>;
-        let nodes = graph.getNodes();
-        let data: DjikstraNodeData;
+        if (typeof this.draw_pool === undefined) return;
+        for (let i = 0; i < this.draw_pool.length; i++) {
 
-        nodes.forEach(node => {
+            let graph: Graph<T> = this.draw_pool[i] as Graph<T>;
+            let nodes = graph.getNodes();
+            let data: DjikstraNodeData;
+            if(nodes.size <= 0) return;
 
-            data = node.getData() as DjikstraNodeData;
-            this.s.noFill()
-            //this.s.rect(data.getPoint().getX() * this.cols_width, data.getPoint().getY() * this.rows_height, this.cols_width, this.rows_height);
+            nodes.forEach(node => {
+                
+                data = node.getData() as DjikstraNodeData;
+                this.s.noFill()
+                //this.s.rect(data.getPoint().getX() * this.cols_width, data.getPoint().getY() * this.rows_height, this.cols_width, this.rows_height);
 
-            if(data.isVisited()) this.s.fill("RED")
-            if (data.isPath()) this.s.fill("Green");
-            if(data.isTarget()) this.s.fill("YELLOW");
-            this.s.circle(data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset, this.offset);
+                if (data.isVisited()) this.s.fill("RED")
+                if (data.isPath()) this.s.fill("Green");
+                if (data.isTarget()) this.s.fill("YELLOW");
+                this.s.circle(data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset, this.offset);
 
-            node.getAdjacent().forEach(neighbor => {
-                let nData = neighbor.getData() as DjikstraNodeData;
+                node.getAdjacent().forEach(neighbor => {
+                    let nData = neighbor.getData() as DjikstraNodeData;
 
-                this.s.line(
-                    data.getPoint().getX() * this.cols_width + this.offset,
-                    data.getPoint().getY() * this.rows_height + this.offset,
-                    nData.getPoint().getX() * this.cols_width + this.offset,
-                    nData.getPoint().getY() * this.rows_height + this.offset,
-                )
+                    this.s.line(
+                        data.getPoint().getX() * this.cols_width + this.offset,
+                        data.getPoint().getY() * this.rows_height + this.offset,
+                        nData.getPoint().getX() * this.cols_width + this.offset,
+                        nData.getPoint().getY() * this.rows_height + this.offset,
+                    )
+                })
+                this.s.fill("white");
+
+                this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
+                //this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}\nCost: ${data.getCost()}\nTentativeD: ${data.getTentativeDistance()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
             })
-            this.s.fill("white");
-
-            this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
-            //this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}\nCost: ${data.getCost()}\nTentativeD: ${data.getTentativeDistance()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
-        })
+        }
     }
 }

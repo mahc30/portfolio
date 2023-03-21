@@ -12,12 +12,12 @@ export function listToSquareMatrix<T>(list: T[], elementsPerSubArray: number) {
     return matrix;
 }
 
-export function listToNxMMatrix<T>(list : T[], n: number, m: number){
+export function listToNxMMatrix<T>(list: T[], n: number, m: number) {
     let matrix: any = [];
     let k = 0;
     for (let i = 0; i < n; i++) {
         const row = [];
-        for(let j = 0; j < m; j++){
+        for (let j = 0; j < m; j++) {
             row.push(list[k++]);
         }
         matrix.push(row);
