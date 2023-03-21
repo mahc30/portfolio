@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/portfolio/static/css/main.be4c75a2.css",
-    "main.js": "/portfolio/static/js/main.f761bd68.js",
+    "main.css": "/portfolio/static/css/main.9b3fdf17.css",
+    "main.js": "/portfolio/static/js/main.e0565ba5.js",
     "static/js/787.cdf2507a.chunk.js": "/portfolio/static/js/787.cdf2507a.chunk.js",
     "static/media/separador_2.png": "/portfolio/static/media/separador_2.cf7eccb3f045a61bb01d.png",
     "static/media/separador_1.png": "/portfolio/static/media/separador_1.f7698846465ea0d0b2d2.png",
@@ -14,12 +14,12 @@
     "static/media/ailen7.png": "/portfolio/static/media/ailen7.86fb183798ba2a5e120e.png",
     "static/media/ailen_flag.png": "/portfolio/static/media/ailen_flag.9b9c8599297dc7617505.png",
     "index.html": "/portfolio/index.html",
-    "main.be4c75a2.css.map": "/portfolio/static/css/main.be4c75a2.css.map",
-    "main.f761bd68.js.map": "/portfolio/static/js/main.f761bd68.js.map",
+    "main.9b3fdf17.css.map": "/portfolio/static/css/main.9b3fdf17.css.map",
+    "main.e0565ba5.js.map": "/portfolio/static/js/main.e0565ba5.js.map",
     "787.cdf2507a.chunk.js.map": "/portfolio/static/js/787.cdf2507a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.be4c75a2.css",
-    "static/js/main.f761bd68.js"
+    "static/css/main.9b3fdf17.css",
+    "static/js/main.e0565ba5.js"
   ]
 }
