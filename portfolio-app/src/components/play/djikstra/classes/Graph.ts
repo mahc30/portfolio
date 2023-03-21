@@ -9,7 +9,7 @@ export class Graph<T> {
     comparator: (a: T, b: T) => number;
     constructor(comparator: (a: T, b: T) => number, nodes?: Map<T, Node<T>>) {
         this.comparator = comparator;
-        if(nodes) this.nodes = nodes;
+        if (nodes) this.nodes = nodes;
     }
 
     getNodes(): Map<T, Node<T>> {
@@ -85,8 +85,6 @@ export class Graph<T> {
         if (!node) return;
         visited.set(node.getKey(), true);
 
-        //console.log(node);
-
         node.getAdjacent().forEach((node) => {
             if (!visited.has(node.getKey())) {
                 this.depthFirstSearchAux(node, visited);
@@ -102,23 +100,20 @@ export class Graph<T> {
         });
     }
 
-    linearGraphdepthFirstPointSearch(point: Point) : Node<T> | undefined {
+    linearGraphdepthFirstPointSearch(point: Point): Node<T> | undefined {
         const visited: Map<T, boolean> = new Map();
         let iterator = this.nodes.entries();
         let head = iterator.next()
 
-        while(head.value){
+        while (head.value) {
             let node = head.value[1] as Node<T>;
-            //console.log(node)
-            
             let data = node.getData() as DjikstraNodeData;
-            //console.log(data)
 
-            if(data.getPoint().getX() === point.getX() && data.getPoint().getY() === point.getY()) break;
+            if (data.getPoint().getX() === point.getX() && data.getPoint().getY() === point.getY()) break;
             head = iterator.next();
         }
 
-        return head.value? head.value[1] as Node<T> : undefined;
+        return head.value ? head.value[1] as Node<T> : undefined;
     }
     /**
      * Breadth-first search
@@ -135,9 +130,6 @@ export class Graph<T> {
         while (!queue.isEmpty()) {
             node = queue.pop();
             if (!node) continue;
-
-            //console.log(format('(%d %s) ->', node.getKey(), node.getData()));
-            //console.log(node)
 
             node.getAdjacent().forEach((neighborNode) => {
                 if (!visited.has(neighborNode.getKey())) {
@@ -157,7 +149,7 @@ export class Graph<T> {
         });
     }
 
-    clone(){
+    clone() {
         return new Graph(this.comparator, this.nodes)
     }
 
@@ -256,7 +248,6 @@ export class GraphFactory<T> {
             }
         }
 
-        console.log(graph)
         return graph;
     }
 
@@ -312,7 +303,6 @@ export class GraphFactory<T> {
         let intervalCum = 0;
         currentGraph.getNodes().forEach(item => {
 
-            intervalCum += interval;
             setTimeout(() => {
                 if (item.getAdjacent().length > 0) {
                     graphToPush.addNode(item.getKey(), item.getData())
@@ -320,15 +310,17 @@ export class GraphFactory<T> {
                     graphToPush.addEdge(item.getKey(), item.getAdjacent()[0].getKey());
                 }
             }, intervalCum);
+
+            intervalCum += interval;
         });
     }
 
-    resetDijkstraNodes(){
+    resetDijkstraNodes() {
         let iterator = this.object.entries();
         let head = iterator.next();
 
-        while(head.value){
-            
+        while (head.value) {
+
             let data = head.value[1] as DjikstraNodeData;
 
             data.setIsPath(false);

@@ -2,6 +2,12 @@ bg: #C3C7CF
 frontStuff: #A1ABC7
 darkerFrontStuff: #727A90
 
+bg-shade1: "#c3c7cf"
+bg-shade2: "#989ca3"
+bg-shade3: "#6f727a"
+bg-shade4: "#484c52"
+bg-shade5: "#25282e"
+
 AilensweeperBg: #262038
 AilensweeperTextDark: #990077
 AilensweeperTextShine: #cc0077

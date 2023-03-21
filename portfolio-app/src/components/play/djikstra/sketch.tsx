@@ -8,23 +8,22 @@ import { Point } from "./helpers/point";
 
 //Styles
 const COLORS =
-    [{ "name": "Pale Spring Bud", "hex": "#eeefc8", "light": "#D9DC8A", "dark": "#8a8b6a" }, // Beach
-    { "name": "Wisteria", "hex": "#BA9EDC", "light": "#c1a8e0", "dark": "#826f9a" }, //Light Purple
-    { "name": "Radical Red", "hex": "#FD3F60", "light": "#fd5270", "dark": "#b12c43" }, //Red
-    { "name": "Star Command Blue", "hex": "#117EBE", "light": "#298bc5", "dark": "#0c5885" }, //Blue
-    { "name": "Sky Blue Crayola", "hex": "#10b2da", "light": "#58c9e5", "dark": "#0b7d99" }, // Light Blue
-    { "name": "Orange", "hex": "#ff6205", "light": "#ff8137", "dark": "#b34504" }, //Orange
-    { "name": "Green", "hex": "#60FD3F", "light": "#80fd65", "dark": "#3a9826" }, //Green
-    { "name": "Complementary Beach", "hex": "#B1E8CF", "light": "#c1edd9", "dark": "#7ca291" }, //Complementary Beach
-    ];
+{
+    "name": "Portfolio BG gray",
+    "hex": "#C3CFC7",
+    "light": "#c1edd9",
+    "dark": "#7ca291",
+    "shades": [
+        "#989ca3",
+        "#6f727a",
+        "#484c52",
+        "#25282e"
+    ]
+}// Portfolio BG gray;
 
-
-const BACKGROUND_COLOR = COLORS[2].light;
-const BOARD_BACKGROUND_COLOR = COLORS[7].hex
-const BORDER_COLOR = COLORS[7].dark;
-const BOARD_GRID_COLOR = COLORS[7].dark;
-const NUM_COLUMNS = 6;
-const NUM_ROWS = 4;
+const BACKGROUND_COLOR = COLORS.hex;
+const NUM_COLUMNS = 9;
+const NUM_ROWS = 7;
 
 // Animation Settings
 const DIJKSTRA_INTERVAL_MS = 500;
@@ -34,12 +33,9 @@ const FPS = 30;
 //Game State
 let num_columns: number;
 let num_rows: number;
-let initialKey: number = 2;
-let targetKey: number = 22;
+let initialKey: number = 1;
+let targetKey: number = 14;
 let selectMode: boolean = false;
-
-//Cache
-let backgroundGenericGridGraph : Graph<number>;
 
 //Others
 let width: number;
@@ -60,9 +56,8 @@ let path: Graph<number>; //Djikstra.djikstra(randomPointGraph, initialPoint, fin
 
 gridMap = Djikstra.generateGenericNodeListSingleValue(NUM_COLUMNS, NUM_ROWS);
 graphFactory = new GraphFactory(numberComparator, gridMap);
-graph = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
-backgroundGenericGridGraph = graph.clone();
-console.log("BACKUP: ", backgroundGenericGridGraph)
+//graph = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
+graph = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
 
 path = Djikstra.djikstra(graph, initialKey, targetKey);
 let current_draw_path = graphFactory.generateEmptyGraph();
@@ -77,8 +72,9 @@ export const sketch = (s: any) => {
 
         cols_width = Math.floor(width / NUM_COLUMNS);
         rows_height = Math.floor(height / NUM_ROWS)
-        s.fill(BACKGROUND_COLOR);
+
         s.frameRate(FPS);
+        s.noStroke();
 
         //let path = graph.djikstraPathFinding(initialPoint, finalPoint);
         //let pathGraph = pointGraphFactory.generateCustomGraph(path);
@@ -92,25 +88,32 @@ export const sketch = (s: any) => {
 
     s.draw = () => {
 
-        s.background(BORDER_COLOR)
-
+        s.background(BACKGROUND_COLOR)
         board.drawDjikstraCartesianPointsGridGraph();
     }
 
     s.mouseClicked = () => {
         selectMode = !selectMode;
         let point: Point = board.clickedPoint(s.mouseX, s.mouseY);
+        changeColorRandom(s)
 
         let clickedNode = graph.linearGraphdepthFirstPointSearch(point);
         if (clickedNode) {
+            //console.log(clickedNode)
             initialKey = targetKey;
             targetKey = clickedNode.getKey()
-            graphFactory.resetDijkstraNodes();
-            path = Djikstra.djikstra(graph ,targetKey, initialKey);
+            path = Djikstra.djikstra(graph, targetKey, initialKey);
             current_draw_path = graphFactory.generateEmptyGraph();
             current_draw_pool.pop();
             current_draw_pool.push(current_draw_path)
             GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
+            graphFactory.resetDijkstraNodes();
         }
     }
+
+    function changeColorRandom(s: any) {
+        let newColor = COLORS.shades[Math.floor(Math.random() * (COLORS.shades.length - 1))];
+        s.fill(newColor)
+    }
 }
+
