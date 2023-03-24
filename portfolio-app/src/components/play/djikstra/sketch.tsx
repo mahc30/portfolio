@@ -1,4 +1,4 @@
-import { Board } from "./classes/Board";
+import { AnimatedLine, Board } from "./classes/Board";
 import { Djikstra } from "./classes/Djikstra";
 import { Graph, GraphFactory } from "./classes/Graph";
 import { numberComparator } from "./helpers/comparators";
@@ -24,17 +24,17 @@ const COLORS =
 const BACKGROUND_COLOR = COLORS.hex;
 const NUM_COLUMNS = 9;
 const NUM_ROWS = 7;
-
+const DRAW_BEHAVIOUR = 0; //0 = IntervalPoints | 1 = AnimatedLine
 // Animation Settings
 const DIJKSTRA_INTERVAL_MS = 500;
 let current_draw_pool: any[] = [];
-const FPS = 30;
+const FPS = 10;
 
 //Game State
 let num_columns: number;
 let num_rows: number;
-let initialKey: number = 1;
-let targetKey: number = 14;
+let initialKey: number = 10;
+let targetKey: number = 40;
 let selectMode: boolean = false;
 
 //Others
@@ -61,8 +61,9 @@ graph = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
 
 path = Djikstra.djikstra(graph, initialKey, targetKey);
 let current_draw_path = graphFactory.generateEmptyGraph();
-GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
-current_draw_pool.push(current_draw_path);
+//GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
+//current_draw_pool.push(current_draw_path);
+
 
 export const sketch = (s: any) => {
     s.setup = () => {
@@ -74,11 +75,13 @@ export const sketch = (s: any) => {
         rows_height = Math.floor(height / NUM_ROWS)
 
         s.frameRate(FPS);
-        s.noStroke();
 
         //let path = graph.djikstraPathFinding(initialPoint, finalPoint);
         //let pathGraph = pointGraphFactory.generateCustomGraph(path);
         //console.log(pathGraph)
+
+        let animatedLines = AnimatedLine.getAnimatedLinesArray(path, cols_width, rows_height, s);
+        if(animatedLines) current_draw_pool = animatedLines;
 
         board = new Board(s, 0, 0, width, height, NUM_COLUMNS, NUM_ROWS, COLORS, current_draw_pool);
         board.setup();
@@ -89,9 +92,11 @@ export const sketch = (s: any) => {
     s.draw = () => {
 
         s.background(BACKGROUND_COLOR)
-        board.drawDjikstraCartesianPointsGridGraph();
+        //board.drawDjikstraCartesianPointsGridGraph();
+        board.drawAnimatedLineAToB();
     }
 
+    /*
     s.mouseClicked = () => {
         selectMode = !selectMode;
         let point: Point = board.clickedPoint(s.mouseX, s.mouseY);
@@ -105,12 +110,14 @@ export const sketch = (s: any) => {
             path = Djikstra.djikstra(graph, targetKey, initialKey);
             current_draw_path = graphFactory.generateEmptyGraph();
             current_draw_pool.pop();
-            current_draw_pool.push(current_draw_path)
+            current_draw_pool.push(current_draw_path);
+            
+
             GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
             graphFactory.resetDijkstraNodes();
         }
     }
-
+*/
     function changeColorRandom(s: any) {
         let newColor = COLORS.shades[Math.floor(Math.random() * (COLORS.shades.length - 1))];
         s.fill(newColor)
