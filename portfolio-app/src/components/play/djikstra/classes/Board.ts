@@ -12,11 +12,10 @@ export class Board<T> {
     private num_rows: number;
     private cols_width: number;
     private rows_height: number;
-    private colors: any;
     private offset: number;
     private draw_pool: any[];
 
-    constructor(s: any, x: number, y: number, width: number, height: number, num_cols: number, num_rows: number, colors: object, draw_pool?: any[]) {
+    constructor(s: any, x: number, y: number, width: number, height: number, num_cols: number, num_rows: number, draw_pool?: any[]) {
         this.s = s;
         this.width = width;
         this.height = height;
@@ -26,7 +25,6 @@ export class Board<T> {
         this.y = y;
         this.cols_width = width / num_cols;
         this.rows_height = height / num_rows;
-        this.colors = colors;
         this.offset = this.cols_width / 2;
         this.draw_pool = draw_pool || [];
     }
