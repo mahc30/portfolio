@@ -1,9 +1,8 @@
 import { AnimatedLine, Board } from "./classes/Board";
 import { Djikstra } from "./classes/Djikstra";
 import { Graph, GraphFactory } from "./classes/Graph";
-import { pushThenShiftArrayInterval, pushToArrayInterval, shiftArrayInterval } from "./helpers/arrayHelpers";
+import { pushThenShiftArrayInterval} from "./helpers/arrayHelpers";
 import { numberComparator } from "./helpers/comparators";
-import { DjikstraNodeData } from "./helpers/djikstraNodeData";
 import { Node } from "./helpers/node";
 import { Point } from "./helpers/point";
 
@@ -25,15 +24,13 @@ const COLORS =
 const BACKGROUND_COLOR = COLORS.hex;
 const NUM_COLUMNS = 10;
 const NUM_ROWS =8;
-const DRAW_BEHAVIOUR = 0; //0 = IntervalPoints | 1 = AnimatedLine
+// const DRAW_BEHAVIOUR = 0; //0 = IntervalPoints | 1 = AnimatedLine
 // Animation Settings
 const DIJKSTRA_INTERVAL_MS = 100;
 let current_draw_pool: any[] = [];
 const FPS = 30;
 
 //Game State
-let num_columns: number;
-let num_rows: number;
 let initialKey: number = 10;
 let targetKey: number = 40;
 let selectMode: boolean = false;
@@ -42,10 +39,8 @@ let selectMode: boolean = false;
 let width: number;
 let height: number;
 
-let cols: number;
 let cols_width: number;
 let rows_height: number;
-let rows: number;
 
 let board: Board<Node<Point>>;
 
@@ -61,7 +56,7 @@ graphFactory = new GraphFactory(numberComparator, gridMap);
 graph = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
 
 path = Djikstra.djikstra(graph, initialKey, targetKey);
-let current_draw_path = graphFactory.generateEmptyGraph();
+//let current_draw_path = graphFactory.generateEmptyGraph();
 //GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
 //current_draw_pool.push(current_draw_path);
 let animatedLines: AnimatedLine[];
@@ -87,9 +82,9 @@ export const sketch = (s: any) => {
             pushThenShiftArrayInterval(current_draw_pool, animatedLines, DIJKSTRA_INTERVAL_MS);
         }
 
-        board = new Board(s, 0, 0, width, height, NUM_COLUMNS, NUM_ROWS, COLORS, current_draw_pool);
+        board = new Board(s, 0, 0, width, height, NUM_COLUMNS, NUM_ROWS, current_draw_pool);
         board.setup();
-        let canvas = s.createCanvas(width, height);
+        s.createCanvas(width, height);
         //board.drawDjikstraCartesianPointsGridGraph();
     }
 
