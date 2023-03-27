@@ -15,7 +15,6 @@ export class Board<T> {
     private colors: any;
     private offset: number;
     private draw_pool: any[];
-    private lines: AnimatedLine[] = [];
 
     constructor(s: any, x: number, y: number, width: number, height: number, num_cols: number, num_rows: number, colors: object, draw_pool?: any[]) {
         this.s = s;
@@ -32,6 +31,10 @@ export class Board<T> {
         this.draw_pool = draw_pool || [];
     }
 
+    setDrawPool(draw_pool: any[]){
+        this.draw_pool = draw_pool;
+    }
+    
     setup() {
 
         this.s.stroke(255);
@@ -94,10 +97,10 @@ export class Board<T> {
 
     drawAnimatedLineAToB() {
 
-        this.s.stroke(255);
-        this.s.strokeWeight(15);
+        this.s.stroke(0);
+        this.s.strokeWeight(5);
         if (typeof this.draw_pool === undefined) return;
-
+        //console.log(this.draw_pool)
         for (let i = 0; i < this.draw_pool.length; i++) {
             (this.draw_pool[i] as AnimatedLine).draw();
         };
@@ -117,6 +120,7 @@ export class AnimatedLine {
     private lineY;
     private scaleX;
     private scaleY;
+    private lineGrowRate = 0.3;
 
     constructor(a: Point, b: Point, scaleX: number, scaleY: number, s: any) {
         this.a = a;
@@ -136,7 +140,7 @@ export class AnimatedLine {
     }
 
     draw() {
-        this.lineLength += 0.01;
+        this.lineLength += this.lineGrowRate;
 
         this.lineX = this.a.getX() + Math.cos(this.lineAngle) * this.lineLength;
         this.lineY = this.a.getY() + Math.sin(this.lineAngle) * this.lineLength;
@@ -145,13 +149,13 @@ export class AnimatedLine {
         //console.log(this.a.getX() * this.scaleX, this.a.getY() * this.scaleY, this.lineX * this.scaleX, this.lineY * this.scaleY)
     }
 
-    static getAnimatedLinesArray(graph: Graph<any>, scaleX: number, scaleY: number, s: any) {
+    static getAnimatedLinesArray(graph: Graph<any>, scaleX: number, scaleY: number, s: any) : AnimatedLine[] {
         let lastPoint: Point;
         let currentPoint: Point;
         let nodes = graph.getNodes();
-        if (nodes.size <= 0) return;
-        let data: DjikstraNodeData;
         let lines: AnimatedLine[] = [];
+        if (nodes.size <= 0) return lines;
+        let data: DjikstraNodeData;
 
         currentPoint = nodes.entries().next().value[1].getData().getPoint() as Point;
 
@@ -159,7 +163,7 @@ export class AnimatedLine {
             data = node.getData();
             lastPoint = currentPoint;
             currentPoint = data.getPoint() as Point;
-            lines.push(new AnimatedLine(currentPoint, lastPoint, scaleX, scaleY, s));
+            lines.push(new AnimatedLine(lastPoint, currentPoint, scaleX, scaleY, s));
 
         })
 
