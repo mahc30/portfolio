@@ -298,6 +298,21 @@ export class GraphFactory<T> {
         return graph;
     }
 
+    static generatePointArrayFromGraph(graph: Graph<Point>) {
+        let obj = {};
+        let lastPoint: Point;
+        let currentPoint: Point;
+        let nodes = graph.getNodes();
+        if (nodes.size <= 0) return;
+        let data: DjikstraNodeData;
+        nodes.forEach(node => {
+            data = node.getData();
+            currentPoint = data.getPoint() as Point;
+            lastPoint = currentPoint;
+        });
+
+        return obj;
+    }
 
     static pushToGraphInterval(currentGraph: Graph<any>, graphToPush: Graph<any>, interval: number) {
         let intervalCum = 0;

@@ -35,7 +35,7 @@ export class Djikstra {
             currentData.setVisited(true);
             let neighbours = current.getAdjacent();
 
-            neighbours?.forEach(neighbour => {
+            neighbours.forEach(neighbour => {
 
                 if (!visited.has(neighbour.getKey())) {
                     let nData = neighbour.getData() as DjikstraNodeData;

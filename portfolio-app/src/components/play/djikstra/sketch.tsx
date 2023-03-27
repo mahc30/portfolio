@@ -1,6 +1,7 @@
-import { Board } from "./classes/Board";
+import { AnimatedLine, Board } from "./classes/Board";
 import { Djikstra } from "./classes/Djikstra";
 import { Graph, GraphFactory } from "./classes/Graph";
+import { pushThenShiftArrayInterval, pushToArrayInterval, shiftArrayInterval } from "./helpers/arrayHelpers";
 import { numberComparator } from "./helpers/comparators";
 import { DjikstraNodeData } from "./helpers/djikstraNodeData";
 import { Node } from "./helpers/node";
@@ -10,7 +11,7 @@ import { Point } from "./helpers/point";
 const COLORS =
 {
     "name": "Portfolio BG gray",
-    "hex": "#C3CFC7",
+    "hex": "#c3c7cf",
     "light": "#c1edd9",
     "dark": "#7ca291",
     "shades": [
@@ -22,19 +23,19 @@ const COLORS =
 }// Portfolio BG gray;
 
 const BACKGROUND_COLOR = COLORS.hex;
-const NUM_COLUMNS = 9;
-const NUM_ROWS = 7;
-
+const NUM_COLUMNS = 10;
+const NUM_ROWS =8;
+const DRAW_BEHAVIOUR = 0; //0 = IntervalPoints | 1 = AnimatedLine
 // Animation Settings
-const DIJKSTRA_INTERVAL_MS = 500;
+const DIJKSTRA_INTERVAL_MS = 100;
 let current_draw_pool: any[] = [];
 const FPS = 30;
 
 //Game State
 let num_columns: number;
 let num_rows: number;
-let initialKey: number = 1;
-let targetKey: number = 14;
+let initialKey: number = 10;
+let targetKey: number = 40;
 let selectMode: boolean = false;
 
 //Others
@@ -61,8 +62,9 @@ graph = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
 
 path = Djikstra.djikstra(graph, initialKey, targetKey);
 let current_draw_path = graphFactory.generateEmptyGraph();
-GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
-current_draw_pool.push(current_draw_path);
+//GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
+//current_draw_pool.push(current_draw_path);
+let animatedLines: AnimatedLine[];
 
 export const sketch = (s: any) => {
     s.setup = () => {
@@ -74,11 +76,16 @@ export const sketch = (s: any) => {
         rows_height = Math.floor(height / NUM_ROWS)
 
         s.frameRate(FPS);
-        s.noStroke();
 
         //let path = graph.djikstraPathFinding(initialPoint, finalPoint);
         //let pathGraph = pointGraphFactory.generateCustomGraph(path);
         //console.log(pathGraph)
+
+        animatedLines = AnimatedLine.getAnimatedLinesArray(path, cols_width, rows_height, s);
+        if (animatedLines) {
+            //current_draw_pool = animatedLines;
+            pushThenShiftArrayInterval(current_draw_pool, animatedLines, DIJKSTRA_INTERVAL_MS);
+        }
 
         board = new Board(s, 0, 0, width, height, NUM_COLUMNS, NUM_ROWS, COLORS, current_draw_pool);
         board.setup();
@@ -89,7 +96,8 @@ export const sketch = (s: any) => {
     s.draw = () => {
 
         s.background(BACKGROUND_COLOR)
-        board.drawDjikstraCartesianPointsGridGraph();
+        //board.drawDjikstraCartesianPointsGridGraph();
+        board.drawAnimatedLineAToB();
     }
 
     s.mouseClicked = () => {
@@ -99,14 +107,22 @@ export const sketch = (s: any) => {
 
         let clickedNode = graph.linearGraphdepthFirstPointSearch(point);
         if (clickedNode) {
-            //console.log(clickedNode)
             initialKey = targetKey;
             targetKey = clickedNode.getKey()
             path = Djikstra.djikstra(graph, targetKey, initialKey);
-            current_draw_path = graphFactory.generateEmptyGraph();
-            current_draw_pool.pop();
-            current_draw_pool.push(current_draw_path)
-            GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
+
+            //current_draw_path = graphFactory.generateEmptyGraph();
+            //current_draw_pool.pop();
+            //current_draw_pool.push(current_draw_path);
+            //GraphFactory.pushToGraphInterval(path, current_draw_path, DIJKSTRA_INTERVAL_MS);
+
+
+            animatedLines = AnimatedLine.getAnimatedLinesArray(path, cols_width, rows_height, s).slice();
+            current_draw_pool = [];
+            if (animatedLines) {
+                pushThenShiftArrayInterval(current_draw_pool, animatedLines, DIJKSTRA_INTERVAL_MS);
+                board.setDrawPool(current_draw_pool)
+            }
             graphFactory.resetDijkstraNodes();
         }
     }

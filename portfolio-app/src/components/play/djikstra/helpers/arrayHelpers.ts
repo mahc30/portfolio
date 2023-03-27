@@ -24,3 +24,41 @@ export function listToNxMMatrix<T>(list: T[], n: number, m: number) {
     }
     return matrix;
 }
+
+export function pushToArrayInterval(arrayToPush: any[], arrayToPop: any[], interval: number) {
+    let timer = 0;
+
+    arrayToPop.forEach(item => {
+        setTimeout(() => {
+            arrayToPush.push(item);
+        }, timer += interval)
+    })
+}
+
+export function pushThenShiftArrayInterval(arrayToWork: any[], arrayToPop: any[], interval: number) {
+    let timer = 0;
+
+
+    arrayToPop.forEach(item => {
+        setTimeout(() => {
+            arrayToWork.push(item);
+        }, timer += interval)
+    });
+
+    for (let i = 0; i < arrayToPop.length; i++) {
+
+        setTimeout(() => {
+            arrayToWork.shift();
+        }, timer += interval);
+    }
+}
+
+export function shiftArrayInterval(arrayToShift: any[], interval: number) {
+    let timer = 0;
+    arrayToShift.forEach(() => {
+        setTimeout(() => {
+            arrayToShift.shift();
+            console.log(arrayToShift)
+        }, timer += interval)
+    });
+}
