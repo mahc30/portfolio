@@ -15,7 +15,7 @@ export class MyRouter extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentPage: Djikstra,
+            currentPage: Home,
             currentKey: 0,
             play_pick: false
         };

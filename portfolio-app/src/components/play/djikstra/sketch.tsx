@@ -11,7 +11,7 @@ import { Point } from "./helpers/point";
 const COLORS =
 {
     "name": "Portfolio BG gray",
-    "hex": "#C3CFC7",
+    "hex": "#c3c7cf",
     "light": "#c1edd9",
     "dark": "#7ca291",
     "shades": [
@@ -27,9 +27,9 @@ const NUM_COLUMNS = 10;
 const NUM_ROWS =8;
 const DRAW_BEHAVIOUR = 0; //0 = IntervalPoints | 1 = AnimatedLine
 // Animation Settings
-const DIJKSTRA_INTERVAL_MS = 500;
+const DIJKSTRA_INTERVAL_MS = 100;
 let current_draw_pool: any[] = [];
-const FPS = 10;
+const FPS = 30;
 
 //Game State
 let num_columns: number;

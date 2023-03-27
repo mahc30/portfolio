@@ -38,7 +38,7 @@ export class Board<T> {
     setup() {
 
         this.s.stroke(255);
-        this.s.strokeWeight(15);
+        this.s.strokeWeight(1);
     }
 
     drawGrid() {
@@ -98,7 +98,7 @@ export class Board<T> {
     drawAnimatedLineAToB() {
 
         this.s.stroke(0);
-        this.s.strokeWeight(5);
+        this.s.strokeWeight(1);
         if (typeof this.draw_pool === undefined) return;
         //console.log(this.draw_pool)
         for (let i = 0; i < this.draw_pool.length; i++) {
@@ -120,7 +120,7 @@ export class AnimatedLine {
     private lineY;
     private scaleX;
     private scaleY;
-    private lineGrowRate = 0.3;
+    private lineGrowRate = 0.5;
 
     constructor(a: Point, b: Point, scaleX: number, scaleY: number, s: any) {
         this.a = a;
