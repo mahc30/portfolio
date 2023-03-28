@@ -17,7 +17,7 @@ jobs:
         working-directory: ./portfolio-app
 
       - name: Build React app
-        run: npm run build
+        run: CI=false npm run build
         working-directory: ./portfolio-app
 
       - name: Deploy to gh-pages
