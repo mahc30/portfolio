@@ -23,9 +23,9 @@ export class Djikstra {
         currentData.setVisited(true);
         currentData.setIsPath(true);
         visited.set(current.getKey(), true);
-
         currentData.setTentativeDistance(0);
         pQ.insertWithPriority(current, 100);
+
         while (!pQ.isEmpty()) {
             current = pQ.pop();
             if (current === undefined || current.getKey() === targetNodeKey) break;
@@ -33,9 +33,8 @@ export class Djikstra {
             visited.set(current.getKey(), true);
             currentData = current.getData();
             currentData.setVisited(true);
-            let neighbours = current.getAdjacent();
-
-            neighbours.forEach(neighbour => {
+            
+            current.getAdjacent()?.forEach(neighbour => {
 
                 if (!visited.has(neighbour.getKey())) {
                     let nData = neighbour.getData() as DjikstraNodeData;

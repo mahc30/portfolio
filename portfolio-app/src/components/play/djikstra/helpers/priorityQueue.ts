@@ -5,13 +5,13 @@ export class PriorityQueue<T> {
     }
 
     insertWithPriority(i: T, p: number) {
-        if (this.data.length == 0) {
+        if (this.data.length === 0) {
             this.data.push([p, i])
             return
         }
 
         for (let index = 0; index < this.data.length; index++) {
-            if (index == this.data.length - 1) {
+            if (index === this.data.length - 1) {
                 this.data.push([p, i])
                 return
             }

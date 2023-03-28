@@ -1,5 +1,4 @@
 import { Point } from "./point";
-import { Stack } from "./stack";
 
 export class DjikstraNodeData {
     private cost: number;

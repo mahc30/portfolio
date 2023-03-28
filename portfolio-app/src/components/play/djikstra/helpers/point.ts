@@ -16,8 +16,8 @@ export class Point {
     }
 
     static comparator(a : Point, b: Point) {
-        if(a.y != b.y) return -1;
-        if(a.x != b.x) return 1;
+        if(a.y !== b.y) return -1;
+        if(a.x !== b.x) return 1;
         return 0;
     }
 
