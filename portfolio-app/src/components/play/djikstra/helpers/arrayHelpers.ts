@@ -36,29 +36,18 @@ export function pushToArrayInterval(arrayToPush: any[], arrayToPop: any[], inter
 }
 
 export function pushThenShiftArrayInterval(arrayToWork: any[], arrayToPop: any[], interval: number) {
-    let timer = 0;
-
-
-    arrayToPop.forEach(item => {
-        setTimeout(() => {
-            arrayToWork.push(item);
-        }, timer += interval)
-    });
-
-    for (let i = 0; i < arrayToPop.length; i++) {
-
-        setTimeout(() => {
-            arrayToWork.shift();
-        }, timer += interval);
-    }
+    pushToArrayInterval(arrayToWork, arrayToPop, interval);
+    
+    setTimeout(() => {
+        shiftArrayInterval(arrayToWork, interval)
+    }, arrayToPop.length * interval);
 }
 
 export function shiftArrayInterval(arrayToShift: any[], interval: number) {
-    let timer = 0;
+    let timer = interval;
     arrayToShift.forEach(() => {
         setTimeout(() => {
             arrayToShift.shift();
-            console.log(arrayToShift)
         }, timer += interval)
     });
 }

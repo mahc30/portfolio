@@ -52,6 +52,7 @@ export class Djikstra {
             });
         }
 
+        //Get shortest Path
         let pathGraph: Graph<number> = new Graph(numberComparator);
         let head = outPath.get(targetNodeKey);
 
@@ -67,7 +68,6 @@ export class Djikstra {
         let graphFactory = new GraphFactory(numberComparator, shortestPath)
         pathGraph = graphFactory.generateLinearGraph();
         targetNode.getData().setIsTarget(true);
-
         return pathGraph;
     }
 

@@ -17,8 +17,8 @@ export class Djikstra extends React.Component {
     render() {
 
         return (
-            <div className="relative -z-50">
-                <div id="djikstra_viewport" className="fixed w-screen h-screen" ref={this.myRef} />
+            <div className="fixed -z-50">
+                <div id="djikstra_viewport" className="w-full h-full" ref={this.myRef} />
             </div>
         );
     }

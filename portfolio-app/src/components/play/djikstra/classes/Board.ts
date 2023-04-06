@@ -1,3 +1,4 @@
+import { pushThenShiftArrayInterval, pushToArrayInterval, shiftArrayInterval } from "../helpers/arrayHelpers";
 import { DjikstraNodeData } from "../helpers/djikstraNodeData";
 import { Point } from "../helpers/point";
 import { Graph } from "./Graph";
@@ -13,9 +14,10 @@ export class Board<T> {
     private cols_width: number;
     private rows_height: number;
     private offset: number;
-    private draw_pool: any[];
+    private draw_pool: any[] = [];
+    private animation_interval: number = 0;
 
-    constructor(s: any, x: number, y: number, width: number, height: number, num_cols: number, num_rows: number, draw_pool?: any[]) {
+    constructor(s: any, x: number, y: number, width: number, height: number, num_cols: number, num_rows: number, animation_interval: number) {
         this.s = s;
         this.width = width;
         this.height = height;
@@ -26,13 +28,13 @@ export class Board<T> {
         this.cols_width = width / num_cols;
         this.rows_height = height / num_rows;
         this.offset = this.cols_width / 2;
-        this.draw_pool = draw_pool || [];
+        this.animation_interval = animation_interval;
     }
 
-    setDrawPool(draw_pool: any[]){
+    setDrawPool(draw_pool: any[]) {
         this.draw_pool = draw_pool;
     }
-    
+
     setup() {
 
         this.s.stroke(255);
@@ -50,7 +52,7 @@ export class Board<T> {
         }
     }
 
-    drawDjikstraCartesianPointsGridGraph() {
+    drawDjikstraCartesianPointsGridGraphDEBUG() {
         if (typeof this.draw_pool === undefined) return;
 
         for (let i = 0; i < this.draw_pool.length; i++) {
@@ -68,20 +70,37 @@ export class Board<T> {
 
                 this.s.circle(data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset, this.cols_width / 16);
 
-                // node.getAdjacent().forEach(neighbor => {
-                //     let nData = neighbor.getData() as DjikstraNodeData;
+                node.getAdjacent().forEach(neighbor => {
+                    let nData = neighbor.getData() as DjikstraNodeData;
 
-                //     this.s.line(
-                //         data.getPoint().getX() * this.cols_width + this.offset,
-                //         data.getPoint().getY() * this.rows_height + this.offset,
-                //         nData.getPoint().getX() * this.cols_width + this.offset,
-                //         nData.getPoint().getY() * this.rows_height + this.offset,
-                //     )
-                // })
+                    this.s.line(
+                        data.getPoint().getX() * this.cols_width + this.offset,
+                        data.getPoint().getY() * this.rows_height + this.offset,
+                        nData.getPoint().getX() * this.cols_width + this.offset,
+                        nData.getPoint().getY() * this.rows_height + this.offset,
+                    )
+                })
 
-                //this.s.fill("white");
-                //this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
-                //this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}\nCost: ${data.getCost()}\nTentativeD: ${data.getTentativeDistance()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
+                this.s.fill("white");
+                this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
+                this.s.text(`k: ${node.getKey()}\n${data.getPoint().getX()},${data.getPoint().getY()}\nCost: ${data.getCost()}\nTentativeD: ${data.getTentativeDistance()}`, data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset);
+            })
+        }
+    }
+
+    drawDjikstraCartesianPointsGridGraph() {
+        if (typeof this.draw_pool === undefined) return;
+
+        for (let i = 0; i < this.draw_pool.length; i++) {
+
+            let graph: Graph<T> = this.draw_pool[i] as Graph<T>;
+            let nodes = graph.getNodes();
+            let data: DjikstraNodeData;
+            if (nodes.size <= 0) return;
+
+            nodes.forEach(node => {
+                data = node.getData() as DjikstraNodeData;
+                this.s.circle(data.getPoint().getX() * this.cols_width + this.offset, data.getPoint().getY() * this.rows_height + this.offset, this.cols_width / 16);
             })
         }
     }
@@ -103,8 +122,16 @@ export class Board<T> {
             (this.draw_pool[i] as AnimatedLine).draw();
         };
     }
-}
 
+    setAnimatedLinesInterval(graph: Graph<number>) {
+        let animatedLines = AnimatedLine.getAnimatedLinesArray(graph, this.cols_width, this.rows_height, this.s).slice();
+        if (animatedLines) pushThenShiftArrayInterval(this.draw_pool, animatedLines, this.animation_interval);
+    }
+
+    setAnimatedGridNodes(graph: Graph<number>) {
+        this.draw_pool.push(graph);
+    }
+}
 
 export class AnimatedLine {
     private a: Point;
@@ -119,6 +146,7 @@ export class AnimatedLine {
     private scaleX;
     private scaleY;
     private lineGrowRate = 0.5;
+    private offset;
 
     constructor(a: Point, b: Point, scaleX: number, scaleY: number, s: any) {
         this.a = a;
@@ -131,6 +159,7 @@ export class AnimatedLine {
         this.s = s;
         this.scaleX = scaleX;
         this.scaleY = scaleY;
+        this.offset = scaleX / 2;
     }
 
     setup() {
@@ -139,15 +168,12 @@ export class AnimatedLine {
 
     draw() {
         this.lineLength += this.lineGrowRate;
-
         this.lineX = this.a.getX() + Math.cos(this.lineAngle) * this.lineLength;
         this.lineY = this.a.getY() + Math.sin(this.lineAngle) * this.lineLength;
-        this.s.line(this.a.getX() * this.scaleX, this.a.getY() * this.scaleY, this.lineX * this.scaleX, this.lineY * this.scaleY);
-        //console.log("Drawin: ", this.a, " ---> ", this.b);
-        //console.log(this.a.getX() * this.scaleX, this.a.getY() * this.scaleY, this.lineX * this.scaleX, this.lineY * this.scaleY)
+        this.s.line(this.a.getX() * this.scaleX + this.offset, this.a.getY() * this.scaleY + this.offset, this.lineX * this.scaleX + this.offset, this.lineY * this.scaleY + this.offset);
     }
 
-    static getAnimatedLinesArray(graph: Graph<any>, scaleX: number, scaleY: number, s: any) : AnimatedLine[] {
+    static getAnimatedLinesArray(graph: Graph<any>, scaleX: number, scaleY: number, s: any): AnimatedLine[] {
         let lastPoint: Point;
         let currentPoint: Point;
         let nodes = graph.getNodes();
