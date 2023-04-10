@@ -14,7 +14,7 @@ export class Landing extends React.Component {
 
                         <div className="col-start-5 sm:col-start-4 col-end-6 align-text-bottom flex">
                             <h6 className="mt-auto ml-6 mb-4">
-                                <strong> ¡Hello! I'm Miguel,</strong> an autodidact Software Developer who loves learning programming<strong>,</strong> languages.</h6>
+                                <strong> ¡Hello! I'm Miguel,</strong> an autodidact Software Developer who loves learning programming<strong>&</strong> languages.</h6>
                         </div>
                     </div>
 

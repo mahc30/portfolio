@@ -1,11 +1,16 @@
 {
-    "sections": [
+    "articles": [
         {
-            "title": "¡Take a look at some of my projects!",
+            "title": "Projects",
             "hasImg": true,
             "img": "info_1.png",
             "cards": [
-                
+                {
+                    "title": "AilenSweeper",
+                    "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android. ¡Click on the image to see it in the Play Store!",
+                    "img": "ailensweeper_logo.png",
+                    "link": "https://play.google.com/store/apps/details?id=com.lld.android.app&hl=es"
+                },
                 {
                     "title": "Management of Hospitalary Assets",
                     "description": "Web Application to conduct research on the current state of Hospital Physical Asset Management in the Aburrá Valley (Colombia) as part of a research on the Efficiency and Sustainability of Physical Asset Maintenance Management in the Hospital environment.",
@@ -24,11 +29,16 @@
             "title": "Experience",
             "cards": [
                 {
-                    "title": "Operating Systems Course Tutor",
-                    "subtitle": "January 2021 - June 2021",
-                    "description": "Helped students of the course Operating Systems (CS401) by reviewing and providing feedback to students questions and programs written in C language. Also helped transpiling code examples and guides from C to Rust.",
-                    "img": "linux_icon.png",
-                    "link": "https://systemsoperating.readthedocs.io/es/latest/"
+                    "title": "DevOps Lead",
+                    "description": "I'm curretly working as DevOps leader at an electric vehicles renting company, developing and automating CI/CD pipelines, infrastructure and monitoring tools for a cloud-based microservices architecture",
+                    "img": "muverang.png",
+                    "link": "https://muverang.com/"
+                },
+                {
+                    "title": "DevSecOps Analyst",
+                    "description": "As a DevSecOps analyst at Pragma, i worked collaboratively with software engineering teams to integrate security processes throughout the software development lifecycle. Also conducted capture the flag-like laboratories for different teams to research and practice pentesting skills",
+                    "img": "pragma.png",
+                    "link": "https://muverang.com/"
                 },
                 {
                     "title": "Misión TIC",
@@ -36,18 +46,6 @@
                     "description": "Created programming challenges for a country-wide iniciative to train 100.000 people in skills and talents for the fourth industrial revolution. Implemented unit tests for said challenges to optimize the process utilizing an automatic code grading tool.",
                     "img": "mision_tic1.png",
                     "link": "https://www.misiontic2022.gov.co/portal/"
-                },
-                {
-                    "title": "DevSecOps Analyst",
-                    "description": "As a DevSecOps analyst at Pragma, worked collaboratively with software engineering teams to integrate security processes throughout the software development lifecycle. Also conducted hacking laboratories for different teams to research and practice pentesting skills",
-                    "img": "pragma.png",
-                    "link": "https://muverang.com/"
-                },
-                {
-                    "title": "DevOps Lead",
-                    "description": "I'm curretly working as DevOps leader at an electric vehicles renting company, developing CI/CD pipelines, infrastructure and automation and monitoring tools for cloud-based microservices architecture",
-                    "img": "muverang.png",
-                    "link": "https://muverang.com/"
                 }
             ]
         },
@@ -55,10 +53,25 @@
             "title": "Education",
             "cards": [
                 {
-                    "title": "Computer Science",
-                    "description": "Studied Computer Science in Universidad Pontificia Bolivariana, graduated in november 2022 as Systems and Informatics Engineer.",
-                    "img": "upb_logo.png",
-                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
+                    "title": "University",
+                    "description": "",
+                    "img": "",
+                    "link": "",
+                    "cards": [
+                        {
+                            "title": "Computer Science",
+                            "description": "Studied Computer Science in Universidad Pontificia Bolivariana, graduated in november 2022 as Systems and Informatics Engineer.",
+                            "img": "upb_logo.png",
+                            "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
+                        },
+                        {
+                            "title": "Operating Systems Course Tutor",
+                            "subtitle": "January 2021 - June 2021",
+                            "description": "Helped students of the course Operating Systems (CS401) by reviewing and providing feedback to students questions and programs written in C language. Also helped transpiling code examples and guides from C to Rust.",
+                            "img": "linux_icon.png",
+                            "link": "https://systemsoperating.readthedocs.io/es/latest/"
+                        }
+                    ]
                 },
                 {
                     "title": "Architecting with Google Compute Engine Specialization",

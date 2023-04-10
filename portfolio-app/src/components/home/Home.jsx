@@ -4,39 +4,20 @@ import { Landing } from './Landing.jsx'
 import { ContactMe } from './ContactMe.jsx'
 import { Separador } from './Separador.jsx'
 import { ShowOff } from '../play/ShowOff.jsx'
-import home_config from './home_config';
 import { Djikstra } from '../play/djikstra/Djikstra.jsx'
+import Button from '../molecules/buttons/button.jsx'
+import TabMenu from '../molecules/tabMenu.jsx'
+import home_config from './home_config.json'
+import { home_config_parser, map_cards } from '../../helpers/config_parser.js'
+
 
 export class Home extends React.Component {
 
   render() {
+    home_config_parser(home_config);
+    map_cards(home_config);
     return (
-      <div>
-        <Djikstra/>
-        <Landing />
-        <Separador />
-
-        <>
-          {home_config.sections.map(section => {
-            return <div>
-              {React.createElement(SectionWrapper, {
-                key: section.title,
-                title: section.title,
-                hasImg: section.hasImg,
-                img: section.img,
-                cards: section.cards,
-                handleRedirect: this.props.handleRedirect
-              })}
-              <Separador key={this.props.currentKey} />
-            </div>
-
-          })}
-        </>
-        <ShowOff handleRedirect={this.props.handleRedirect} />
-        <Separador />
-        <ContactMe />
-
-      </div>
+      <TabMenu articles={home_config.articles} />
     );
 
 
