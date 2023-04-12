@@ -10,7 +10,6 @@ class TreeView extends Component {
             rendered: new Map()
         };
         this.handleClick = this.handleClick.bind(this);
-        console.log(this.props.cards)
     };
 
     handleClick(e) {
