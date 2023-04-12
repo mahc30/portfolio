@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Article from './Article/Article';
+import Article from '../Article/Article';
+import './index.css'
 
 class TabMenu extends Component {
   constructor(props) {
@@ -37,4 +38,3 @@ class TabMenu extends Component {
 }
 
 export default TabMenu;
-

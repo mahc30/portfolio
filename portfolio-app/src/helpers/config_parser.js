@@ -28,6 +28,34 @@ export function map_cards(home_config) {
                 card.cards = subMap
             }
         });
+
         home_config.articles[i].cards = map;
     });
+}
+
+export function treemap(card) {
+
+    let map = new Map();
+    let added = new Set();
+    card.cards.forEach(card => {
+        let subMap = new Map();
+
+        if (!added.has(card.id)) map.set(card.id, card);
+
+
+        if (card.cards) {
+            card.cards.forEach(card => {
+
+                added.add(card.id);
+                subMap.set(card.id, card);
+            });
+
+            card.cards = subMap
+
+
+
+        }
+    });
+
+    return map;
 }

@@ -6,9 +6,11 @@ class TreeView extends Component {
 
         this.state = {
             cards: this.props.cards,
-            isChild: this.props.isChild
+            isChild: this.props.isChild,
+            rendered: new Map()
         };
         this.handleClick = this.handleClick.bind(this);
+        console.log(this.props.cards)
     };
 
     handleClick(e) {
@@ -25,23 +27,26 @@ class TreeView extends Component {
     }
 
     render() {
+        
         return (
             <ul className={this.state.isChild ? "" : "tree-view"}>
                 {
                     Array.from(this.state.cards).map(([i, obj]) => {
-                        return obj.cards ?
-                            <li id={obj.title}>
+
+                        return obj.cards && !this.state.rendered.has(obj.id) ?
+                            <li id={`item-${obj.title}`}>
                                 <details open>
                                     <summary>{obj.title}</summary>
-                                    <TreeView id={`treeview-${obj.id}`} 
-                                    cards={obj.cards} 
-                                    isChild={true} 
-                                    clickedProjectLink={this.props.clickedProjectLink}/>
+                                    <TreeView id={`treeview-${obj.id}`}
+                                        cards={obj.cards}
+                                        isChild={true}
+                                        clickedProjectLink={this.props.clickedProjectLink} />
                                 </details>
                             </li>
-                            :
-
-                            <li id={`item-${obj.id}`}><a id={obj.id} onClick={this.handleClick}>{obj.title}</a></li>
+                            : 
+                            <li id={`item-${obj.title}`}>
+                                <a id={obj.id} onClick={this.handleClick}>{obj.title}</a>
+                            </li>
                     })
                 }
             </ul>

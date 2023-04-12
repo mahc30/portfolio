@@ -1,6 +1,18 @@
 {
     "articles": [
         {
+            "title": "About Me",
+            "hasImg": false,
+            "img": "",
+            "cards": [
+                {
+                    "title": "Hello, i'm Miguel,",
+                    "description": "an autodidact Software Developer who loves learning programming, languages.",
+                    "img": "picretocada.png"
+                }
+            ]
+        },
+        {
             "title": "Projects",
             "hasImg": true,
             "img": "info_1.png",
@@ -53,6 +65,18 @@
             "title": "Education",
             "cards": [
                 {
+                    "title": "Architecting with Google Compute Engine Specialization",
+                    "description": "Completed a 9 week course about the google cloud infrastructure, from essential core services such as compute engine up to scaling and automation. ",
+                    "img": "googleCloud_logo.png",
+                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
+                },
+                {
+                    "title": "Coursera",
+                    "description": "Studied different topics such as Cloud Engineering, Network & Databases Vulnerabilities and Software Security. ¡You can see my certificates in my LinkedIn profile by clicking the picture above!",
+                    "img": "coursera_logo.png",
+                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
+                },
+                {
                     "title": "University",
                     "description": "",
                     "img": "",
@@ -72,18 +96,6 @@
                             "link": "https://systemsoperating.readthedocs.io/es/latest/"
                         }
                     ]
-                },
-                {
-                    "title": "Architecting with Google Compute Engine Specialization",
-                    "description": "Completed a 9 week course about the google cloud infrastructure, from essential core services such as compute engine up to scaling and automation. ",
-                    "img": "googleCloud_logo.png",
-                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
-                },
-                {
-                    "title": "Coursera",
-                    "description": "Studied different topics such as Cloud Engineering, Network & Databases Vulnerabilities and Software Security. ¡You can see my certificates in my LinkedIn profile by clicking the picture above!",
-                    "img": "coursera_logo.png",
-                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
                 }
             ]
         }
