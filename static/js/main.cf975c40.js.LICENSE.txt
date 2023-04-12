@@ -6,6 +6,8 @@ object-assign
 
 /*! p5.js v1.4.0 June 29, 2021 */
 
+/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+
 /**
  * React Router v6.2.1
  *
