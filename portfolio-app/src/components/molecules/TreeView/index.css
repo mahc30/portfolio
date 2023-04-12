@@ -1,4 +1,19 @@
-ul > li > a {
+ul>li>a {
   text-decoration: underline !important;
   color: (internal value)
+}
+
+a {
+  font-size: small;
+  color: blue !important;
+  text-decoration: underline !important;
+  cursor: auto !important;
+}
+
+a:visited {
+  color: purple !important;
+}
+
+a:hover {
+  cursor: pointer !important;
 }

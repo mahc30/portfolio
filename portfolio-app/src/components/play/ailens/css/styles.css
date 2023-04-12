@@ -4,15 +4,16 @@
 }
 
 #viewport {
-    height: 100%;
+    height: 69vh;
     width: 100%;
+    z-index: 100;
 }
 
 #gamebar {
     height: 10%;
+    position: absolute;
 }
 
-#ailensweeper {
-    width: 100%;
-    height: 90%;
+.hide{
+    display: none;
 }

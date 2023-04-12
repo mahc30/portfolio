@@ -9,7 +9,7 @@ import { Point } from "./helpers/point";
 const COLORS =
 {
     "name": "Portfolio BG gray",
-    "hex": "#C3C7CF",
+    "hex": "#ffffff",
     "light": "#c1edd9",
     "dark": "#7ca291",
     "shades": [

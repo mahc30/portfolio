@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './index.css'
 
 class TreeView extends Component {
     constructor(props) {

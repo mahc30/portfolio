@@ -3,11 +3,13 @@ import './index.css'
 import TreeView from '../TreeView/TreeView';
 import { treemap } from '../../../helpers/config_parser';
 import { stringToS3Url } from '../../../helpers/stringHelpers';
+import { Tetris } from '../../play/sirteT/Sirtet';
+import { Ailensweeper } from '../../play/ailens/Ailensweeper';
 
 class Article extends Component {
     constructor(props) {
         super(props);
-        
+
         this.state = {
             title: this.props.tab.title,
             hasImg: this.props.tab.hasImg,
@@ -42,24 +44,25 @@ class Article extends Component {
                         />
                     </div>
                     <div className="content">
-                    
                         <h4>{this.state.currentCard.title}</h4>
-
-                        {this.state.currentCard.link ?
-                            <a target="blank" href={this.state.currentCard.link}>
-                                <img src={stringToS3Url(process.env.REACT_APP_S3_BUCKET_NAME, this.state.currentCard.img)} alt={this.state.currentCard.title} />
-                            </a>
-                            : //Custom routing
-                            <a onClick={() => this.props.handleRedirect("showoff")}>
-                                <img src={stringToS3Url(process.env.REACT_APP_S3_BUCKET_NAME, this.state.currentCard.img)} alt={this.state.currentCard.title} />
-                            </a>
+                        {this.state.currentCard.is_game ?
+                            this.state.currentCard.title === "Tetris" ? <Tetris/> : <Ailensweeper/> 
+                            :
+                            <div id="img_holder">
+                                {this.state.currentCard.custom_routing ?
+                                    <a target="blank" href={this.state.currentCard.link}>
+                                        <img src={stringToS3Url(process.env.REACT_APP_S3_BUCKET_NAME, this.state.currentCard.img)} alt={this.state.currentCard.title} />
+                                    </a>
+                                    : //Custom routing
+                                    <a onClick={() => this.props.handleRedirect("showoff")}>
+                                        <img src={stringToS3Url(process.env.REACT_APP_S3_BUCKET_NAME, this.state.currentCard.img)} alt={this.state.currentCard.title} />
+                                    </a>
+                                }
+                            </div>
                         }
-
                         <p>
                             {this.state.currentCard.description}
-                        </p>
-                        <p>
-                            <a onClick={this.handleClick} href={this.state.currentCard.link} target="_blank">Click here to learn more</a>.
+                            <a onClick={this.handleClick} href={this.state.currentCard.link} target="blank"> {this.state.currentCard.link_legend}</a>
                         </p>
                     </div>
                 </section>

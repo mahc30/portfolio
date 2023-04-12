@@ -7,7 +7,7 @@
             "cards": [
                 {
                     "title": "Hello, i'm Miguel",
-                    "description": "an autodidact Software Developer who loves learning programming, languages.",
+                    "description": "An autodidact Software Developer who loves learning programming&languages.",
                     "img": "picretocada.png"
                 }
             ]
@@ -21,19 +21,30 @@
                     "title": "AilenSweeper",
                     "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android. ¡Click on the image to see it in the Play Store!",
                     "img": "ailensweeper_logo.png",
-                    "link": "https://play.google.com/store/apps/details?id=com.lld.android.app&hl=es"
+                    "link": "https://play.google.com/store/apps/details?id=com.lld.android.app&hl=es",
+                    "link_legend": "See more at the games section. ↗",
+                    "custom_routing": true
+                },
+                {
+                    "title": "Tetris",
+                    "description": "¡Tetris!",
+                    "img": "tetris_logo.png",
+                    "link_legend": "See more at the games section. ↗",
+                    "custom_routing": true
                 },
                 {
                     "title": "Management of Hospitalary Assets",
                     "description": "Web Application to conduct research on the current state of Hospital Physical Asset Management in the Aburrá Valley (Colombia) as part of a research on the Efficiency and Sustainability of Physical Asset Maintenance Management in the Hospital environment.",
                     "img": "statistics_1.jpg",
-                    "link": "https://eav.upb.edu.co/gestion-activos-web/"
+                    "link": "https://eav.upb.edu.co/gestion-activos-web/",
+                    "link_legend": "Click here to learn more"
                 },
                 {
                     "title": "Music Sheet Database",
                     "description": "Web Application to manage, upload and download curated music sheets for the use of the students of the Red de Escuelas de Música de Medellín.",
                     "img": "music_sheet_1.jpg",
-                    "link": "https://github.com/mahc30/staferep"
+                    "link": "https://github.com/mahc30/staferep",
+                    "link_legend": "Click here to learn more"
                 }
             ]
         },
@@ -42,22 +53,25 @@
             "cards": [
                 {
                     "title": "DevOps Lead",
-                    "description": "I'm curretly working as DevOps leader at an electric vehicles renting company, developing and automating CI/CD pipelines, infrastructure and monitoring tools for a cloud-based microservices architecture",
+                    "description": "I'm curretly working as DevOps leader at an electric vehicles renting company, developing and automating CI/CD pipelines, infrastructure and monitoring tools for a cloud-based microservices architecture.",
                     "img": "muverang.png",
-                    "link": "https://muverang.com/"
+                    "link": "https://muverang.com/",
+                    "link_legend": "Click here to learn more"
                 },
                 {
                     "title": "DevSecOps Analyst",
-                    "description": "As a DevSecOps analyst at Pragma, i worked collaboratively with software engineering teams to integrate security processes throughout the software development lifecycle. Also conducted capture the flag-like laboratories for different teams to research and practice pentesting skills",
+                    "description": "As a DevSecOps analyst at Pragma, i worked collaboratively with software engineering teams to integrate security processes throughout the software development lifecycle. Also conducted capture the flag-like laboratories for different teams to research and practice pentesting skills.",
                     "img": "pragma.png",
-                    "link": "https://muverang.com/"
+                    "link": "https://muverang.com/",
+                    "link_legend": "Click here to learn more"
                 },
                 {
                     "title": "Misión TIC",
                     "subtitle": "July 2021 - October 2021",
                     "description": "Created programming challenges for a country-wide iniciative to train 100.000 people in skills and talents for the fourth industrial revolution. Implemented unit tests for said challenges to optimize the process utilizing an automatic code grading tool.",
                     "img": "mision_tic1.png",
-                    "link": "https://www.misiontic2022.gov.co/portal/"
+                    "link": "https://www.misiontic2022.gov.co/portal/",
+                    "link_legend": "Click here to learn more"
                 }
             ]
         },
@@ -66,36 +80,54 @@
             "cards": [
                 {
                     "title": "Architecting with Google Compute Engine Specialization",
-                    "description": "Completed a 9 week course about the google cloud infrastructure, from essential core services such as compute engine up to scaling and automation. ",
+                    "description": "Completed a 9 week course about the google cloud infrastructure, from essential core services such as compute engine up to scaling and automation.",
                     "img": "googleCloud_logo.png",
-                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
+                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/",
+                    "link_legend": "Click here to learn more"
                 },
                 {
                     "title": "Coursera",
                     "description": "Studied different topics such as Cloud Engineering, Network & Databases Vulnerabilities and Software Security. ¡You can see my certificates in my LinkedIn profile by clicking the picture above!",
                     "img": "coursera_logo.png",
-                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
+                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/",
+                    "link_legend": "Click here to learn more"
                 },
                 {
                     "title": "University",
                     "description": "",
                     "img": "",
                     "link": "",
+                    "link_legend": "Click here to learn more",
                     "cards": [
                         {
                             "title": "Systems and Informatics Engineering",
                             "description": "Studied Systems and Informatics Engineering at Universidad Pontificia Bolivariana, graduated with honors in november 2022 as Systems and Informatics Engineer.",
                             "img": "upb_logo.png",
-                            "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
+                            "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/",
+                            "link_legend": "Click here to learn more"
                         },
                         {
                             "title": "Operating Systems Course Tutor",
                             "subtitle": "January 2021 - June 2021",
                             "description": "Helped students of the course Operating Systems (CS401) by reviewing and providing feedback to students questions and programs written in C language. Also helped transpiling code examples and guides from C to Rust.",
                             "img": "linux_icon.png",
-                            "link": "https://systemsoperating.readthedocs.io/es/latest/"
+                            "link": "https://systemsoperating.readthedocs.io/es/latest/",
+                            "link_legend": "Click here to learn more"
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "title": "Games",
+            "cards": [
+                {
+                    "title": "AilenSweeper",
+                    "is_game": true
+                },
+                {
+                    "title": "Tetris",
+                    "is_game": true
                 }
             ]
         }

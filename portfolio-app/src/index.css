@@ -14,81 +14,17 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-a {
-    font-size: small;
-    color: blue !important;
-    text-decoration: underline !important;
-    cursor: auto !important;
-}
-
 summary {
     font-size: small;
     font-weight: 1000;
 }
 
+section{
+    width: 100%;
+}
+
 #tabMenuWrapper {
     padding: 1%;
-}
-
-img {
-    display: block;
-    max-width: 230px;
-    max-height: 95px;
-    width: auto;
-    height: auto;
-}
-
-a:visited {
-    color: purple !important;
-}
-
-a:hover {
-    cursor: pointer !important;
-}
-
-.bg-custom-100 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(72, 82, 107, var(--tw-bg-opacity));
-}
-
-.bg-custom-200 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(65, 70, 86, var(--tw-bg-opacity));
-}
-
-.bg-custom-300 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(118, 106, 141, var(--tw-bg-opacity));
-}
-
-.bg-custom-400 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(145, 117, 155, var(--tw-bg-opacity));
-}
-
-.bg-custom-500 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(174, 128, 166, var(--tw-bg-opacity));
-}
-
-.bg-custom-600 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(161, 171, 199, var(--tw-bg-opacity));
-}
-
-.bg-custom-700 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(215, 163, 26, var(--tw-bg-opacity));
-}
-
-.bg-custom-800 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(195, 199, 207, var(--tw-bg-opacity));
-}
-
-.bg-custom-900 {
-    --tw-bg-opacity: 1;
-    background-color: rgba(152, 172, 207, var(--tw-bg-opacity));
 }
 
 .bg-custom-ailensweeper {

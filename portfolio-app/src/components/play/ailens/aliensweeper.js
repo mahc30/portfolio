@@ -39,11 +39,12 @@ let MARKET_DECO_FONT;
 //it also needs to be setup every time, this variable was being used to setup gamebar only the first time
 //because for mobile this was not a use case
 
-//let first_load = true;
+let first_load = true;
 
 //Dom
 let width;
 let height;
+let domCanvas;
 
 //Ailensweeper
 let lives = 1;
@@ -63,9 +64,9 @@ let flagMode = false;
 //Game animations
 let board;
 
-export const sketch = async(s) => {
+export const sketch = async (s) => {
 
-    s.preload = async() => {
+    s.preload = async () => {
         AILENS_IMG.push(s.loadImage(alien1))
         AILENS_IMG.push(s.loadImage(alien2))
         AILENS_IMG.push(s.loadImage(alien3))
@@ -85,46 +86,43 @@ export const sketch = async(s) => {
         FLAG_IMG = s.loadImage(ailen_flag)
         FLAG_IMG_GAMEBAR = s.loadImage(ailen_flag)
         AILENS_IMG_GAMEBAR = s.loadImage(alien8)
-        MARKET_DECO_FONT = s.loadFont(Market_Deco, font => {});
+        MARKET_DECO_FONT = s.loadFont(Market_Deco, font => { });
     }
 
     s.setup = () => {
-        width = document.getElementById("viewport").clientWidth;
-        height = document.getElementById("viewport").clientHeight;
-        let canvas = s.createCanvas(width, height);
-        canvas.parent("viewport");
+        domCanvas = s.select("#viewport");
+        width = domCanvas.width;
+        height = domCanvas.height;
+
+        s.createCanvas(width, height)
 
         //Setup GameBar Canvas
-        let div = document.getElementById("gamebar");
-        offset = div.clientHeight;
-        div.style.display = "none";
+        let div = s.select("#gamebar");
+        offset = div.height;
+
         gamebar = new GameBar(width, offset, lives);
 
         //Setup AilenSweeper
-        div = document.getElementById("ailensweeper")
-        height = div.clientHeight;
-        div.style.display = "none";
+        div = s.select("#ailensweeper")
 
         //Setup Game State
         s.startGame();
-        //irst_load = false;
+        first_load = false;
     }
 
     s.startGame = () => {
 
         //Ailensweeper
-        //Create 14xN or 32XN grid based on vertical or horizontal view
-        if (width < 360) {
-            w = 360 / 15
-        } else if (width < height) {
-            w = width / 15;
+        if (width <= height) {
+            w = (height - offset)/ 16
         } else {
-            w = width / 32;
+            w = (height - offset) / 12 ;
         }
-
+        
         cols = s.floor(width / w);
         rows = s.floor(height / w);
         totalAilens = Math.ceil(w * 3);
+        console.log(cols,rows)
         grid = make2DArray(cols, rows);
 
         for (let i = 0; i < cols; i++) {
@@ -135,6 +133,7 @@ export const sketch = async(s) => {
 
         // Pick totalAilens spots
         let options = [];
+
         for (let i = 0; i < cols; i++) {
             for (let j = 0; j < rows; j++) {
                 options.push([i, j]);
@@ -143,6 +142,7 @@ export const sketch = async(s) => {
 
         for (let n = 0; n < totalAilens; n++) {
             let index = s.floor(s.random(options.length));
+            
             let choice = options[index];
             let i = choice[0];
             let j = choice[1];
@@ -161,7 +161,7 @@ export const sketch = async(s) => {
         }
 
         //Gamebar
-        //if (first_load) { comment explanation on variable declaration
+        //if (first_load) {
         gamebar.setup();
 
         //Cell.setup is just resizing images, so calling it once is enough
@@ -305,7 +305,25 @@ export const sketch = async(s) => {
         board.animateBoard();
     }
 
-    let Cell = function(i, j, w, offset) {
+    s.windowResized = () => {
+        domCanvas = s.select("#viewport");
+        width = domCanvas.width;
+        height = domCanvas.height;
+        s.resizeCanvas(width, height)
+
+        //Setup GameBar Canvas
+        let div = s.select("#gamebar");
+        offset = div.height;
+        gamebar = new GameBar(width, offset, lives);
+        //Setup AilenSweeper
+        div = s.select("#ailensweeper")
+
+        //Setup Game State
+        s.startGame();
+        //first_load = false; 
+    }
+
+    let Cell = function (i, j, w, offset) {
         this.i = i;
         this.j = j;
         this.x = i * w;
@@ -320,14 +338,14 @@ export const sketch = async(s) => {
         //this.img;
     }
 
-    Cell.prototype.setup = function() {
+    Cell.prototype.setup = function () {
         for (let i = 0; i < AILENS_IMG.length; i++) {
             s.resizeImg(AILENS_IMG[i], this.w - 1, this.w - 1);
         }
         s.resizeImg(FLAG_IMG, this.w - 1, this.w - 1);
     }
 
-    Cell.prototype.show = function() {
+    Cell.prototype.show = function () {
         s.strokeWeight(1);
 
         if (this.flagged) {
@@ -392,7 +410,7 @@ export const sketch = async(s) => {
         s.rect(this.x, this.y, this.w, this.w);
     }
 
-    Cell.prototype.countAilens = function() {
+    Cell.prototype.countAilens = function () {
         if (this.ailen) {
             this.neighborCount = -1;
             return;
@@ -415,11 +433,11 @@ export const sketch = async(s) => {
         this.neighborCount = total;
     }
 
-    Cell.prototype.contains = function(x, y) {
+    Cell.prototype.contains = function (x, y) {
         return (x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.w);
     }
 
-    Cell.prototype.floodFill = function() {
+    Cell.prototype.floodFill = function () {
         for (let xoff = -1; xoff <= 1; xoff++) {
             let i = this.i + xoff;
             if (i < 0 || i >= cols) continue;
@@ -438,7 +456,7 @@ export const sketch = async(s) => {
         }
     }
 
-    Cell.prototype.reveal = function() {
+    Cell.prototype.reveal = function () {
         this.revealed = true;
         if (this.neighborCount === 0) {
             // flood s.fill time
@@ -446,16 +464,16 @@ export const sketch = async(s) => {
         }
     }
 
-    Cell.prototype.flag = function() {
+    Cell.prototype.flag = function () {
         this.flagged = !this.flagged;
     }
 
-    let Board = function(animationCell, animationOffset) {
+    let Board = function (animationCell, animationOffset) {
         this.animationCell = animationCell;
         this.animationOffset = animationOffset || 0;
     }
 
-    Board.prototype.animateBoard = function() {
+    Board.prototype.animateBoard = function () {
         //Pick random cell without including extremes
         s.stroke("#ff0077");
         s.strokeWeight(2);
@@ -465,7 +483,7 @@ export const sketch = async(s) => {
         //}
     }
 
-    let GameBar = function(w, h, lives) {
+    let GameBar = function (w, h, lives) {
         this.x = 0;
         this.y = 0;
         this.w = w;
@@ -494,7 +512,7 @@ export const sketch = async(s) => {
         //this.interval;
     }
 
-    GameBar.prototype.setup = function() {
+    GameBar.prototype.setup = function () {
         this.setGameOver(this.gameOver);
         this.setFlagMode(this.flagMode);
 
@@ -516,7 +534,7 @@ export const sketch = async(s) => {
         }, 45000);
     }
 
-    GameBar.prototype.show = function() {
+    GameBar.prototype.show = function () {
         s.fill("#262038");
         s.stroke("#262038");
         s.rect(this.x, this.y, this.w, this.y + this.h);
@@ -541,37 +559,37 @@ export const sketch = async(s) => {
         this.animate();
     }
 
-    GameBar.prototype.containsFlagModeBtn = function(x, y) {
+    GameBar.prototype.containsFlagModeBtn = function (x, y) {
         //Contains FlagMode s.image
         return (x > this.flagModeButtonX && x < this.flagModeButtonX + this.yBound && y > this.y && y < this.y + this.yBound);
     }
 
-    GameBar.prototype.containsRestartBtn = function(x, y) {
+    GameBar.prototype.containsRestartBtn = function (x, y) {
         //Contains Death/Alive s.image
         return (x > this.restartButtonX && x < this.restartButtonX + this.yBound && y > this.y && y < this.y + this.yBound);
     }
 
-    GameBar.prototype.updateAilensLeft = function(ailensLeft) {
+    GameBar.prototype.updateAilensLeft = function (ailensLeft) {
         this.ailensLeft = ailensLeft
     }
 
-    GameBar.prototype.setFlagMode = function(flagMode) {
+    GameBar.prototype.setFlagMode = function (flagMode) {
         this.flagMode = flagMode;
         flagMode ? this.flagModeImg = FLAG_IMG_GAMEBAR : this.flagModeImg = AILENS_IMG_GAMEBAR;
     }
 
-    GameBar.prototype.setGameOver = function(gameOver) {
+    GameBar.prototype.setGameOver = function (gameOver) {
         this.gameOver = gameOver;
         gameOver ? this.restartButtonImg = DEATH_IMG[this.progress] : this.restartButtonImg = ALIVE_IMG[this.progress];
     }
 
-    GameBar.prototype.animate = function() {
+    GameBar.prototype.animate = function () {
         s.line(this.x, this.y + this.h, this.w, this.y + this.h);
         s.stroke("#ff0077");
         s.animatedLine(this, this.x + this.animationOffset, this.y + this.h, 12, 0, 15);
     }
 
-    let drawButton = function(obj, x, y, img) {
+    let drawButton = function (obj, x, y, img) {
         s.image(img, x, y)
         s.noFill();
         s.stroke("#990077");
@@ -584,6 +602,7 @@ export const sketch = async(s) => {
     }
 
     let make2DArray = (cols, rows) => {
+        if (cols === rows) rows++;
         let arr = new Array(cols);
         for (let i = 0; i < arr.length; i++) {
             arr[i] = new Array(rows);

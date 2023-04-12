@@ -30,7 +30,10 @@ class TabMenu extends Component {
             })}
         </menu>
 
-        <Article id={`article-${this.state.currentSelectedTab.title}`} tab={this.state.currentSelectedTab}></Article>
+        <Article id={`article-${this.state.currentSelectedTab.title}`} 
+        tab={this.state.currentSelectedTab}
+        handleRedirect={this.props.handleRedirect}
+        />
 
       </article>
     );
