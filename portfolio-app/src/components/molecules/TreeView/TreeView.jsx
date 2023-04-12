@@ -33,7 +33,7 @@ class TreeView extends Component {
                     Array.from(this.state.cards).map(([i, obj]) => {
 
                         return obj.cards && !this.state.rendered.has(obj.id) ?
-                            <li id={`item-${obj.title}`}>
+                            <li key={`item-${obj.title}`}>
                                 <details open>
                                     <summary>{obj.title}</summary>
                                     <TreeView id={`treeview-${obj.id}`}
@@ -43,7 +43,7 @@ class TreeView extends Component {
                                 </details>
                             </li>
                             : 
-                            <li id={`item-${obj.title}`}>
+                            <li key={`item-${obj.title}`}>
                                 <a id={obj.id} onClick={this.handleClick}>{obj.title}</a>
                             </li>
                     })

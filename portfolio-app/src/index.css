@@ -15,19 +15,34 @@ code {
 }
 
 a {
+    font-size: small;
     color: blue !important;
     text-decoration: underline !important;
     cursor: auto !important;
 }
 
-#tabMenuWrapper{
+summary {
+    font-size: small;
+    font-weight: 1000;
+}
+
+#tabMenuWrapper {
     padding: 1%;
 }
 
-a:visited{
+img {
+    display: block;
+    max-width: 230px;
+    max-height: 95px;
+    width: auto;
+    height: auto;
+}
+
+a:visited {
     color: purple !important;
 }
-a:hover{
+
+a:hover {
     cursor: pointer !important;
 }
 
@@ -98,15 +113,15 @@ a:hover{
 
 .bg-custom-tetris-dark {
     --tw-bg-opacity: 1;
-    background-color:#58c9e5;
+    background-color: #58c9e5;
 }
 
-.color-custom-tetris-dark{
+.color-custom-tetris-dark {
     --tw-bg-opacity: 1;
     color: #0c5885;
 }
 
-.color-custom-tetris-light{
+.color-custom-tetris-light {
     --tw-bg-opacity: 1;
     color: #298bc5;
 }

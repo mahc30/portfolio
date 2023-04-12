@@ -26,7 +26,7 @@ class TabMenu extends Component {
         <menu role="tablist" aria-label="tabs ">
           {
             this.state.articles.map((article, index) => {
-              return <button role="tab" id={index} onClick={this.handleClick}>{article.title}</button>
+              return <button role="tab" id={index} key={index} onClick={this.handleClick}>{article.title}</button>
             })}
         </menu>
 

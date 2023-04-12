@@ -1,5 +1,5 @@
 import React from 'react'
-import { Home } from './home/Home.jsx'
+import { Home } from './pages/home/Home.jsx'
 import { Ailensweeper } from './play/ailens/Ailensweeper'
 import { Tetris } from './play/sirteT/Sirtet'
 import { Djikstra } from './play/djikstra/Djikstra'

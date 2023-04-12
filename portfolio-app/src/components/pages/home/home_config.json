@@ -6,7 +6,7 @@
             "img": "",
             "cards": [
                 {
-                    "title": "Hello, i'm Miguel,",
+                    "title": "Hello, i'm Miguel",
                     "description": "an autodidact Software Developer who loves learning programming, languages.",
                     "img": "picretocada.png"
                 }
@@ -83,8 +83,8 @@
                     "link": "",
                     "cards": [
                         {
-                            "title": "Computer Science",
-                            "description": "Studied Computer Science in Universidad Pontificia Bolivariana, graduated in november 2022 as Systems and Informatics Engineer.",
+                            "title": "Systems and Informatics Engineering",
+                            "description": "Studied Systems and Informatics Engineering at Universidad Pontificia Bolivariana, graduated with honors in november 2022 as Systems and Informatics Engineer.",
                             "img": "upb_logo.png",
                             "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/"
                         },

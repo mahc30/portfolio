@@ -6,7 +6,7 @@ import alienImg from './assets/ailen8.png';
 import flagImg from './assets/ailen_flag.png';
 import restartImg1 from './assets/death2.png'
 import restartImg2 from './assets/alive1.png'
-import { Separador } from '../../home/Separador';
+import { Separador } from '../../atoms/Separador';
 
 export class Ailensweeper extends React.Component {
     constructor(props) {

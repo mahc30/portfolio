@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import './index.css'
 import TreeView from '../TreeView/TreeView';
 import { treemap } from '../../../helpers/config_parser';
-
-const img_route = "/";
+import { stringToS3Url } from '../../../helpers/stringHelpers';
 
 class Article extends Component {
     constructor(props) {
@@ -44,15 +43,15 @@ class Article extends Component {
                     </div>
                     <div className="content">
                     
-                        <h3>{this.state.currentCard.title}</h3>
+                        <h4>{this.state.currentCard.title}</h4>
 
                         {this.state.currentCard.link ?
                             <a target="blank" href={this.state.currentCard.link}>
-                                <img className="max-h-48 md:max-h-64 2xl:max-h-56 w-full mx-auto" src={img_route + this.state.currentCard.img} alt={this.state.currentCard.title} />
+                                <img src={stringToS3Url(process.env.REACT_APP_S3_BUCKET_NAME, this.state.currentCard.img)} alt={this.state.currentCard.title} />
                             </a>
                             : //Custom routing
                             <a onClick={() => this.props.handleRedirect("showoff")}>
-                                <img className="max-h-48 md:max-h-64 2xl:max-h-56 w-full mx-auto" src={img_route + this.state.currentCard.img} alt={this.state.currentCard.title} />
+                                <img src={stringToS3Url(process.env.REACT_APP_S3_BUCKET_NAME, this.state.currentCard.img)} alt={this.state.currentCard.title} />
                             </a>
                         }
 
