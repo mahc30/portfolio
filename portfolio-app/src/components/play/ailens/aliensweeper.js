@@ -90,7 +90,7 @@ export const sketch = async (s) => {
     }
 
     s.setup = () => {
-        s.remove();
+        
         domCanvas = s.select("#viewport");
         width = domCanvas.width;
         height = domCanvas.height;
