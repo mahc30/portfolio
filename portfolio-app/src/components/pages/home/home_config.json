@@ -19,17 +19,15 @@
             "cards": [
                 {
                     "title": "AilenSweeper",
-                    "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android. ¡Click on the image to see it in the Play Store!",
+                    "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android. ¡Click on the image to see it in the Play Store or just try it at the games section!. ↗",
                     "img": "ailensweeper_logo.png",
                     "link": "https://play.google.com/store/apps/details?id=com.lld.android.app&hl=es",
-                    "link_legend": "See more at the games section. ↗",
                     "custom_routing": true
                 },
                 {
                     "title": "Tetris",
-                    "description": "¡Tetris!",
+                    "description": "¡Tetris! See more at the games section. ↗",
                     "img": "tetris_logo.png",
-                    "link_legend": "See more at the games section. ↗",
                     "custom_routing": true
                 },
                 {
@@ -86,7 +84,7 @@
                     "link_legend": "Click here to learn more"
                 },
                 {
-                    "title": "Coursera",
+                    "title": "Courses & Certificates",
                     "description": "Studied different topics such as Cloud Engineering, Network & Databases Vulnerabilities and Software Security. ¡You can see my certificates in my LinkedIn profile by clicking the picture above!",
                     "img": "coursera_logo.png",
                     "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/",
@@ -94,20 +92,17 @@
                 },
                 {
                     "title": "University",
-                    "description": "",
-                    "img": "",
-                    "link": "",
                     "link_legend": "Click here to learn more",
                     "cards": [
                         {
-                            "title": "Systems and Informatics Engineering",
+                            "title": "Engineering Degree",
                             "description": "Studied Systems and Informatics Engineering at Universidad Pontificia Bolivariana, graduated with honors in november 2022 as Systems and Informatics Engineer.",
                             "img": "upb_logo.png",
                             "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/",
                             "link_legend": "Click here to learn more"
                         },
                         {
-                            "title": "Operating Systems Course Tutor",
+                            "title": "Operating Systems",
                             "subtitle": "January 2021 - June 2021",
                             "description": "Helped students of the course Operating Systems (CS401) by reviewing and providing feedback to students questions and programs written in C language. Also helped transpiling code examples and guides from C to Rust.",
                             "img": "linux_icon.png",

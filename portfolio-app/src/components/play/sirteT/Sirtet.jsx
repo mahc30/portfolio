@@ -17,46 +17,28 @@ export class Tetris extends React.Component {
     render() {
 
         return (
-            <div className="w-screen h-screen bg-custom-tetris">
-                <div className="w-full h-full grid grid-cols-1 grid-rows:2 md:grid-rows-1 md:grid-cols-3">
+            <div id="tetris_component">
+                <div id="tetris_viewport" ref={this.myRef} />
+                <div id="instructions">
+                    <h6> Mobile Controls </h6>
+                    <ol>
+                        <li> Tap - Rotate 90° Right</li>
+                        <li> Swipe Down - Hard Drop </li>
+                        <li> Swipe Left and Right - Move Horizontally</li>
+                        <li> Swipe Up - Swap Tetromino</li>
+                    </ol>
 
-
-                    <div className="w-full h-full md:col-span-2 flex justify-center">
-                        <div className="md:m-auto">
-                            <div id="tetris_viewport" ref={this.myRef} />
-                        </div>
-                    </div>
-
-                    <div id="instructions" className="overflow-y-scroll">
-
-                        <h1 className="color-custom-tetris-light text-xl font-extrabold underline ml-2 mt-3"> Mobile Controls </h1>
-                        <ol className="color-custom-tetris-dark text-lg list-disc ml-6 mt-3">
-                            <li> Tap - Rotate 90° Right</li>
-                            <li> Swpe Down - Hard Drop </li>
-                            <li> Swipe Left and Right - Move Horizontally</li>
-                            <li> Swipe Up - Swap Tetromino</li>
-                        </ol>
-
-                        <h1 className="color-custom-tetris-light text-xl font-extrabold underline ml-2 mt-3"> Keyboard Controls </h1>
-                        <ol className="color-custom-tetris-dark text-lg list-disc ml-6 mt-3">
-                            <li> E - Rotate 90° Right</li>
-                            <li> Q - Rotate 90° Left </li>
-                            <li> Left and Right Arrows - Move Horizontally</li>
-                            <li> Down Arrow - Soft Drop </li>
-                            <li> Space Bar - Hard Drop </li>
-                            <li> Shift - Swap Tetromino</li>
-                        </ol>
-
-                        {
-                            <div id="TemporalNav" className="w-full bg-custom-tetris-dark my-3">
-                                <h1 className="color-custom-tetris-dark text-lg font-extrabold ml-2 underline hover:cursor-pointer" onClick={() => this.props.handleRedirect("portfolio")}> Take me Back to Home </h1>
-                            </div>
-                        }
-
-                    </div>
+                    <h6> Keyboard Controls </h6>
+                    <ol>
+                        <li> E - Rotate 90° Right</li>
+                        <li> Q - Rotate 90° Left </li>
+                        <li> Left and Right Arrows - Move Horizontally</li>
+                        <li> Down Arrow - Soft Drop </li>
+                        <li> Space Bar - Hard Drop </li>
+                        <li> Shift - Swap Tetromino</li>
+                    </ol>
                 </div>
             </div>
-
         );
     }
 }

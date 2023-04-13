@@ -12,10 +12,13 @@
   height: auto;
 }
 
+.sidebar{
+  max-width: 128px;
+}
 .content > #img_holder > a > img {
   display: block;
   min-height: 0;
-  max-width: 315px;
+  max-width: 192px;
   max-height: 255px;
   width: auto;
   height: auto;

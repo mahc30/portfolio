@@ -114,15 +114,14 @@ export const sketch = async (s) => {
 
         //Ailensweeper
         if (width <= height) {
-            w = (height - offset)/ 16
+            w = (height - offset) / 16
         } else {
-            w = (height - offset) / 12 ;
+            w = (height - offset) / 12;
         }
-        
+
         cols = s.floor(width / w);
         rows = s.floor(height / w);
         totalAilens = Math.ceil(w * 3);
-        console.log(cols,rows)
         grid = make2DArray(cols, rows);
 
         for (let i = 0; i < cols; i++) {
@@ -142,7 +141,7 @@ export const sketch = async (s) => {
 
         for (let n = 0; n < totalAilens; n++) {
             let index = s.floor(s.random(options.length));
-            
+
             let choice = options[index];
             let i = choice[0];
             let j = choice[1];
@@ -307,6 +306,10 @@ export const sketch = async (s) => {
 
     s.windowResized = () => {
         domCanvas = s.select("#viewport");
+        if (domCanvas === null) {
+            s.remove();
+            return;
+        }
         width = domCanvas.width;
         height = domCanvas.height;
         s.resizeCanvas(width, height)
