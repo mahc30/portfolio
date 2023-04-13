@@ -1,14 +1,27 @@
 {
     "articles": [
         {
-            "title": "About Me",
+            "title": "About",
             "hasImg": false,
             "img": "",
             "cards": [
                 {
-                    "title": "Hello, i'm Miguel",
+                    "title": "Hello ¡I'm Miguel!",
                     "description": "An autodidact Software Developer who loves learning programming&languages.",
                     "img": "picretocada.png"
+                },
+                {
+                    "title": "Contact",
+                    "is_special": true,
+                    "cards": [
+                        {
+                            "is_special": true,
+                            "title": "Contact"
+                        },
+                        {
+                            "title": "Socials"
+                        }
+                    ]
                 }
             ]
         },
@@ -123,19 +136,6 @@
                 {
                     "title": "Tetris",
                     "is_special": true
-                }
-            ]
-        },
-        {
-            "title": "Contact",
-            "is_special": true,
-            "cards": [
-                {
-                    "is_special": true,
-                    "title": "Contact"
-                },
-                {
-                    "title": "Socials"
                 }
             ]
         }
