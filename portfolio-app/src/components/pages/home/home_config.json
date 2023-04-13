@@ -117,12 +117,25 @@
             "title": "Games",
             "cards": [
                 {
-                    "title": "AilenSweeper",
-                    "is_game": true
+                    "title": "Ailensweeper",
+                    "is_special": true
                 },
                 {
                     "title": "Tetris",
-                    "is_game": true
+                    "is_special": true
+                }
+            ]
+        },
+        {
+            "title": "Contact",
+            "is_special": true,
+            "cards": [
+                {
+                    "is_special": true,
+                    "title": "Contact"
+                },
+                {
+                    "title": "Socials"
                 }
             ]
         }

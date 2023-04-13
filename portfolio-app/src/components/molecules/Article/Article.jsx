@@ -3,8 +3,7 @@ import './index.css'
 import TreeView from '../TreeView/TreeView';
 import { treemap } from '../../../helpers/config_parser';
 import { stringToS3Url } from '../../../helpers/stringHelpers';
-import { Tetris } from '../../play/sirteT/Sirtet';
-import { Ailensweeper } from '../../play/ailens/Ailensweeper';
+import { getSpecialCard } from '../../../helpers/enum';
 
 class Article extends Component {
     constructor(props) {
@@ -45,8 +44,8 @@ class Article extends Component {
                     </div>
                     <div className="content">
                         <h4>{this.state.currentCard.title}</h4>
-                        {this.state.currentCard.is_game ?
-                            this.state.currentCard.title === "Tetris" ? <Tetris/> : <Ailensweeper/> 
+                        {this.state.currentCard.is_special ?
+                            React.createElement(getSpecialCard(this.state.currentCard.title))
                             :
                             <div id="img_holder">
                                 {this.state.currentCard.custom_routing ?

@@ -142,6 +142,7 @@ var yDown = null;
 
 export const sketch = (s) => {
     s.setup = () => {
+        s.remove()
         domCanvas = s.select("#tetris_viewport");
         width = domCanvas.width;
         height = domCanvas.height;
