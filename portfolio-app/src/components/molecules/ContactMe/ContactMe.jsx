@@ -5,10 +5,7 @@ export class ContactMe extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            email: "",
-            subject: "",
-            message: ""
+            is_loading: false
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -22,6 +19,8 @@ export class ContactMe extends React.Component {
     handleSubmit(e) {
         let send_btn = document.getElementById("send_email_btn");
         send_btn.click();
+        this.setState({is_loading: true});
+        setTimeout(() => {this.setState({is_loading: false})}, 5000);
     }
 
 
@@ -58,7 +57,10 @@ export class ContactMe extends React.Component {
                         </div>
 
                         <div>
-                            <button type="button" onClick={this.handleSubmit}><a id="send_email_btn" href={`mailto:dahinkpie@gmail.com?subject=${this.state.subject}&body=¡Hi! i'm ${this.state.name} from=${this.state.email}. ${this.state.message}`}>Send Email</a></button>
+                            {this.state.is_loading ?
+                                <progress></progress> :
+                                <button type="button" onClick={this.handleSubmit}><a id="send_email_btn" href={`mailto:dahinkpie@gmail.com?subject=${this.state.subject}&body=¡Hi! i'm ${this.state.name} from=${this.state.email}. ${this.state.message}`}>Send Email</a></button>
+                            }
                         </div>
                     </form>
                 </div>
