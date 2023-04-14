@@ -6,7 +6,8 @@ import { sketch } from './tetris';
 export class Tetris extends React.Component {
     constructor(props) {
         super(props);
-        this.myRef = React.createRef()
+        this.myRef = React.createRef();
+        this.myP5 = null;
     }
 
     async componentDidMount() {
@@ -14,6 +15,9 @@ export class Tetris extends React.Component {
         document.getElementById("tetris_viewport").oncontextmenu = function () { return false; }
     }
 
+    async componentWillUnmount() {
+        this.myP5.remove()
+    }
     render() {
 
         return (

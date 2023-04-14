@@ -109,6 +109,7 @@ export const sketch = async (s) => {
         //Setup Game State
         s.startGame();
         first_load = false;
+        
     }
 
     s.startGame = () => {

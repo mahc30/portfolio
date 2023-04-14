@@ -12,11 +12,16 @@ export class Ailensweeper extends React.Component {
     constructor(props) {
         super(props);
         this.myRef = React.createRef()
+        this.myP5 = null;    
+    }
+    
+    async componentDidMount() {
+        this.myP5 = await new p5(sketch, this.myRef.current);
+        document.getElementById("viewport").oncontextmenu = function () { return false; }
     }
 
-    async componentDidMount() {
-        this.myP5 = await new p5(sketch, this.myRef.current)
-        document.getElementById("viewport").oncontextmenu = function () { return false; }
+    async componentWillUnmount() {
+        this.myP5.remove()
     }
 
     render() {
