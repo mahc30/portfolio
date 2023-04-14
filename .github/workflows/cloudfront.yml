@@ -12,6 +12,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
 
+    - name: Install dependencies
+      run: npm install
+      working-directory: ./portfolio-app
+
+    - name: Build React app
+      run: CI=false npm run build
+      working-directory: ./portfolio-app
+
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -20,7 +28,7 @@ jobs:
         aws-region: us-east-1
 
     - name: Deploy site to S3 bucket
-      run: aws s3 sync .portfolio-app/build/ s3://AWS_PORTFOLIO_S3_WEB_NAME --delete
+      run: aws s3 sync .portfolio-app/build/ s3://${{secrets.AWS_PORTFOLIO_S3_WEB_NAME}} --delete
       
     - name: Invalidate Distribution
       run: aws cloudfront create-invalidation --distribution-id ${{secrets.AWS_PORTFOLIO_CLOUDFRONT_ID}} --paths "/*"
