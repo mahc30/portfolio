@@ -1,3 +1,19 @@
 .window{
     width: 300px
 }
+
+#mail-form{
+    display: grid;
+    grid-template-rows: auto;
+    width: 100%;
+}
+
+.input-wrapper{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 27% auto;
+}
+
+#message{
+    min-height: 69px;
+}

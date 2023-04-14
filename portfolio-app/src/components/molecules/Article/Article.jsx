@@ -3,7 +3,7 @@ import './index.css'
 import TreeView from '../TreeView/TreeView';
 import { treemap } from '../../../helpers/config_parser';
 import { stringToS3Url } from '../../../helpers/stringHelpers';
-import { getSpecialCard } from '../../../helpers/enum';
+import { getSpecialCard } from '../../../helpers/componentHelpers';
 
 class Article extends Component {
     constructor(props) {
