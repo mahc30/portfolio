@@ -10,17 +10,29 @@ export class ContactMe extends React.Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.canSend = this.canSend.bind(this);
+    }
+
+    validateEmail(email) {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+
+    canSend() {
+        return this.state.name && this.validateEmail(this.state.email) && this.state.subject && this.state.message
     }
 
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
+        console.log(this.state)
     }
 
     handleSubmit(e) {
-        let send_btn = document.getElementById("send_email_btn");
-        send_btn.click();
-        this.setState({is_loading: true});
-        setTimeout(() => {this.setState({is_loading: false})}, 5000);
+        this.setState({ is_loading: true });
+        setTimeout(() => { this.setState({ is_loading: false }) }, 5000);
     }
 
 
@@ -59,7 +71,7 @@ export class ContactMe extends React.Component {
                         <div>
                             {this.state.is_loading ?
                                 <progress></progress> :
-                                <button type="button" onClick={this.handleSubmit}><a id="send_email_btn" href={`mailto:dahinkpie@gmail.com?subject=${this.state.subject}&body=¡Hi! i'm ${this.state.name} from=${this.state.email}. ${this.state.message}`}>Send Email</a></button>
+                                <a id="send_email_btn" onClick={this.handleSubmit} href={`mailto:dahinkpie@gmail.com?subject=${this.state.subject}&body=¡Hi! i'm ${this.state.name} from=${this.state.email}. ${this.state.message}`}><button className={this.canSend() ? "" : "hidden"} type="button">Send Email</button></a>
                             }
                         </div>
                     </form>

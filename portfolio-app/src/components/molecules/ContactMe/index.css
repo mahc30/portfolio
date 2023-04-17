@@ -3,6 +3,10 @@
     max-width: 82%;
 }
 
+.hidden{
+    display: none;
+}
+
 #mail-form{
     display: grid;
     grid-template-rows: auto;
