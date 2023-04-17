@@ -48,7 +48,7 @@ class Article extends Component {
                             :
                             <div id="img_holder">
                                 <a target="blank" href={this.state.currentCard.link}>
-                                    <img src={`./images/${this.state.currentCard.img}`} alt={this.state.currentCard.title} />
+                                    <img src={`./images/${this.state.currentCard.img}`} alt={this.state.currentCard.title} loading="lazy"/>
                                 </a>
                             </div>
                         }
