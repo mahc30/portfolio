@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './index.css'
 import TreeView from '../TreeView/TreeView';
 import { treemap } from '../../../helpers/config_parser';
-import { stringToS3Url } from '../../../helpers/stringHelpers';
 import { getSpecialCard } from '../../../helpers/componentHelpers';
 
 class Article extends Component {
@@ -48,15 +47,9 @@ class Article extends Component {
                             React.createElement(getSpecialCard(this.state.currentCard.title))
                             :
                             <div id="img_holder">
-                                {this.state.currentCard.custom_routing ?
-                                    <a target="blank" href={this.state.currentCard.link}>
-                                        <img src={stringToS3Url(process.env.REACT_APP_S3_BUCKET_NAME, this.state.currentCard.img)} alt={this.state.currentCard.title} />
-                                    </a>
-                                    : //Custom routing
-                                    <a onClick={() => this.props.handleRedirect("showoff")}>
-                                        <img src={stringToS3Url(process.env.REACT_APP_S3_BUCKET_NAME, this.state.currentCard.img)} alt={this.state.currentCard.title} />
-                                    </a>
-                                }
+                                <a target="blank" href={this.state.currentCard.link}>
+                                    <img src={`./images/${this.state.currentCard.img}`} alt={this.state.currentCard.title} />
+                                </a>
                             </div>
                         }
                         <p>

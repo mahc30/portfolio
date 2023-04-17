@@ -30,8 +30,6 @@ export class MyRouter extends React.Component {
         })
     }
 
-    
-
     render() {
         return(
            React.createElement(this.state.currentPage, {currentKey:this.state.currentKey, handleRedirect: this.handleRedirect})

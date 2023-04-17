@@ -1,5 +1,6 @@
 .window{
-    width: 300px
+    width: 300px;
+    max-width: 82%;
 }
 
 #mail-form{

@@ -1,15 +1,14 @@
-img {
+.socials-img {
     display: block;
     min-height: 0;
     max-width: 100%;
     max-height: 256px;
     width: auto;
     height: auto;
-
 }
 
 #socials-component {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 69px;
+    gap: 13px;
 }
