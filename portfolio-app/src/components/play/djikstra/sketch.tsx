@@ -22,7 +22,7 @@ const COLORS =
 
 // const DRAW_BEHAVIOUR = 0; //0 = IntervalPoints | 1 = AnimatedLine
 // Animation Settings
-const ANIMATION_INTERVAL_MS = 42;
+const ANIMATION_INTERVAL_MS = 69;
 const FPS = 30;
 
 //Game Config
@@ -44,7 +44,8 @@ let board: Board<Node<Point>>;
 
 let gridMap = Djikstra.generateGenericNodeListSingleValue(NUM_COLUMNS, NUM_ROWS);
 let graphFactory: GraphFactory<number> = new GraphFactory(numberComparator, gridMap);
-let graph: Graph<number> = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
+//let graph: Graph<number> = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
+let graph: Graph<number> = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
 let path: Graph<number>;
 
 
