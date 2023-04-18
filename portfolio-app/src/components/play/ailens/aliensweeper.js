@@ -64,9 +64,9 @@ let flagMode = false;
 //Game animations
 let board;
 
-export const sketch = async (s) => {
+export const sketch = async(s) => {
 
-    s.preload = async () => {
+    s.preload = async() => {
         AILENS_IMG.push(s.loadImage(alien1))
         AILENS_IMG.push(s.loadImage(alien2))
         AILENS_IMG.push(s.loadImage(alien3))
@@ -86,11 +86,11 @@ export const sketch = async (s) => {
         FLAG_IMG = s.loadImage(ailen_flag)
         FLAG_IMG_GAMEBAR = s.loadImage(ailen_flag)
         AILENS_IMG_GAMEBAR = s.loadImage(alien8)
-        MARKET_DECO_FONT = s.loadFont(Market_Deco, font => { });
+        MARKET_DECO_FONT = s.loadFont(Market_Deco, font => {});
     }
 
     s.setup = () => {
-        
+
         domCanvas = s.select("#viewport");
         width = domCanvas.width;
         height = domCanvas.height;
@@ -109,7 +109,7 @@ export const sketch = async (s) => {
         //Setup Game State
         s.startGame();
         first_load = false;
-        
+
     }
 
     s.startGame = () => {
@@ -123,7 +123,7 @@ export const sketch = async (s) => {
 
         cols = s.floor(width / w);
         rows = s.floor(height / w);
-        totalAilens = Math.ceil(w * 3);
+        totalAilens = Math.ceil(w * 0.69);
         grid = make2DArray(cols, rows);
 
         for (let i = 0; i < cols; i++) {
@@ -328,7 +328,7 @@ export const sketch = async (s) => {
         //first_load = false; 
     }
 
-    let Cell = function (i, j, w, offset) {
+    let Cell = function(i, j, w, offset) {
         this.i = i;
         this.j = j;
         this.x = i * w;
@@ -343,14 +343,14 @@ export const sketch = async (s) => {
         //this.img;
     }
 
-    Cell.prototype.setup = function () {
+    Cell.prototype.setup = function() {
         for (let i = 0; i < AILENS_IMG.length; i++) {
             s.resizeImg(AILENS_IMG[i], this.w - 1, this.w - 1);
         }
         s.resizeImg(FLAG_IMG, this.w - 1, this.w - 1);
     }
 
-    Cell.prototype.show = function () {
+    Cell.prototype.show = function() {
         s.strokeWeight(1);
 
         if (this.flagged) {
@@ -415,7 +415,7 @@ export const sketch = async (s) => {
         s.rect(this.x, this.y, this.w, this.w);
     }
 
-    Cell.prototype.countAilens = function () {
+    Cell.prototype.countAilens = function() {
         if (this.ailen) {
             this.neighborCount = -1;
             return;
@@ -438,11 +438,11 @@ export const sketch = async (s) => {
         this.neighborCount = total;
     }
 
-    Cell.prototype.contains = function (x, y) {
+    Cell.prototype.contains = function(x, y) {
         return (x > this.x && x < this.x + this.w && y > this.y && y < this.y + this.w);
     }
 
-    Cell.prototype.floodFill = function () {
+    Cell.prototype.floodFill = function() {
         for (let xoff = -1; xoff <= 1; xoff++) {
             let i = this.i + xoff;
             if (i < 0 || i >= cols) continue;
@@ -461,7 +461,7 @@ export const sketch = async (s) => {
         }
     }
 
-    Cell.prototype.reveal = function () {
+    Cell.prototype.reveal = function() {
         this.revealed = true;
         if (this.neighborCount === 0) {
             // flood s.fill time
@@ -469,16 +469,16 @@ export const sketch = async (s) => {
         }
     }
 
-    Cell.prototype.flag = function () {
+    Cell.prototype.flag = function() {
         this.flagged = !this.flagged;
     }
 
-    let Board = function (animationCell, animationOffset) {
+    let Board = function(animationCell, animationOffset) {
         this.animationCell = animationCell;
         this.animationOffset = animationOffset || 0;
     }
 
-    Board.prototype.animateBoard = function () {
+    Board.prototype.animateBoard = function() {
         //Pick random cell without including extremes
         s.stroke("#ff0077");
         s.strokeWeight(2);
@@ -488,7 +488,7 @@ export const sketch = async (s) => {
         //}
     }
 
-    let GameBar = function (w, h, lives) {
+    let GameBar = function(w, h, lives) {
         this.x = 0;
         this.y = 0;
         this.w = w;
@@ -517,7 +517,7 @@ export const sketch = async (s) => {
         //this.interval;
     }
 
-    GameBar.prototype.setup = function () {
+    GameBar.prototype.setup = function() {
         this.setGameOver(this.gameOver);
         this.setFlagMode(this.flagMode);
 
@@ -539,7 +539,7 @@ export const sketch = async (s) => {
         }, 45000);
     }
 
-    GameBar.prototype.show = function () {
+    GameBar.prototype.show = function() {
         s.fill("#262038");
         s.stroke("#262038");
         s.rect(this.x, this.y, this.w, this.y + this.h);
@@ -564,37 +564,37 @@ export const sketch = async (s) => {
         this.animate();
     }
 
-    GameBar.prototype.containsFlagModeBtn = function (x, y) {
+    GameBar.prototype.containsFlagModeBtn = function(x, y) {
         //Contains FlagMode s.image
         return (x > this.flagModeButtonX && x < this.flagModeButtonX + this.yBound && y > this.y && y < this.y + this.yBound);
     }
 
-    GameBar.prototype.containsRestartBtn = function (x, y) {
+    GameBar.prototype.containsRestartBtn = function(x, y) {
         //Contains Death/Alive s.image
         return (x > this.restartButtonX && x < this.restartButtonX + this.yBound && y > this.y && y < this.y + this.yBound);
     }
 
-    GameBar.prototype.updateAilensLeft = function (ailensLeft) {
+    GameBar.prototype.updateAilensLeft = function(ailensLeft) {
         this.ailensLeft = ailensLeft
     }
 
-    GameBar.prototype.setFlagMode = function (flagMode) {
+    GameBar.prototype.setFlagMode = function(flagMode) {
         this.flagMode = flagMode;
         flagMode ? this.flagModeImg = FLAG_IMG_GAMEBAR : this.flagModeImg = AILENS_IMG_GAMEBAR;
     }
 
-    GameBar.prototype.setGameOver = function (gameOver) {
+    GameBar.prototype.setGameOver = function(gameOver) {
         this.gameOver = gameOver;
         gameOver ? this.restartButtonImg = DEATH_IMG[this.progress] : this.restartButtonImg = ALIVE_IMG[this.progress];
     }
 
-    GameBar.prototype.animate = function () {
+    GameBar.prototype.animate = function() {
         s.line(this.x, this.y + this.h, this.w, this.y + this.h);
         s.stroke("#ff0077");
         s.animatedLine(this, this.x + this.animationOffset, this.y + this.h, 12, 0, 15);
     }
 
-    let drawButton = function (obj, x, y, img) {
+    let drawButton = function(obj, x, y, img) {
         s.image(img, x, y)
         s.noFill();
         s.stroke("#990077");
