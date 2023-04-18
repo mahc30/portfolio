@@ -3,7 +3,7 @@
 }
 
 #clickTheWhitespacemsg {
-    position: relative;
+    position: fixed;
     left: 13px;
     bottom: 13px;
 }
