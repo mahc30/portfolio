@@ -1,3 +1,9 @@
-#home  {
+#home {
     padding: 2%;
+}
+
+#clickTheWhitespacemsg {
+    position: relative;
+    left: 13px;
+    bottom: 13px;
 }

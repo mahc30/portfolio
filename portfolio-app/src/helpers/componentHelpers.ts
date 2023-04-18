@@ -9,7 +9,7 @@ export function getSpecialCard(title: string){
             return Tetris
         case "Ailensweeper":
             return Ailensweeper;
-        case "Contact":
+        case "Email":
             return ContactMe;
         case "Socials":
             return Socials;

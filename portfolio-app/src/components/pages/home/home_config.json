@@ -1,11 +1,9 @@
 {
-    "articles": [
-        {
+    "articles": [{
             "title": "About",
             "hasImg": false,
             "img": "",
-            "cards": [
-                {
+            "cards": [{
                     "title": "Hello ¡I'm Miguel!",
                     "description": "An autodidact Software Developer who loves learning programming&languages.",
                     "img": "picretocada.png"
@@ -13,10 +11,9 @@
                 {
                     "title": "Contact",
                     "is_special": true,
-                    "cards": [
-                        {
+                    "cards": [{
                             "is_special": true,
-                            "title": "Contact"
+                            "title": "Email"
                         },
                         {
                             "is_special": true,
@@ -30,8 +27,7 @@
             "title": "Projects",
             "hasImg": true,
             "img": "info_1.png",
-            "cards": [
-                {
+            "cards": [{
                     "title": "AilenSweeper",
                     "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android. ¡Click on the image to see it in the Play Store or just try it at the games section!. ↗",
                     "img": "ailensweeper_logo.png",
@@ -62,8 +58,7 @@
         },
         {
             "title": "Experience",
-            "cards": [
-                {
+            "cards": [{
                     "title": "DevOps Lead",
                     "description": "I'm curretly working as DevOps leader at an electric vehicles renting company, developing and automating CI/CD pipelines, infrastructure and monitoring tools for a cloud-based microservices architecture.",
                     "img": "muverang.png",
@@ -89,8 +84,7 @@
         },
         {
             "title": "Education",
-            "cards": [
-                {
+            "cards": [{
                     "title": "Architecting with Google Compute Engine Specialization",
                     "description": "Completed a 9 week course about the google cloud infrastructure, from essential core services such as compute engine up to scaling and automation.",
                     "img": "googleCloud_logo.png",
@@ -107,8 +101,7 @@
                 {
                     "title": "University",
                     "link_legend": "Click here to learn more",
-                    "cards": [
-                        {
+                    "cards": [{
                             "title": "Engineering Degree",
                             "description": "Studied Systems and Informatics Engineering at Universidad Pontificia Bolivariana, graduated with honors in november 2022 as Systems and Informatics Engineer.",
                             "img": "upb_logo.png",
@@ -129,8 +122,7 @@
         },
         {
             "title": "Games",
-            "cards": [
-                {
+            "cards": [{
                     "title": "Ailensweeper",
                     "is_special": true
                 },

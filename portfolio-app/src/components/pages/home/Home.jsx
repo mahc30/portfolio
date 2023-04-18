@@ -15,7 +15,7 @@ export class Home extends React.Component {
       <div id="home">
         <Djikstra />
         <TabMenu articles={home_config.articles} handleRedirect={this.props.handleRedirect}/>
-        <small>click the whitespace</small>
+        <small id="clickTheWhitespacemsg">click the whitespace</small>
       </div>
     );
 
