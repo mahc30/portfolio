@@ -27,7 +27,6 @@ export class ContactMe extends React.Component {
 
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
-        console.log(this.state)
     }
 
     handleSubmit(e) {
@@ -71,7 +70,7 @@ export class ContactMe extends React.Component {
                         <div>
                             {this.state.is_loading ?
                                 <progress></progress> :
-                                <a id="send_email_btn" onClick={this.handleSubmit} href={`mailto:dahinkpie@gmail.com?subject=${this.state.subject}&body=¡Hi! i'm ${this.state.name} from=${this.state.email}. ${this.state.message}`}><button className={this.canSend() ? "" : "hidden"} type="button">Send Email</button></a>
+                                <a id="send_email_btn" onClick={this.handleSubmit} href={`mailto:dahinkpie@gmail.com?subject=${this.state.subject}&body=¡Hi! i'm ${this.state.name} from ${this.state.email}. ${this.state.message}`}><button className={this.canSend() ? "" : "hidden"} type="button">Send Email</button></a>
                             }
                         </div>
                     </form>
