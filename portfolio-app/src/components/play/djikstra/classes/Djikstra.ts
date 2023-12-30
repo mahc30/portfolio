@@ -7,7 +7,7 @@ import { Graph, GraphFactory } from "./Graph";
 
 export class Djikstra {
 
-    static djikstra(graph: Graph<number>, initialNodeKey: number, targetNodeKey: number): Graph<number> {
+    /* static djikstra(graph: Graph<number>, initialNodeKey: number, targetNodeKey: number): Graph<number> {
         let visited: Map<number, boolean> = new Map();
         let pQ = new PriorityQueue<Node<number>>();
         let outPath: Map<number, Node<number>> = new Map();
@@ -69,6 +69,53 @@ export class Djikstra {
         pathGraph = graphFactory.generateLinearGraph();
         targetNode.getData().setIsTarget(true);
         return pathGraph;
+    } */
+
+    static async djikstra(graph: Graph<number>, initialPoint: Point, targetPoint: Point, dimensions: Point): Promise<Graph<number>> {
+        const postData = {
+            rows: dimensions.getX(),
+            columns: dimensions.getY(),
+            startNode: `${initialPoint.getX()},${initialPoint.getY()}`,
+            endNode: `${targetPoint.getX()},${targetPoint.getY()}`,
+        };
+    
+        try {
+            const response = await fetch('http://localhost:8080/math/shortestpath', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                body: JSON.stringify(postData),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+    
+            const data = await response.text();
+    
+            let pathGraph: Graph<number> = new Graph<number>(numberComparator);
+    
+            let elements = data.substring(1, data.length - 1).split(",");
+            let points: Point[] = [];
+            for (let i = 0; i < elements.length; i += 2) {
+                points.push(new Point(Number(elements[i]), Number(elements[i + 1])));
+            }
+    
+            let shortestPath: Map<number, DjikstraNodeData> = new Map();
+            points.forEach(point => {
+                let node = graph.linearGraphdepthFirstPointSearch(point);
+                if (node) shortestPath.set(node.getKey(), node.getData());
+            });
+    
+            let graphFactory = new GraphFactory<number>(numberComparator, shortestPath);
+            pathGraph = graphFactory.generateLinearGraph();
+            return pathGraph;
+        } catch (error) {
+            console.error('Error:', error);
+            return new Graph<number>(numberComparator);
+        }
     }
 
     static generateGenericNodeListSingleValue(n: number, m: number): Map<number, DjikstraNodeData> {
@@ -86,5 +133,10 @@ export class Djikstra {
         }
 
         return pointMap;
+    }
+
+    
+    toJson(graph: Graph<number>, initialNodeKey: number, targetNodeKey: number){
+        
     }
 }

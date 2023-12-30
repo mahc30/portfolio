@@ -37,7 +37,7 @@ export class AnimatedLine {
     }
 
     draw() {
-        this.lineGrowRate += 0.69;
+        this.lineGrowRate += 0.256;
         this.lineLength = this.s.map(this.lineGrowRate, 0, 69, 0, 13, true);
         
         this.lineX = this.a.getX() + Math.cos(this.lineAngle) * this.lineLength;

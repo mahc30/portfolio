@@ -22,18 +22,19 @@ const COLORS =
 
 // const DRAW_BEHAVIOUR = 0; //0 = IntervalPoints | 1 = AnimatedLine
 // Animation Settings
-const ANIMATION_INTERVAL_MS = 69;
+const ANIMATION_INTERVAL_MS = 13;
 const FPS = 30;
 
 //Game Config
 const BACKGROUND_COLOR = COLORS.hex;
-const NUM_COLUMNS = 10;
-const NUM_ROWS = 10;
+const NUM_COLUMNS = 100;
+const NUM_ROWS = 100;
 
 //Game State
 let initialKey: number = 10;
 let targetKey: number = 40;
 let selectMode: boolean = false;
+let currentPoint = new Point(0,0);
 
 // Viewport 
 let width: number;
@@ -49,7 +50,7 @@ let graph: Graph<number> = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS)
 let path: Graph<number>;
 
 
-path = Djikstra.djikstra(graph, initialKey, targetKey);
+path = graphFactory.generateEmptyGraph();
 
 export const sketch = (s: any) => {
     let domCanvas = s.select("#djikstra_viewport");
@@ -72,24 +73,23 @@ export const sketch = (s: any) => {
         //board.drawDjikstraCartesianPointsGridGraphDEBUG();
     }
 
-    s.mouseClicked = () => {
+    s.mouseClicked =  async () => {
         selectMode = !selectMode;
-        let point: Point = board.clickedPoint(s.mouseX, s.mouseY);
+        let newPoint: Point = board.clickedPoint(s.mouseX, s.mouseY);
         changeColorRandom(s);
 
-        let clickedNode = graph.linearGraphdepthFirstPointSearch(point);
+        let clickedNode = graph.linearGraphdepthFirstPointSearch(newPoint);
         if (clickedNode && targetKey !== clickedNode.getKey()) {
             initialKey = targetKey;
             targetKey = clickedNode.getKey();
-
-            path = Djikstra.djikstra(graph, targetKey, initialKey);
+            
+            path = await Djikstra.djikstra(graph, currentPoint, newPoint, new Point(NUM_COLUMNS, NUM_ROWS));
             board.setAnimatedLinesInterval(path);
-
-
             //            board.setAnimatedGridNodes(graph);
-
             graphFactory.resetDijkstraNodes();
         }
+        currentPoint = newPoint;
+
     }
 
     s.windowResized = () => {
