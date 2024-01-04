@@ -80,13 +80,13 @@ export class Djikstra {
         };
     
         try {
-            const response = await fetch('http://localhost:8080/math/shortestpath', {
+            const response = await fetch('http://donhermes.us-east-1.elasticbeanstalk.com/math/shortestpath', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*'
                 },
-                body: JSON.stringify(postData),
+                body: JSON.stringify(postData)
             });
     
             if (!response.ok) {
