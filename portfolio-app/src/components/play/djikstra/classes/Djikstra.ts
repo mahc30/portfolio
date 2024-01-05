@@ -78,14 +78,10 @@ export class Djikstra {
         };
     
         try {
-            const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/math/shortestpath`, {
+            const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/math/shortestpath`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-                    'Access-Control-Allow-Methods': '*',
-                    "Access-Control-Allow-Credentials": "true"
                 },
                 body: JSON.stringify(postData)
             });
