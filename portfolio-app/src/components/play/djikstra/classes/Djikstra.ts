@@ -70,17 +70,17 @@ export class Djikstra {
         return pathGraph;
     }
 
-    static async djikstra(graph: Graph<number>, initialPoint: Point, targetPoint: Point, dimensions: Point): Promise<Graph<number>> {
+    static async djikstra(graph: Graph<number>, initialPoint: Point, targetPoint: Point, dimensionsX: number, dimensionsY: number): Promise<Graph<number>> {
         const postData = {
-            rows: dimensions.getX(),
-            columns: dimensions.getY(),
+            rows: dimensionsX,
+            columns: dimensionsY,
             startNode: `${initialPoint.getX()},${initialPoint.getY()}`,
             endNode: `${targetPoint.getX()},${targetPoint.getY()}`,
         };
     
         try {
             const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/math/shortestpath`, {
-                signal: AbortSignal.timeout(500),
+                signal: AbortSignal.timeout(512),
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -51,31 +51,12 @@ let graph: Graph<number> = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS)
 
 //Server
 let hermes_online = true;
-let healthcheck = true;
 
 path = graphFactory.generateEmptyGraph();
 
 export const sketch = (s: any) => {
     let domCanvas = s.select("#djikstra_viewport");
-    //Reattempt hermes connection
-    setInterval(async () => {
-        const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/math/shortestpath`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-
-        if (response.status != 504) {
-            healthcheck = true;
-            hermes_online = true;
-        }
-
-        else {
-            healthcheck = false;
-            hermes_online = false;
-        }
-    }, 30000);
+    startHermesHealthcheck();
 
     s.setup = () => {
 
@@ -107,31 +88,19 @@ export const sketch = (s: any) => {
         if (clickedNode && targetKey !== clickedNode.getKey()) {
             initialKey = targetKey;
             targetKey = clickedNode.getKey();
-
             if (hermes_online) {
-                try{
-                    path = await Djikstra.djikstra(graph, currentPoint, newPoint, new Point(NUM_COLUMNS, NUM_ROWS))
-                    NUM_COLUMNS = 100;
-                    NUM_ROWS = 100;
-                    ANIMATION_INTERVAL_MS = 13;
-                    s.setup()
-                }catch(error) {
-                    hermes_online = false;
-                    if (NUM_COLUMNS != 10 && NUM_ROWS != 10) {
-                        NUM_COLUMNS = 10;
-                        NUM_ROWS = 10;
-                        ANIMATION_INTERVAL_MS = 69;
-                        initialKey = 13;
-                        targetKey = 69;
-                        s.setup()
-                    }
+                try {
+                    path = await Djikstra.djikstra(graph, currentPoint, newPoint, NUM_COLUMNS, NUM_ROWS);
+                    setupOnlineValues();
+                } catch (error) {
+                    setupOfflineValues();
                 };
+                s.setup()
             }
             else {
                 if (NUM_COLUMNS <= 100 && NUM_ROWS <= 100 && initialKey <= 100 && targetKey <= 100)
                     path = Djikstra.djikstraOffline(graph, targetKey, initialKey);
             }
-
             board.setAnimatedLinesInterval(path);
             //board.setAnimatedGridNodes(graph);
             graphFactory.resetDijkstraNodes();
@@ -157,6 +126,36 @@ export const sketch = (s: any) => {
 function setupGraph() {
     gridMap = Djikstra.generateGenericNodeListSingleValue(NUM_COLUMNS, NUM_ROWS);
     graphFactory = new GraphFactory(numberComparator, gridMap);
-    //let graph: Graph<number> = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
-    graph = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
+    graph = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
+    //graph = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
+}
+
+function startHermesHealthcheck() {
+    //Reattempt hermes connection
+    setInterval(async () => {
+        const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/math/shortestpath`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        response.status === 504 ? setupOfflineValues() : setupOnlineValues();
+    }, 42000);
+}
+
+function setupOnlineValues() {
+    hermes_online = true;
+    NUM_COLUMNS = 100;
+    NUM_ROWS = 100;
+    ANIMATION_INTERVAL_MS = 13;
+}
+
+function setupOfflineValues() {
+    hermes_online = false;
+    NUM_COLUMNS = 10;
+    NUM_ROWS = 10;
+    ANIMATION_INTERVAL_MS = 69;
+    initialKey = 13;
+    targetKey = 69;
 }
