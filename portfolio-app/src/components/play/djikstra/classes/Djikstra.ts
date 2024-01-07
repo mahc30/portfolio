@@ -8,7 +8,6 @@ import { PriorityQueue } from "../helpers/priorityQueue";
 export class Djikstra {
 
     static djikstraOffline(graph: Graph<number>, initialNodeKey: number, targetNodeKey: number): Graph<number> {
-        console.log(initialNodeKey, targetNodeKey)
         let visited: Map<number, boolean> = new Map();
         let pQ = new PriorityQueue<Node<number>>();
         let outPath: Map<number, Node<number>> = new Map();
@@ -89,7 +88,6 @@ export class Djikstra {
                 body: JSON.stringify(postData)
             });
             
-            console.log(response.ok)
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

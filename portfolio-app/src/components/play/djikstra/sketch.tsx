@@ -86,7 +86,6 @@ export const sketch = (s: any) => {
         if (clickedNode && targetKey !== clickedNode.getKey()) {
             initialKey = targetKey;
             targetKey = clickedNode.getKey();
-            console.log(NUM_COLUMNS, NUM_ROWS);
 
             if (hermes_online) {
 
@@ -97,7 +96,6 @@ export const sketch = (s: any) => {
                     ANIMATION_INTERVAL_MS = 13;
                     s.setup()
                 } catch (error) {
-                    console.log("Caught Error: ", error)
                     NUM_COLUMNS = 10;
                     NUM_ROWS = 10;
                     ANIMATION_INTERVAL_MS = 69;
@@ -115,11 +113,9 @@ export const sketch = (s: any) => {
                 if(Math.random() >= 0.5) hermes_online = true;
             }
 
-            console.log(path)
             board.setAnimatedLinesInterval(path);
             //board.setAnimatedGridNodes(graph);
             graphFactory.resetDijkstraNodes();
-        console.log(NUM_COLUMNS, NUM_ROWS);
     }
         currentPoint = newPoint;
     }
