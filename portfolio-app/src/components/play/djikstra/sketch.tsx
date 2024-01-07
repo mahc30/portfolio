@@ -22,19 +22,19 @@ const COLORS =
 
 // const DRAW_BEHAVIOUR = 0; //0 = IntervalPoints | 1 = AnimatedLine
 // Animation Settings
-const ANIMATION_INTERVAL_MS = 13;
+let ANIMATION_INTERVAL_MS = 13;
 const FPS = 30;
 
 //Game Config
 const BACKGROUND_COLOR = COLORS.hex;
-const NUM_COLUMNS = 100;
-const NUM_ROWS = 100;
+let NUM_COLUMNS = 100;
+let NUM_ROWS = 100;
 
 //Game State
 let initialKey: number = 10;
 let targetKey: number = 40;
 let selectMode: boolean = false;
-let currentPoint = new Point(0,0);
+let currentPoint = new Point(0, 0);
 
 // Viewport 
 let width: number;
@@ -42,13 +42,15 @@ let height: number;
 
 // GameObjects
 let board: Board<Node<Point>>;
+let path: Graph<number>;
 
 let gridMap = Djikstra.generateGenericNodeListSingleValue(NUM_COLUMNS, NUM_ROWS);
 let graphFactory: GraphFactory<number> = new GraphFactory(numberComparator, gridMap);
 //let graph: Graph<number> = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
 let graph: Graph<number> = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
-let path: Graph<number>;
 
+//Server
+let hermes_online = true;
 
 path = graphFactory.generateEmptyGraph();
 
@@ -65,6 +67,8 @@ export const sketch = (s: any) => {
         board.setup();
 
         s.resizeCanvas(width, height);
+
+        setupGraph();
     }
 
     s.draw = () => {
@@ -73,7 +77,7 @@ export const sketch = (s: any) => {
         //board.drawDjikstraCartesianPointsGridGraphDEBUG();
     }
 
-    s.mouseClicked =  async () => {
+    s.mouseClicked = async () => {
         selectMode = !selectMode;
         let newPoint: Point = board.clickedPoint(s.mouseX, s.mouseY);
         changeColorRandom(s);
@@ -82,14 +86,42 @@ export const sketch = (s: any) => {
         if (clickedNode && targetKey !== clickedNode.getKey()) {
             initialKey = targetKey;
             targetKey = clickedNode.getKey();
-            
-            path = await Djikstra.djikstra(graph, currentPoint, newPoint, new Point(NUM_COLUMNS, NUM_ROWS));
-            board.setAnimatedLinesInterval(path);
-            //            board.setAnimatedGridNodes(graph);
-            graphFactory.resetDijkstraNodes();
-        }
-        currentPoint = newPoint;
+            console.log(NUM_COLUMNS, NUM_ROWS);
 
+            if (hermes_online) {
+
+                try {
+                    path = await Djikstra.djikstra(graph, currentPoint, newPoint, new Point(NUM_COLUMNS, NUM_ROWS));
+                    NUM_COLUMNS = 100;
+                    NUM_ROWS = 100;
+                    ANIMATION_INTERVAL_MS = 13;
+                    s.setup()
+                } catch (error) {
+                    console.log("Caught Error: ", error)
+                    NUM_COLUMNS = 10;
+                    NUM_ROWS = 10;
+                    ANIMATION_INTERVAL_MS = 69;
+                    initialKey = 13;
+                    targetKey = 69;
+                    s.setup()
+                    hermes_online = false;
+                }
+            }
+            else {
+                if(NUM_COLUMNS <= 100 && NUM_ROWS <= 100 && initialKey <= 100 && targetKey <= 100)
+                path = Djikstra.djikstraOffline(graph, targetKey,  initialKey);
+
+                //Reattempt hermes connection
+                if(Math.random() >= 0.5) hermes_online = true;
+            }
+
+            console.log(path)
+            board.setAnimatedLinesInterval(path);
+            //board.setAnimatedGridNodes(graph);
+            graphFactory.resetDijkstraNodes();
+        console.log(NUM_COLUMNS, NUM_ROWS);
+    }
+        currentPoint = newPoint;
     }
 
     s.windowResized = () => {
@@ -107,3 +139,9 @@ export const sketch = (s: any) => {
     }
 }
 
+function setupGraph() {
+    gridMap = Djikstra.generateGenericNodeListSingleValue(NUM_COLUMNS, NUM_ROWS);
+    graphFactory = new GraphFactory(numberComparator, gridMap);
+    //let graph: Graph<number> = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
+    graph = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
+}

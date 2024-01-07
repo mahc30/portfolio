@@ -2,10 +2,13 @@ import { numberComparator } from "../helpers/comparators";
 import { DjikstraNodeData } from "../helpers/djikstraNodeData";
 import { Point } from "../helpers/point";
 import { Graph, GraphFactory } from "./Graph";
+import { Node } from "../helpers/node";
+import { PriorityQueue } from "../helpers/priorityQueue";
 
 export class Djikstra {
 
-    /* static djikstra(graph: Graph<number>, initialNodeKey: number, targetNodeKey: number): Graph<number> {
+    static djikstraOffline(graph: Graph<number>, initialNodeKey: number, targetNodeKey: number): Graph<number> {
+        console.log(initialNodeKey, targetNodeKey)
         let visited: Map<number, boolean> = new Map();
         let pQ = new PriorityQueue<Node<number>>();
         let outPath: Map<number, Node<number>> = new Map();
@@ -44,7 +47,6 @@ export class Djikstra {
                             outPath.set(neighbour.getKey(), current)
                         }
                     }
-
                     pQ.insertWithPriority(neighbour, newcost);
                 }
             });
@@ -67,7 +69,7 @@ export class Djikstra {
         pathGraph = graphFactory.generateLinearGraph();
         targetNode.getData().setIsTarget(true);
         return pathGraph;
-    } */
+    }
 
     static async djikstra(graph: Graph<number>, initialPoint: Point, targetPoint: Point, dimensions: Point): Promise<Graph<number>> {
         const postData = {
@@ -79,13 +81,15 @@ export class Djikstra {
     
         try {
             const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/math/shortestpath`, {
+                signal: AbortSignal.timeout(500),
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(postData)
             });
-    
+            
+            console.log(response.ok)
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -110,8 +114,7 @@ export class Djikstra {
             pathGraph = graphFactory.generateLinearGraph();
             return pathGraph;
         } catch (error) {
-            console.error('Error:', error);
-            return new Graph<number>(numberComparator);
+            throw new Error("Hermes Error");
         }
     }
 
