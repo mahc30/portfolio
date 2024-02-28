@@ -89,6 +89,20 @@
                     "title": "AWS Solutions Architecht - Associate",
                     "description": "Certified AWS Solutions Architecht - Associate",
                     "img": "solutions_architecht_badge.png",
+                    "link": "https://my-little-stuff.s3.amazonaws.com/public/AWS+Certified+Solutions+Architect+-+Associate+certificate.pdf",
+                    "link_legend": "Click here to learn more"
+                },
+                {
+                    "title": "Architecting with Google Compute Engine Specialization",
+                    "description": "Completed a 9 week course about the google cloud infrastructure, from essential core services such as compute engine up to scaling and automation.",
+                    "img": "googleCloud_logo.png",
+                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/",
+                    "link_legend": "Click here to learn more"
+                },
+                {
+                    "title": "Courses",
+                    "description": "Studied different topics such as Cloud Engineering, Network & Databases Vulnerabilities and Software Security. ¡You can see my certificates in my LinkedIn profile by clicking the picture above!",
+                    "img": "coursera_logo.png",
                     "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/",
                     "link_legend": "Click here to learn more"
                 },
@@ -111,20 +125,6 @@
                             "link_legend": "Click here to learn more"
                         }
                     ]
-                },
-                {
-                    "title": "Architecting with Google Compute Engine Specialization",
-                    "description": "Completed a 9 week course about the google cloud infrastructure, from essential core services such as compute engine up to scaling and automation.",
-                    "img": "googleCloud_logo.png",
-                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/",
-                    "link_legend": "Click here to learn more"
-                },
-                {
-                    "title": "Courses",
-                    "description": "Studied different topics such as Cloud Engineering, Network & Databases Vulnerabilities and Software Security. ¡You can see my certificates in my LinkedIn profile by clicking the picture above!",
-                    "img": "coursera_logo.png",
-                    "link": "https://www.linkedin.com/in/miguel-hincapie-b970ab17a/",
-                    "link_legend": "Click here to learn more"
                 }
             ]
         },
