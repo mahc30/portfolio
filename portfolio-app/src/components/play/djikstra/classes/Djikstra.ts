@@ -80,7 +80,6 @@ export class Djikstra {
     
         try {
             const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/shortestPath`, {
-                signal: AbortSignal.timeout(512),
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,10 +90,9 @@ export class Djikstra {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            
-            
+    
             const data = await response.text();
-            
+    
             let pathGraph: Graph<number> = new Graph<number>(numberComparator);
     
             let elements = data.substring(1, data.length - 1).split(",");
