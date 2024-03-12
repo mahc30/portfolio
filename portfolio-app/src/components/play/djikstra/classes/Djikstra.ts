@@ -79,7 +79,7 @@ export class Djikstra {
         };
     
         try {
-            const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/math/shortestpath`, {
+            const response = await fetch(`https://azbwv24c4jdmz7az6spn3sbz7u0nmcvr.lambda-url.us-east-1.on.aws/https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/shortestPath`, {
                 signal: AbortSignal.timeout(512),
                 method: 'POST',
                 headers: {
