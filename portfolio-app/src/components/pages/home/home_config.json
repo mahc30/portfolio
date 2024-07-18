@@ -1,9 +1,11 @@
 {
-    "articles": [{
+    "articles": [
+        {
             "title": "About",
             "hasImg": false,
             "img": "",
-            "cards": [{
+            "cards": [
+                {
                     "title": "Hello ¡I'm Miguel!",
                     "description": "An autodidact Software Developer who loves learning programming&languages.",
                     "img": "picretocada.png"
@@ -11,7 +13,8 @@
                 {
                     "title": "Contact",
                     "is_special": true,
-                    "cards": [{
+                    "cards": [
+                        {
                             "is_special": true,
                             "title": "Email"
                         },
@@ -27,11 +30,12 @@
             "title": "Projects",
             "hasImg": true,
             "img": "info_1.png",
-            "cards": [{
+            "cards": [
+                {
                     "title": "AilenSweeper",
-                    "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android. ¡Click on the image to see it in the Play Store or just try it at the games section!. ↗",
+                    "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android.",
                     "img": "ailensweeper_logo.png",
-                    "link": "https://play.google.com/store/apps/details?id=com.lld.android.app&hl=es",
+                    "link": "",
                     "custom_routing": true
                 },
                 {
@@ -58,15 +62,25 @@
         },
         {
             "title": "Experience",
-            "cards": [{
+            "cards": [
+                {
+                    "title": "SSr DevOps Engineer",
+                    "description": "I'm curretly working as a DevOps Engineer at Globant.",
+                    "img": "globant_logo.png",
+                    "link": "https://muverang.com/",
+                    "link_legend": "Click here to learn more"
+                },
+                {
                     "title": "DevOps Lead",
-                    "description": "I'm curretly working as DevOps leader at an electric vehicles renting company, developing and automating CI/CD pipelines, infrastructure and monitoring tools for a cloud-based microservices architecture.",
+                    "subtitle": "July 2022 - July 2024",
+                    "description": "Worked as DevOps leader at an electric vehicles renting company, developing and automating CI/CD pipelines, infrastructure and monitoring tools for a cloud-based microservices architecture.",
                     "img": "muverang.png",
                     "link": "https://muverang.com/",
                     "link_legend": "Click here to learn more"
                 },
                 {
                     "title": "DevSecOps Analyst",
+                    "subtitle": "January 2022 - July 2024",
                     "description": "As a DevSecOps analyst at Pragma, i worked collaboratively with software engineering teams to integrate security processes throughout the software development lifecycle. Also conducted capture the flag-like laboratories for different teams to research and practice pentesting skills.",
                     "img": "pragma.png",
                     "link": "https://muverang.com/",
@@ -109,7 +123,8 @@
                 {
                     "title": "University",
                     "link_legend": "Click here to learn more",
-                    "cards": [{
+                    "cards": [
+                        {
                             "title": "Engineering Degree",
                             "description": "Studied Systems and Informatics Engineering at Universidad Pontificia Bolivariana, graduated with honors in november 2022 as Systems and Informatics Engineer.",
                             "img": "upb_logo.png",
@@ -130,7 +145,8 @@
         },
         {
             "title": "Games",
-            "cards": [{
+            "cards": [
+                {
                     "title": "Ailensweeper",
                     "is_special": true
                 },
