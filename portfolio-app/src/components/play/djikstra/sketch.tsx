@@ -133,14 +133,14 @@ function setupGraph() {
 function startHermesHealthcheck() {
     //Reattempt hermes connection
     setInterval(async () => {
-        const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/shortestPath`, {
+        const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/math/health`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             }
         });
 
-        response.status === 504 ? setupOfflineValues() : setupOnlineValues();
+        response.status === 504 || response.status == 502 ? setupOfflineValues() : setupOnlineValues();
     }, 42000);
 }
 
