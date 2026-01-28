@@ -56,7 +56,6 @@ path = graphFactory.generateEmptyGraph();
 
 export const sketch = (s: any) => {
     let domCanvas = s.select("#djikstra_viewport");
-    startHermesHealthcheck();
 
     s.setup = () => {
 
@@ -128,20 +127,6 @@ function setupGraph() {
     graphFactory = new GraphFactory(numberComparator, gridMap);
     graph = graphFactory.generateDiagonalGridGraph(NUM_COLUMNS, NUM_ROWS);
     //graph = graphFactory.generateGridGraph(NUM_COLUMNS, NUM_ROWS);
-}
-
-function startHermesHealthcheck() {
-    //Reattempt hermes connection
-    setInterval(async () => {
-        const response = await fetch(`https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/shortestPath`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-
-        response.status === 504 || response.status == 502 ? setupOfflineValues() : setupOnlineValues();
-    }, 42000);
 }
 
 function setupOnlineValues() {
