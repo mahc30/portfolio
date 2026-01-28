@@ -21,19 +21,54 @@ export class ContactMe extends React.Component {
             );
     };
 
+    validateText(text) {
+        if (text === null || text === undefined) return null;
+
+        const sanitized = String(text)
+            .normalize("NFKC")                 // normalize unicode
+            .replace(/[\u0000-\u001F\u007F]/g, "") // remove control chars
+            .replace(/[<>]/g, "")              // basic safety
+            .trim();
+
+        if (sanitized.length === 0 || sanitized.length > 4096) {
+            return null;
+        }
+
+        return sanitized;
+    };
+
     canSend() {
-        return this.state.name && this.validateEmail(this.state.email) && this.state.subject && this.state.message
-    }
+        return this.state.name && this.validateEmail(this.state.email) && this.validateText(this.state.subject) && this.validateText(this.state.message) && this.validateText(this.state.name) && this.state.subject && this.state.message
+    };
 
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value });
-    }
+    };
 
-    handleSubmit(e) {
+    async handleSubmit(e) {
         this.setState({ is_loading: true });
-        setTimeout(() => { this.setState({ is_loading: false }) }, 5000);
-    }
+        let body = `Subject: ${this.state.subject}\nFrom: ${this.state.name}\nEmail: ${this.state.email}\n\n${this.state.message}`
+        try {
+            await fetch("https://p4n53o96di.execute-api.us-east-1.amazonaws.com/prod/t", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: body })
+            });
 
+            this.setState({
+                is_loading: false,
+                subject: "",
+                name: "",
+                email: "",
+                message: ""
+            });
+
+        } catch (err) {
+            console.error(err);
+            this.setState({ is_loading: false });
+            alert("Failed to send message");
+        }
+    };
 
     render() {
         return (
@@ -48,7 +83,7 @@ export class ContactMe extends React.Component {
                 </div>
                 <div className="window-body">
                     <form value={this.state.mail_form} id="mail_form">
-                        <h4> Send Email </h4>
+                        <h4> Send Message </h4>
 
                         <div className="input-wrapper">
                             <label htmlFor="name">Your Name</label>
@@ -64,13 +99,13 @@ export class ContactMe extends React.Component {
                         </div>
                         <div className="input-wrapper">
                             <label htmlFor="message">Message</label>
-                            <textArea name="message" value={this.state.message} id="message" type="text" onChange={this.handleChange} />
+                            <textarea name="message" value={this.state.message} id="message" type="text" onChange={this.handleChange} />
                         </div>
 
                         <div>
                             {this.state.is_loading ?
                                 <progress></progress> :
-                                <a id="send_email_btn" onClick={this.handleSubmit} href={`mailto:dahinkpie@gmail.com?subject=${this.state.subject}&body=¡Hi! i'm ${this.state.name} from ${this.state.email}. ${this.state.message}`}><button className={this.canSend() ? "" : "hidden"} type="button">Send Email</button></a>
+                                <a id="send_email_btn" onClick={this.handleSubmit}><button className={this.canSend() ? "" : "hidden"} type="button">Send Message</button></a>
                             }
                         </div>
                     </form>
@@ -79,5 +114,5 @@ export class ContactMe extends React.Component {
         );
 
 
-    }
+    };
 }
