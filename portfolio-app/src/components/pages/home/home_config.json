@@ -16,7 +16,7 @@
                     "cards": [
                         {
                             "is_special": true,
-                            "title": "Email"
+                            "title": "Message Me"
                         },
                         {
                             "is_special": true,
@@ -35,7 +35,6 @@
                     "title": "AilenSweeper",
                     "description": "A Classical Minesweeper game logic with a synthwave twist in GUI and gameplay. Made as a hybrid application for android.",
                     "img": "ailensweeper_logo.png",
-                    "link": "",
                     "custom_routing": true
                 },
                 {
