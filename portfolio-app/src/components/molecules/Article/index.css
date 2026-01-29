@@ -1,3 +1,7 @@
+article {
+  padding: 5%;
+}
+
 .sidebar-layout {
   display: grid;
   gap: 8px;
@@ -7,15 +11,16 @@
   height: 100%;
 }
 
-#img_holder{
+#img_holder {
   width: auto;
   height: auto;
 }
 
-.sidebar{
+.sidebar {
   max-width: 128px;
 }
-.content > #img_holder > a > img {
+
+.content>#img_holder>a>img {
   display: block;
   min-height: 0;
   max-width: 192px;

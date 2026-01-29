@@ -22,8 +22,8 @@ const COLORS =
 
 // const DRAW_BEHAVIOUR = 0; //0 = IntervalPoints | 1 = AnimatedLine
 // Animation Settings
-let ANIMATION_INTERVAL_MS = 13;
-const FPS = 30;
+let ANIMATION_INTERVAL_MS = 0.1;
+const FPS = 120;
 
 //Game Config
 const BACKGROUND_COLOR = COLORS.hex;
@@ -75,7 +75,6 @@ export const sketch = (s: any) => {
     s.draw = () => {
         s.background(BACKGROUND_COLOR);
         board.drawAnimatedLineAToB();
-        //board.drawDjikstraCartesianPointsGridGraphDEBUG();
     }
 
     s.mouseClicked = async () => {
@@ -93,6 +92,7 @@ export const sketch = (s: any) => {
                     setupOnlineValues();
                 } catch (error) {
                     setupOfflineValues();
+                    setTimeout(setupOnlineValues, 1000);
                 };
                 s.setup()
             }
