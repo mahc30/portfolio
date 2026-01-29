@@ -65,25 +65,19 @@
                 {
                     "title": "SSr DevOps Engineer",
                     "description": "I'm curretly working as a DevOps Engineer at Globant.",
-                    "img": "globant_logo.png",
-                    "link": "https://muverang.com/",
-                    "link_legend": "Click here to learn more"
+                    "img": "globant_logo.png"
                 },
                 {
                     "title": "DevOps Lead",
                     "subtitle": "July 2022 - July 2024",
                     "description": "Worked as DevOps leader at an electric vehicles renting company, developing and automating CI/CD pipelines, infrastructure and monitoring tools for a cloud-based microservices architecture.",
-                    "img": "muverang.png",
-                    "link": "https://muverang.com/",
-                    "link_legend": "Click here to learn more"
+                    "img": "muverang.png"
                 },
                 {
                     "title": "DevSecOps Analyst",
                     "subtitle": "January 2022 - July 2024",
                     "description": "As a DevSecOps analyst at Pragma, i worked collaboratively with software engineering teams to integrate security processes throughout the software development lifecycle. Also conducted capture the flag-like laboratories for different teams to research and practice pentesting skills.",
-                    "img": "pragma.png",
-                    "link": "https://muverang.com/",
-                    "link_legend": "Click here to learn more"
+                    "img": "pragma.png"
                 },
                 {
                     "title": "Misión TIC",
